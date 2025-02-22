@@ -1,0 +1,31 @@
+<div class="relative flex flex-col py-3 bg-white shadow-lg rounded-2xl w-full mb-4">
+  <div class="flex flex-row px-4 gap-4 font-bold select-none text-base justify-between lg:justify-start">
+    <div [ngClass]="{ ActiveMenu: type === 'pa' }" (click)="ToggleChart('de')">CRYPTO DEPOSITS</div>
+    <div [ngClass]="{ ActiveMenu: type === 'de' }" (click)="ToggleChart('pa')">CRYPTO PAYOUTS</div>
+  </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-6 gap-4 items-start mb-4">
+  <div class="relative flex flex-col py-4 bg-white shadow-lg rounded-2xl w-full col-span-full lg:col-span-1">
+    <app-transaction-form [methods]="methods" [PlayerDetails]="PlayerDetails" [type]="type" (depositCreated)="depositCreated($event)" (payoutCreated)="payoutCreated($event)"></app-transaction-form>
+  </div>
+  <div class="relative flex flex-col py-4 bg-white shadow-lg rounded-2xl w-full col-span-full lg:col-span-5">
+    <app-transactions [data]="transactions" [type]="type" (cancelTransaction)="cancelTransaction($event)"></app-transactions>
+  </div>
+</div>
+<app-landscape-notice></app-landscape-notice>
+<!-- <app-bs-notice></app-bs-notice> -->
+<app-invoice></app-invoice>
+
+<ng-template #confirmation let-modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Cancel Payout</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to cancel this payout?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="d('Cancel click')">Cancel</button>
+    <button type="button" class="btn btn-outline-primary" (click)="c('OK click')">Ok</button>
+  </div>
+</ng-template>

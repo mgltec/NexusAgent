@@ -1,0 +1,81 @@
+
+
+<div class="classic-principal-container" *ngIf="_step === 1">
+  <div class="w-[400px] mr-6 tree" *ngIf="rootNode && rootNode.children.length > 0">
+    <h4 class="mb-3 flex justify-between" [ngClass]="{'hover:cursor-pointer hover:bg-slate-100 p-3' : !isDesktop}" (click)="!isDesktop ? toggleIsOpen() : '' ">Agent Tree ({{rootNode?.children?.length}}) <i class="fa fa-sort-desc" *ngIf="!isDesktop"></i></h4>
+
+    <ul class="list-group" *ngIf="isOpen">
+      <ng-template #recursiveList let-nodes>
+        <!-- nodos: {{nodes | json}} -->
+        <li *ngFor="let node of nodes" class="list-group-item">
+          <!-- el nodo: -->
+          <div class="list-agent flex gap-4 items-center" *ngIf="node != undefined">
+            <i *ngIf="node.children.length > 0" (click)="toggleNode(node)" [class]="'fas fa-' + (node.expanded ? 'minus' : 'plus')"></i>
+            <div class="avatar">{{node.Agent | getInitials}}</div>
+            <button type="button" class="btn btn-outline-dark btn-sm hover:text-black hover:opacity-80 btn-tree" (click)="nodeSelect(node)">{{ node.Agent }}</button><input *ngIf="node.children.length == 0" class="form-check-input absolute left-[-25px]" type="checkbox" value="" id="flexCheckChecked" [(ngModel)]="node.AgentExcluded" (ngModelChange)="onCheckboxChange(node)">
+          </div>
+          <div *ngIf="node != undefined">
+            <ul *ngIf="node.expanded && node.children?.length > 0">
+              <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: node.children }"></ng-container>
+            </ul>
+          </div>
+        </li>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: [rootNode] }"></ng-container>
+    </ul>
+  </div>
+  <div class="classic-principal-container-dashboard mt-11">
+    <p class="classic-pblue">Dashboard Agent <span>{{_currentUser.Master.Agent}} </span></p>
+    <div class="classic-dashboard">
+      <div class="flex gap-2">
+        <p class="flex w-[140px]">Week Balance: </p>
+        <span [routerLink]="'/mainclassic/weeklyClassic'" class="cursor-pointer font-semibold text-base hover:text-blue-900">{{agentBalanceGeneral.PackageBal}} View More</span>
+      </div>
+      <div class="flex gap-2">
+        <p class="flex w-[140px]">This Week's Figure: </p>
+        <span [routerLink]="'/mainclassic/playeraction'" class="cursor-pointer font-semibold text-base hover:text-blue-900">{{agentBalanceGeneral.PackageThisWeek}} View More</span>
+      </div>
+      <div class="flex gap-2">
+
+        <p class="flex w-[140px]">Last Week's Figure: </p>
+        <span class="font-semibold text-base">{{agentBalanceGeneral.PackageLastWeek}}</span>
+      </div>
+    </div>
+    <p class="classic-pblue">Hotlinks</p>
+    <div class="classic-hotlinks">
+      <div *ngIf="hasRight(163)">
+        <img src="../../../assets/images/classic/player1.png" alt="">
+        <button [routerLink]="'/mainclassic/weeklyClassic'">weekly Balance</button>
+      </div>
+      <div *ngIf="hasRight(165)">
+        <img src="../../../assets/images/classic/wagers2.png">
+        <button [routerLink]="'/mainclassic/openbets'">Open Bets</button>
+      </div>
+      <div *ngIf="hasRight(164)">
+        <img src="../../../assets/images/classic/wagers1.png">
+        <button [routerLink]="'/mainclassic/playerhistory'">Player History</button>
+      </div>
+    </div>
+    <p class="classic-pblue">New features</p>
+    <ul class="classic-features">
+      <li (click)="_step = 2" class="classic-features-btn" *ngIf="hasRight(200)"> Add Player</li>
+      <li (click)="_step = 3" class="classic-features-btn" *ngIf="hasRight(204)"> Add Agent</li>
+      <li [routerLink]="'/mainclassic/playerpayments'" class="classic-features-btn"> Player Payments</li>
+      <li class="classic-features-btn" [routerLink]="'/mainclassic/manageprofile'"> Player Profile Limits</li>
+      <li [routerLink]="'/mainclassic/hiddenleagues'" class="classic-features-btn">Hidden Leagues</li>
+      <li [routerLink]="'/mainclassic/telegram'" class="classic-features-btn">Bet Alert</li>
+    </ul>
+  </div>
+  <div class="classic-principal-container-chatimg">
+    <img src="../../../assets/images/classic/chat-img.png" alt="Chat Img">
+  </div>
+</div>
+
+<ng-container *ngIf="_step === 2">
+  <p (click)="_step = 1" class="back"><i class="fa fa-chevron-left"></i> Back</p>
+  <app-add-player (stepChange)="onStepChange($event)"></app-add-player>
+</ng-container>
+<ng-container *ngIf="_step === 3">
+  <p (click)="_step = 1" class="back"><i class="fa fa-chevron-left"></i> Back</p>
+  <app-add-agent (stepChange)="onStepChange($event)"></app-add-agent>
+</ng-container>

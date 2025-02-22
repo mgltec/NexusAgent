@@ -1,0 +1,49 @@
+<div class="classic-player-payments">
+  <div class="classic-player-payments-adjustment">
+    <h5>Add Player Adjustment</h5>
+    <div class="fa-3x" *ngIf="loadingPlayerList">
+      <i class="fas fa-spinner fa-spin"></i>
+    </div>
+    <div class="classic-player-payments-adjustment-group">
+      <div class="classic-player-payments-adjustment-group-item">
+        <p>First select the agent:</p>
+        <div class="fa-3x" *ngIf="_loadingAgentList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+        </p-dropdown>
+      </div>
+      <div class="classic-player-payments-adjustment-group-item">
+        <p>Select player:</p>
+        <div class="fa-3x" *ngIf="loadingPlayerList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+    
+        <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player" (onChange)="OpenDivPlayerTransaction()">
+        </p-dropdown>
+      </div>
+      <!-- <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
+      <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button> -->
+    </div>
+  
+    <div class="mt-4" *ngIf="_stepTrans == 2 && playerSelected != null">
+      <app-PlayerTransaction [idplayer]="playerSelected.IdPlayer"></app-PlayerTransaction>
+    </div>
+  </div>
+
+  <div class="classic-player-payments-table">
+    <h5>Player Statistics</h5>
+    <p class="classic-player-payments-row">Current Balance:  <span>{{_PlayerInfo?.Current_Balance}}</span></p>
+    <p class="classic-player-payments-row">Amount at risk:  <span>{{_PlayerInfo?.Amount_at_Risk}}</span></p>
+    <p class="classic-player-payments-row">Available Balance:  <span>{{_PlayerInfo?.Available_Balance + _PlayerInfo?.Credit_Limit}}</span></p>
+    <p class="classic-player-payments-row">Bonus Point:  <span>{{_PlayerInfo?.Bonus_Points}}</span></p>
+    <p class="classic-player-payments-row">Free Play:  <span>{{_PlayerInfo?.Free_Play}}</span></p>
+    <p class="classic-player-payments-row">Life Time Net Casino:  <span>{{_PlayerInfo?.Lifetime_Net_Casino}}</span></p>
+    <p class="classic-player-payments-row">Life Time Net Horses:  <span>{{_PlayerInfo?.Lifetime_Net_Horses}}</span></p>
+    <p class="classic-player-payments-row">Life Time Free Plays:  <span>{{_PlayerInfo?.Lifetime_Free_Plays}}</span></p>
+    <p class="classic-player-payments-row">Life Time Win:  <span>{{_PlayerInfo?.Lifetime_Win}}</span></p>
+    <p class="classic-player-payments-row">Life Time Lose:  <span>{{_PlayerInfo?.Lifetime_Lose}}</span></p>
+    <p class="classic-player-payments-row">Life Time Net:  <span>{{_PlayerInfo?.Lifetime_Net}}</span></p>
+    <p class="classic-player-payments-row">Last Wager: <span>{{_PlayerInfo?.LastWager | date: 'dd/MM/yyyy, h:mm a' }}</span></p>
+  </div>
+</div>

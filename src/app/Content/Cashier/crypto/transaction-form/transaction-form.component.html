@@ -1,0 +1,29 @@
+<div class="px-4 flex flex-col" *ngIf="methods">
+  <div class="flex flex-col p-drop mb-4">
+    <label>Coin:</label>
+    <!-- <app-bs-dropdown class="flex mb-4" [items]="methods" key="Label" value="Name" [selected]="method" (selectItem)="selectedMethod($event)"></app-bs-dropdown> -->
+    <p-dropdown 
+    [options]="methods" 
+    [(ngModel)]="method" 
+    optionLabel="Label" 
+    placeholder="Select" 
+    [style]="{'width': '100%'}">></p-dropdown>
+  </div>
+  <div>
+    <label>Amount in USD:</label>
+    <div class="text-input flex flex-row bg-white px-4 py-1 rounded-3xl flex-1 justify-between items-center shadow-sm select-none">
+      <input [(ngModel)]="amount" type="number" />
+    </div>
+  </div>
+  <div *ngIf="type === 'pa'">
+    <label>Target Coin Address:</label>
+    <div class="text-input flex flex-row bg-white px-4 py-1 rounded-3xl flex-1 justify-between items-center shadow-sm select-none">
+      <input [(ngModel)]="address" type="text" />
+    </div>
+  </div>
+  <button [disabled]="createDisabled" (click)="create()" class="button-input bg-white px-4 py-1 rounded-3xl flex-1 shadow-sm select-none text-white w-full">
+    <span *ngIf="!createLoading">Create</span>
+    <i *ngIf="createLoading" class="fa fa-spinner fa-pulse"></i>
+  </button>
+  <span class="text-red-600 text-xs text-center">{{ error }}</span>
+</div>

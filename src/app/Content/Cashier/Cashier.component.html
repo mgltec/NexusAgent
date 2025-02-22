@@ -1,0 +1,67 @@
+<!-- <div class="iframe-container" *ngIf="iframeUrl !== null && iframeUrl !== undefined && iframeUrl.changingThisBreaksApplicationSecurity !== null && iframeUrl.changingThisBreaksApplicationSecurity !== undefined && iframeUrl.changingThisBreaksApplicationSecurity !== ''">
+
+
+
+  <iframe frameborder="0" style="overflow: hidden; height: 100%; width: 100%" height="100%" width="100%" [src]="iframeUrl"></iframe>
+
+
+
+</div> -->
+
+<!--<app-bs-notice></app-bs-notice>-->
+
+<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 tabs-container shadow-sm tab-cont">
+  <!-- <a (click)="activeTab = 'zPay'" aria-current="zPay">
+    <li class="tab" [ngClass]="{ 'active-tab': activeTab === 'zPay' }">
+      <i class="fa-solid fa-z"></i>
+      Pay
+    </li>
+  </a> -->
+  <a (click)="activeTab = 'creditCard'" aria-current="creditCard">
+    <li class="tab" [ngClass]="{ 'active-tab': activeTab === 'creditCard' }">
+      <i class="fa-solid fa-credit-card"></i>
+      Credit Card
+    </li>
+  </a>
+  
+  <!--<a (click)="activeTab = 'ach'" aria-current="ach">
+    <li class="tab" [ngClass]="{ 'active-tab': activeTab === 'ach' }">
+      <i class="fa-solid fa-building-columns"></i>
+      ACH Transaction
+    </li>
+  </a>-->
+  <a (click)="activeTab = 'crypto'" aria-current="crypto">
+    <li class="tab" [ngClass]="{ 'active-tab': activeTab === 'crypto' }">
+      <i class="fa-brands fa-bitcoin"></i>
+      Crypto Payment
+    </li>
+  </a>
+</ul>
+
+
+
+<!-- Z PAY -->
+
+<div class="relative flex flex-col w-full text-center rounded-b-lg " [ngClass]="{ hidden: activeTab !== 'zPay' }">
+  <app-zelle [PlayerDetails]="PlayerDetails"></app-zelle>
+</div>
+
+<!-- CREDIT CARDS -->
+
+<div class="relative flex flex-col w-full text-center rounded-b-lg " [ngClass]="{ hidden: activeTab !== 'creditCard' }">
+  <app-credit-card [PlayerDetails]="PlayerDetails"></app-credit-card>
+</div>
+
+<!-- ACH -->
+
+<!-- <div class="relative flex flex-col w-full py-3 mb-4 text-center rounded-b-lg shadow-lg" [ngClass]="{ hidden: activeTab !== 'ach' }">
+  <app-ach [PlayerDetails]="PlayerDetails"></app-ach>
+</div> -->
+
+<!-- CRYPTO -->
+
+<div class="relative flex flex-col w-full mb-4 text-center rounded-b-lg" [ngClass]="{ hidden: activeTab !== 'crypto' }">
+  <div class="flex flex-row justify-between gap-4 text-base font-bold text-center select-none lg:justify-start">
+    <app-crypto [PlayerDetails]="PlayerDetails"></app-crypto>
+  </div>
+</div>

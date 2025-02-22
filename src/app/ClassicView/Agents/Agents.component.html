@@ -1,0 +1,25 @@
+<div class="classic-container">
+  <p class="classic-pblue">Agents</p>
+  <div class="classic-container-row">
+    <div class="classic-container-card" *ngIf="hasRight(171)">
+      <img src="../../../assets/images/classic/financial/financial1.png" alt="financial 1">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentdistribution'">Agent Distribution</button>
+    </div>
+    <div class="classic-container-card">
+      <img src="../../../assets/images/classic/financial/financial2.png" alt="financial 2">
+      <button class="classic-button" [routerLink]="'/mainclassic/agenthistory'">Agent History</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(182)">
+      <img src="../../../assets/images/classic/financial/financial4.png" alt="financial 3">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentcommission'">Agent Commission</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(200)">
+      <img src="../../../assets/images/classic/financial/financial5.png" alt="financial 4">
+      <button class="classic-button" [routerLink]="'/mainclassic/addplayer'">Add Player</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(204)">
+      <img src="../../../assets/images/classic/financial/financial6.png" alt="financial 7">
+      <button class="classic-button" [routerLink]="'/mainclassic/addagent'">Add Sub Agent</button>
+    </div>
+  </div>
+</div>

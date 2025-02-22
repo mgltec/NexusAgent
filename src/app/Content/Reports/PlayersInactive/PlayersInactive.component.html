@@ -1,0 +1,77 @@
+<h6><span>Inactive Players </span></h6>
+<div>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr style="text-align: center;">
+        <th scope="col">Total Player</th>
+        <th scope="col">Total Active Players</th>
+        <th scope="col">Total Inactive Players</th>
+     </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: right;">{{reportData[0].Total }}</td>
+        <td style="text-align: right;">{{reportData[0].Inactive}}</td>
+        <td style="text-align: right;" >{{reportData[0].Active}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+    <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-sm"  *ngIf="!_loadingReport">
+      <thead class="table-dark">
+         <tr>
+          <th>Agent</th>
+           <th>Player</th>
+           <th>Phone</th>
+           <th>Web</th>
+           <th>Since</th>
+           <th>Last Call</th>
+           <th>Last Wager</th>
+           <th>Balance</th>
+         </tr>
+       </thead>
+       <tbody>
+        <ng-container *ngFor="let rep of reportData; let x = index" >
+              <tr>
+                <td>{{rep.Agent }}</td>
+                <td>{{rep.Player }}</td>
+                <td>{{rep.Phone }}</td>
+                <td>{{rep.Web }}</td>
+                <td>{{rep.Since }}</td>
+                <td>{{rep.LastCall }}</td>
+                <td>{{rep.LastWager }}</td>
+                <td>{{rep.Balance }}</td>
+              </tr>
+          </ng-container>
+     </tbody>
+   </table>
+</div>
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <h5>Filters</h5>
+  <hr>
+   <div class="form-group mb-3">
+    <label for="txtagent">Agent:</label>
+    <select [(ngModel)]="agentSelected" class="custom-select">
+      <option *ngFor="let agent of agentList" [value]="agent._idagent">
+        {{agent._agent}}
+      </option>
+    </select>
+  </div>
+
+
+<button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+</p-sidebar>
+
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+      </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>
+

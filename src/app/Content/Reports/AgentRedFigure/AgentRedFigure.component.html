@@ -1,0 +1,76 @@
+
+<div *ngIf="week!=null">
+  <h6><span >Red Figure for agent: {{_currentUser.AgentSelected}} From {{week.MonDate | date}} To {{week.SunDate | date}}</span></h6>
+</div>
+
+<div class="table-responsive"  *ngIf="reportData.length > 0">
+<table  datatable [dtOptions]="dtOptions" class="table table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>Agent</th>
+      <th>Type</th>
+      <th class="text-right">Comm Percent</th>
+      <th class="text-right">Make Up</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rep of reportData; let x = index">
+      <td>{{rep.Agent}}</td>
+      <td>{{rep.Type}}</td>
+      <td class="text-right">{{rep.Comm_Percent}}</td>
+      <td class="text-right">{{rep.Make_Up}}</td>
+      <td>{{rep.Status}}</td>
+    </tr>
+   </tbody>
+</table>
+</div>
+
+
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <h5>Filters</h5>
+  <hr>
+  <div class="row mb-2 mt-2">
+    <div class="col">
+      <button onclick="window.print();" class="btn btn-light btn-smaction-bar-link fa fa-print fa-2x mr-3"></button>
+      <button onclick="refresh()" class="btn btn-light btn-sm action-bar-link fa fa-redo fa-2x"></button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Filters</h5>
+        <div class="form-group mb-3">
+          <label for="txtagent">Agent:</label>
+          <select [(ngModel)]="agentSelected" class="custom-select">
+            <option *ngFor="let agent of agentList" [value]="agent._idagent">
+              {{agent._agent}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="txtagent">Week:</label>
+          <select [(ngModel)]="weekSelected" class="custom-select">
+            <option *ngFor="let week of weekList; let i = index" [value]="i">
+              {{week.MonDate| date: 'MM/dd/yyyy'}} - {{week.SunDate | date: 'MM/dd/yyyy'}}
+            </option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" (click)="GetReport()">Submit</button>
+    </div>
+  </div>
+
+
+</p-sidebar>
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+      </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>

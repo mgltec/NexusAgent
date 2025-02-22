@@ -1,0 +1,25 @@
+<div class="classic-container">
+  <p class="classic-pblue">Figures</p>
+  <div class="classic-container-row">
+    <div class="classic-container-card" *ngIf="hasRight(163)">
+      <img src="../../../assets/images/classic/figures/figures1.png" alt="Figures 1">
+      <button class="classic-button" [routerLink]="'/mainclassic/weeklyClassic'">Weekly Balance</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(168)">
+      <img src="../../../assets/images/classic/figures/figures2.png" alt="Figures 2">
+      <button class="classic-button" [routerLink]="'/mainclassic/playerstanding'">Players Standings</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(166)">
+      <img src="../../../assets/images/classic/figures/figures3.png" alt="Figures 3">
+      <button class="classic-button" [routerLink]="'/mainclassic/playeraction'">Action By Player</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(176)">
+      <img src="../../../assets/images/classic/figures/figures4.png" alt="Figures 4">
+      <button class="classic-button" [routerLink]="'/mainclassic/playertotal'">Players Totals</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(185)">
+      <img src="../../../assets/images/classic/figures/figures5.png" alt="Figures 5">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentgrossweek'">Gross Week</button>
+    </div>
+  </div>
+</div>

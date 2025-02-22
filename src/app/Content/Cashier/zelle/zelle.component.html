@@ -1,0 +1,63 @@
+<div class="flex flex-row justify-between gap-4 text-base font-bold text-center select-none lg:justify-start ">
+  <div class="relative flex flex-row w-full py-3 mb-4 bg-white shadow-sm rounded-5 row-tittle-rounded">
+    <div class="flex flex-row justify-between gap-4 px-4 text-base font-bold select-none lg:justify-start">
+      <div [ngClass]="{ ActiveMenu: false }" class="row-title">ZELLE PAY</div>
+    </div>
+  </div>
+</div>
+<!-- <div class="flex flex-row justify-between gap-4 px-4 text-base font-bold text-center select-none lg:justify-start" style="max-width: 100%;">
+  <div class="relative flex flex-row w-full py-3 mb-4 bg-white shadow-lg rounded-5">
+    <div class="flex flex-row justify-between gap-4 px-4 text-base font-bold select-none lg:justify-start" >
+      <div>Z-Pay is currently undergoing  and upgrade to their system .. feel free to use any other form of payment</div>
+    </div>
+  </div>
+</div> -->
+<div class="flex flex-row justify-between gap-4 text-base font-bold text-center select-none lg:justify-start" style="max-width: 630px">
+  <div class="relative flex flex-row w-full py-3 mb-4 bg-white shadow-lg rounded-2xl">
+    <div class="flex flex-row justify-between gap-4 px-4 text-base font-bold select-none lg:justify-start">
+      
+      
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="grid gap-6 mb-6 md:grid-cols-2 form-grid">
+          <div>
+            <label for="zPayAmount" class="block mb-2 font-bold text-gray-900">Amount</label>
+            <input type="text" id="zPayAmount" formControlName="zPayAmount" class="text-input flex flex-row bg-white px-4 py-1 rounded-3xl flex-1 justify-between items-center shadow-sm select-none p-2.5" placeholder="100.00" required />
+            <div *ngIf="formControls['zPayAmount'].errors && formControls['zPayAmount'].touched" class="text-sm text-danger">This field is required.</div>
+          </div>
+          <div>
+            <label for="zPayBankId" class="block mb-2 font-bold text-gray-900">Bank List</label>
+            <select id="zPayBankId" formControlName="zPayBankId" #bankList [style]="{ width: '100%' }" class="text-input flex flex-row bg-white px-4 py-1 rounded-3xl flex-1 justify-between items-center shadow-sm select-none p-2.5" style="margin: 0 auto">
+              <option value="">Select Bank</option>
+              <option *ngFor="let option of banks['bank-list']" [value]="option.id">
+                {{ option.name }}
+              </option>
+              <option *ngFor="let option of banks['bank-list']" [value]="option.id">
+                {{ option.name }}
+              </option>
+            </select>
+            <div *ngIf="formControls['zPayBankId'].errors && formControls['zPayBankId'].touched" class="text-sm text-danger">This field is required.</div>
+          </div>
+          <div>
+            <label for="zPayFirst" class="block mb-2 font-bold text-gray-900">First Name</label>
+            <input type="text" id="zPayFirst" formControlName="zPayFirst" class="text-input flex flex-row bg-white px-4 py-1 rounded-3xl flex-1 justify-between items-center shadow-sm select-none p-2.5" placeholder="John" required />
+            <div *ngIf="formControls['zPayFirst'].errors && formControls['zPayFirst'].touched" class="text-sm text-danger">This field is required.</div>
+          </div>
+
+          <div>
+            <label for="zPayLast" class="block mb-2 font-bold text-gray-900">Last Name</label>
+            <input type="text" id="zPayLast" formControlName="zPayLast" class="text-input flex flex-row bg-white px-4 py-1 rounded-3xl flex-1 justify-between items-center shadow-sm select-none p-2.5" placeholder="Doe" required />
+            <div *ngIf="formControls['zPayLast'].errors && formControls['zPayLast'].touched" class="text-sm text-danger">This field is required.</div>
+          </div>
+          <div>
+            <label for="zPayEmail" class="block mb-2 font-bold text-gray-900">email</label>
+            <input type="text" id="zPayEmail" formControlName="zPayEmail" class="text-input flex flex-row bg-white px-4 py-1 rounded-3xl flex-1 justify-between items-center shadow-sm select-none p-2.5" placeholder="example@email.com" required />
+            <div *ngIf="formControls['zPayEmail'].errors && formControls['zPayEmail'].touched" class="text-sm text-danger">This field is required.</div>
+          </div>
+        </div>
+        <div class="w-full mb-4">
+          <button type="submit" class="flex-1 w-full px-4 py-1 text-white bg-white shadow-sm select-none button-input rounded-3xl">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

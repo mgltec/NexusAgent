@@ -1,0 +1,78 @@
+<h1>Scores History </h1>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>DATE</th>
+        <th>DESCRIPTION</th>
+        <th>RESULT</th>
+    </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let rep of reportData; let x = index">
+          <tr *ngIf="(x == 0 ) || (x != 0 && reportData[x].IdSport.trim() != reportData[x-1].IdSport.trim())">
+            <td colspan="6" style="background-color: #D6D6D6">{{rep.IdSport}}</td>
+          </tr>
+          <tr>
+            <td>{{rep.GameDateTime | date:'medium'}}</td>
+            <td>{{rep.VisitorTeam}}</td>
+            <td>{{rep.VisitorScore}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>{{rep.HomeTeam }}</td>
+            <td>{{rep.HomeScore}}</td>
+          </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+  <div class="alert alert-primary" role="alert" *ngIf="date == ''">
+    Please select a date first to view the Scores.
+  </div>
+  
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+
+  <div class="form-group mb-3">
+    <label for="txtdateFrom"> Date:</label>
+    <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="date"
+      (ngModelChange)="date = $event" aria-describedby="datefrom" >
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="txtagent">Sport:</label>
+    <select [(ngModel)]="sportSelected" class="form-control">
+        <option value="">ALL</option>
+        <option value="CBB">COLLEGE BASKETBALL</option>
+        <option value="CFB">COLLEGE FOOTBALL</option>
+        <option value="ESOC">EUROPEAN SOCCER</option>
+        <option value="MLB">ML BASEBALL</option>
+        <option value="MU">MATCHUPS</option>
+        <option value="NBA">NBA BASKETBALL</option>
+        <option value="NFL">NFL FOOTBALL</option>
+        <option value="NHL">NHL HOCKEY</option>
+        <option value="PROP">PROPOSITIONS</option>
+        <option value="RAC">RACING</option>
+        <option value="RBL">RAPID BET</option>
+        <option value="SOC">SOCCER</option>
+        <option value="TNT">TOURNAMENTS</option>
+    </select>
+  </div>
+
+  <button type="button"  class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+
+</p-sidebar>
+
+  <!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+      </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>
+
+
+

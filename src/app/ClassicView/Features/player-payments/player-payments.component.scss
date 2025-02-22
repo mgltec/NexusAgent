@@ -1,0 +1,53 @@
+.classic-player-payments{
+    display: flex;
+    gap: 30px;
+    padding: 50px;
+
+    &-adjustment{
+        width: 50%;
+
+        &-group{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &-item{
+
+                p{
+                    margin: 0 0 5px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    &-table{
+        width: 50%;
+    }
+
+    ::ng-deep{
+        .p-dropdown{
+            width: 100%;
+            // height: 40px;
+            padding: 10px  !important;
+        }
+    }
+}
+
+.classic-player-payments-row{
+    border-bottom: 1px solid rgb(163, 163, 163);
+    padding-bottom: 5px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    margin: 22px 0;
+    color: #000;
+
+    span{
+        font-weight: 600;
+    }
+}
+
+// *{
+//     font-family: Arial, Helvetica, sans-serif;
+// }

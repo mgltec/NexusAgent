@@ -1,0 +1,90 @@
+<div class="classic-header">
+  <img src="../../../assets/images/classic/logo.png" alt="Logo Classic View" class="logo-header">
+  <div class="classic-header-buttons items-center">
+    <div class="text-right">
+      <a [href]="'tel:'+phoneDomain" class="text-border hover:underline" *ngIf="phoneDomain !==''"> 
+        <img [src]="'../../assets/images/' + phoneImage" alt="" *ngIf="isOpen">
+        <div *ngIf="!isOpen" class="phone-button"> <i class="fa fa-phone" aria-hidden="true"></i></div>
+      </a>
+    </div>
+    <div class="text-xl flex items-center justify-center">
+      <i class="fa fa-cog hover:text-blue-900 cursor-pointer" (click)="modalSettings = true"></i>
+    </div>
+    <!-- <button class="bg-slate-200 border " [routerLink]="'/mainbk/principal'"> <i class="pi pi-cog text-2xl"></i> </button> -->
+    <button class="classic-header-button" (click)="logout()">Logout <i class="pi pi-sign-out"></i></button>
+  </div>
+</div>
+<p class="classic-p-balance" *ngIf="playerStatistics">CURRENT BALANCE: <span class="cursor-pointer hover:text-blue-900 font-semibold" (click)="modalInvoice = true">{{playerStatistics?.CurrentBalance}}</span></p>
+
+<!-- <div class="classic-menu">
+  <ul>
+    <li><i class="pi pi-home mr-2"></i>Home</li>
+    <li>Management</li>
+    <li>Figures</li>
+    <li>Wagers</li>
+    <li>Financial</li>
+    <li>Information</li>
+    <li>Agents</li>
+  </ul>
+</div> -->
+
+<div class="classic-menu">
+  <p-menubar [model]="items">
+    <ng-template pTemplate="item" let-item >
+        <ng-container *ngIf="item.routerLink; else urlRef">
+            <a [routerLink]="item.routerLink" class="p-menuitem-link">
+                <span [class]="item.icon"></span>
+                <span class="ml-2">{{ item.label }}</span>
+            </a>
+        </ng-container>
+        <ng-template #urlRef>
+            <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+                <span [class]="item.icon"></span>
+                <span class="ml-2">{{ item.label }}</span>
+            </a>
+        </ng-template>
+        <ng-template #noLink>
+            <div class="p-menuitem-link">
+                <span [class]="item.icon"></span>
+                <span class="ml-2">{{ item.label }}</span>
+                <span class="pi pi-fw pi-angle-down ml-2"></span>
+            </div>
+        </ng-template>
+    </ng-template>
+  </p-menubar>
+</div>
+
+<div class="cont-classic">
+  <router-outlet></router-outlet>
+</div>
+
+<p-dialog header="Invoice Options" [modal]="true" [(visible)]="modalInvoice" [style]="{ width: '25rem' }">
+  <!-- <span class="p-text-secondary block mb-5">Update your information.</span> -->
+   <div class="modal-container-buttons">
+     <a [href]="InvoiceUrl" target="_blank"><button>View Invoice</button></a>
+     <button [routerLink]="'/mainclassic/cashier'" [queryParams]="{ invoice: playerStatistics | json }" (click)="modalInvoice = false">Pay Invoice</button>
+   </div>
+  
+</p-dialog>
+
+<p-dialog header="Player preferences" [modal]="true" [(visible)]="modalSettings" [style]="{ width: '25rem' }">
+  <!-- <span class="p-text-secondary block mb-5">Update your information.</span> -->
+   <div>
+     <p>Theme:</p>
+      <div class="flex gap-8">
+        <div class="flex gap-3">
+          <input type="radio" [(ngModel)]="themeSelected" [value]="1" name="theme">
+          <label for="" class="m-0 font-semibold text-base">New Agent</label>
+        </div>
+        <div class="flex gap-3">
+          <input type="radio" [(ngModel)]="themeSelected" [value]="2" name="theme">
+          <label for="" class="m-0 font-semibold text-base">Classic</label>
+        </div>
+      </div>
+   </div>
+   <div class="flex gap-3 mt-4">
+    <button class="btn btn-primary m-auto" (click)="InsertOrUpdateAgentSettings()">Apply</button>
+    <!-- <button class="btn btn-danger">Cancel</button> -->
+  </div>
+  
+</p-dialog>

@@ -1,0 +1,25 @@
+<div class="classic-container">
+  <p class="classic-pblue">Financial</p>
+  <div class="classic-container-row">
+    <div class="classic-container-card" *ngIf="hasRight(174)">
+      <img src="../../../assets/images/classic/financial/financial1.png" alt="financial 1">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentcashflow'">Cash Flow</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(187)">
+      <img src="../../../assets/images/classic/financial/financial2.png" alt="financial 2">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentweeklypayment'">Weekly Payments</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(183)">
+      <img src="../../../assets/images/classic/financial/financial3.png" alt="financial 3">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentadjusment'">Agent Adjustment</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(189)">
+      <img src="../../../assets/images/classic/financial/financial4.png" alt="financial 4">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentsettledfigure'">Settled Figures</button>
+    </div>
+    <div class="classic-container-card">
+      <img src="../../../assets/images/classic/financial/financial7.png" alt="financial 7">
+      <button class="classic-button" [routerLink]="'/mainclassic/playerpayments'">Player Payments</button>
+    </div>
+  </div>
+</div>

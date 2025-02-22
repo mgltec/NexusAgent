@@ -1,0 +1,321 @@
+<h6><span>Agent exposure for : {{_currentUser.AgentSelected}}</span></h6>
+<div>
+<p-accordion [style]="{'margin-bottom': '10px;'}">
+  <p-accordionTab header="Filters">
+    <!-- <h5>Filters</h5> -->
+    <!-- <hr> -->
+    <div class="filter-items">
+      <div class="form-group mb-3">
+        <label for="ddlTransactionType">Type of Sport:</label>
+        <select class="form-select" [(ngModel)]="SportSelected">
+          <option value="All">All</option>
+          <option *ngFor="let sport of _SportList" [value]="sport.IdSport">
+            {{sport.IdSport}}
+          </option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+    </div>
+  </p-accordionTab>
+</p-accordion>
+
+
+<!-- TODO: Weird styling -->
+<div class="row">
+  <div class="col-12">
+    <div class="card card-table">
+      <!-- <div class="card-header">
+        <div class="card-title">
+          <i class="fas fa-arrow-circle-down"></i>
+          <span>Agent exposure for : {{_currentUser.AgentSelected}}</span>
+        </div>
+  
+      </div> -->
+      <div class="card-body" *ngIf="agentExposureReport != null && agentExposureReport != undefined">
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered table-main">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" class="frozen-column">Teams</th>
+                <th scope="col">
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td colspan="3" class="td-classic">Straights</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td class="td-classic-2">Spread</td>
+                        <td class="td-classic-2">Total</td>
+                        <td class="td-classic-2">$Line</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </th>
+                <th scope="col">
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td colspan="3" class="td-classic">Parlays</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td class="td-classic-2">Spread</td>
+                        <td class="td-classic-2">Total</td>
+                        <td class="td-classic-2">$Line</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </th>
+                <th scope="col">
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td colspan="3" class="td-classic">Teasers</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td class="td-classic-2">Spread</td>
+                        <td class="td-classic-2">Total</td>
+                        <td class="td-classic-2">$Line</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </th>
+                <th scope="col">
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td colspan="3" class="td-classic">Reverses</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td class="td-classic-2">Spread</td>
+                        <td class="td-classic-2">Total</td>
+                        <td class="td-classic-2">$Line</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rep of agentExposureReport.ListExposure; let x = index">
+                <td>
+                  <div class="main-row-details">
+                    <div class="row">
+                      <div class="col">
+                        {{rep._VisitorNumber}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        {{rep._HomeNumber}}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="frozen-column">
+                  <div class="row">
+                    <div class="col">
+                      {{rep._VisitorTeam}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      {{rep._HomeTeam}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._StraightbetVSpread)" (click)="GetReportDetails(rep, rep._StraightbetVSpread, '0', 0)">{{rep._StraightbetVSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._StraightbetVTotal)" (click)="GetReportDetails(rep, rep._StraightbetVTotal, '0', 2)">{{rep._StraightbetVTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._StraightbetVMoney)" (click)="GetReportDetails(rep, rep._StraightbetVMoney, '0', 4)">{{rep._StraightbetVMoney}}</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._StraightbetHSpread)" (click)="GetReportDetails(rep, rep._StraightbetHSpread, '0', 1)">{{rep._StraightbetHSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._StraightbetHTotal)" (click)="GetReportDetails(rep, rep._StraightbetHTotal, '0', 3)">{{rep._StraightbetHTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._StraightbetHMoney)" (click)="GetReportDetails(rep, rep._StraightbetHMoney, '0', 5)">{{rep._StraightbetHMoney}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <td>
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._ParlayVSpread)" (click)="GetReportDetails(rep, rep._ParlayVSpread, '1', 0)">{{rep._ParlayVSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._ParlayVTotal)" (click)="GetReportDetails(rep, rep._ParlayVTotal, '1', 2)">{{rep._ParlayVTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._ParlayVMoney)" (click)="GetReportDetails(rep, rep._ParlayVMoney, '1', 4)">{{rep._ParlayVMoney}}</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._ParlayHSpread)" (click)="GetReportDetails(rep, rep._ParlayHSpread, '1', 1)">{{rep._ParlayHSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._ParlayHTotal)" (click)="GetReportDetails(rep, rep._ParlayHTotal, '1', 3)">{{rep._ParlayHTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._ParlayHMoney)" (click)="GetReportDetails(rep, rep._ParlayHMoney, '1', 5)">{{rep._ParlayHMoney}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <td>
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._TeaserVSpread)" (click)="GetReportDetails(rep, rep._TeaserVSpread, '2', 0)">{{rep._TeaserVSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._TeaserVTotal)" (click)="GetReportDetails(rep, rep._TeaserVTotal, '2', 2)">{{rep._TeaserVTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._TeaserVMoney)" (click)="GetReportDetails(rep, rep._TeaserVMoney, '2', 4)">{{rep._TeaserVMoney}}</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._TeaserHSpread)" (click)="GetReportDetails(rep, rep._TeaserHSpread, '2', 1)">{{rep._TeaserHSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._TeaserHTotal)" (click)="GetReportDetails(rep, rep._TeaserHTotal, '2', 3)">{{rep._TeaserHTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._TeaserHMoney)" (click)="GetReportDetails(rep, rep._TeaserHMoney, '2', 5)">{{rep._TeaserHMoney}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <td>
+                  <table class="table-in-cell table table-bordered table-sm">
+                    <tbody>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._ReversesVSpread)" (click)="GetReportDetails(rep, rep._ReversesVSpread,'4,8',0)">{{rep._ReversesVSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._ReversesVTotal)" (click)="GetReportDetails(rep, rep._ReversesVTotal,'4,8',2)">{{rep._ReversesVTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._ReversesVMoney)" (click)="GetReportDetails(rep, rep._ReversesVMoney,'4,8',4)">{{rep._ReversesVMoney}}</td>
+                      </tr>
+                      <tr style="text-align: center;">
+                        <td [ngClass]="calculateClasses(rep._ReversesHSpread)" (click)="GetReportDetails(rep, rep._ReversesHSpread,'4,8',1)">{{rep._ReversesHSpread}}</td>
+                        <td [ngClass]="calculateClasses(rep._ReversesHTotal)" (click)="GetReportDetails(rep, rep._ReversesHTotal,'4,8',3)">{{rep._ReversesHTotal}}</td>
+                        <td [ngClass]="calculateClasses(rep._ReversesHMoney)" (click)="GetReportDetails(rep, rep._ReversesHMoney,'4,8',5)">{{rep._ReversesHMoney}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr style="text-align: center; background-color: #F0F0F0;" class="tr-classic">
+                <td colspan="2">Sum</td>
+                <td>{{sumaStraight}}</td>
+                <td>{{sumaParlays}}</td>
+                <td>{{sumaTeasers}}</td>
+                <td>{{sumaReverses}}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <h5>Filters</h5>
+  <hr>
+  <div class="row mb-2 mt-2">
+    <div class="col">
+      <button onclick="window.print();" class="btn btn-light btn-smaction-bar-link fa fa-print fa-2x mr-3"></button>
+      <button onclick="refresh()" class="btn btn-light btn-sm action-bar-link fa fa-redo fa-2x"></button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <p-dropdown styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent"
+      [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Select an Agent"
+      (onChange)="OnChangeAgent();">
+      <ng-template pTemplate="selectedItem">
+        <div *ngIf="this.agentSelected._agent">
+          <div>{{agentSelected._agent}}</div>
+        </div>
+      </ng-template>
+      <ng-template let-Agente pTemplate="item">
+        <div>
+          <div>{{Agente.value._agent}}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </div>
+
+  <div class="form-group">
+    <label for="txtagent">Week:</label>
+    <select [(ngModel)]="_currentUser.RangeDateSelected" class="custom-select" (change)="onChangeDateSelection($event)">
+      <option *ngFor="let week of _currentUser.WeekList; let i = index" [value]="i">
+        {{week.MonDate| date: 'MM/dd/yyyy'}} - {{week.SunDate | date: 'MM/dd/yyyy'}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group mb-3">
+    <div class="form-group mb-1" id="divSports">
+      <label for="cars">Sport:</label>
+      <select class="custom-select" name="ddlbusinessUnit" id="ddlbusinessUnit" [(ngModel)]="SportSelected"
+        (change)="businessUnitChange()">
+        <option value="All">All Sports</option>
+        <option value="CBB">CBB</option>
+        <option value="CFB">CFB</option>
+        <option value="MLB">MLB</option>
+        <option value="MU">MU</option>
+        <option value="NBA">NBA</option>
+        <option value="NFL">NFL</option>
+        <option value="PROP">PROP</option>
+        <option value="SOC">SOC</option>
+        <option value="TNT">TNT</option>
+      </select>
+    </div>
+  </div>
+
+
+</p-sidebar>
+
+<!-- <button type="text" (click)="display = true"  label="Show">test</button> -->
+
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>
+</div>
+
+<app-landscape-notice></app-landscape-notice>
+
+<p-dialog header="Agent Exposure Detail:" [modal]="true" [(visible)]="modalDetails" [style]="{ width: '95%', maxWidth: '700px' }">
+  <table class="exposure-table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Ticket#</th>
+        <th>Placed Date</th>
+        <th>Line</th>
+        <th>Risk</th>
+        <th>Win</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of resultAgentExposureDetail">
+        <td>{{ item.IdPlayer }}</td>
+        <td>{{ item.Ticket }}</td>
+        <td>{{ item.PlacedDate | date: 'MMM-dd h:mm a' }}</td>
+        <td> 
+          <div class="flex flex-col gap-1">
+            <span>{{ item.Line }}</span>
+            <span>{{ item.Line2 }}</span>
+          </div>
+        </td>
+        <td>{{ item.RiskAmount }}</td>
+        <td>{{ item.WinAmount }}</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4" class="text-right">Total</td>
+        <td>{{ getTotalRisk() }}</td>
+        <td>{{ getTotalToWin() }}</td>
+      </tr>
+    </tbody>
+  </table>  
+     
+</p-dialog>

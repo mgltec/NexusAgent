@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="mb-2 text-base font-bold">{{ type === 'de' ? 'Deposits History' : 'Payouts History' }}</div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive border rounded-xl border-slate-500 relative whitespace-nowrap">
+        <table class="table table-striped whitespace-nowrap">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Method</th>
+              <th>Amount</th>
+              <th>Coin Amount</th>
+              <th>Status</th>
+              <th>Address</th>
+              <th>Date</th>
+              <th>Comments</th>
+              <th *ngIf="type === 'de'">Invoice</th>
+              <th *ngIf="type === 'pa'">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of data">
+              <td>{{ transaction.Id }}</td>
+              <td>{{ transaction.Method }}</td>
+              <td>{{ transaction.Amount }}</td>
+              <td>{{ transaction.CoinAmount }}</td>
+              <td class="font-semibold" [ngClass]="mapStatusClass(transaction.Status)">{{ mapStatus(transaction.Status) }}</td>
+              <td>{{ transaction.Address }}</td>
+              <td>{{ transaction.TransactionDate | date: 'MMM dd, hh:mma' }}</td>
+              <td>{{ transaction.Comments }}</td>
+              <td *ngIf="type === 'de' && transaction.Status !== 'de'" class="ActiveMenu" (click)="open(transaction.Invoice)">Invoice</td>
+              <td *ngIf="type === 'pa' && transaction.Status !== 'ca'" class="ActiveMenu" (click)="cancel(transaction)">Cancel</td>
+              <td *ngIf="transaction.Status === 'ca' || transaction.Status === 'de'"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

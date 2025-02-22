@@ -1,0 +1,70 @@
+<div class="classic-add-player-container">
+  <!-- <p (click)="changeStep(1)" class="back"><i class="fa fa-chevron-left"></i> Back</p> -->
+
+  <h5>Add Player</h5>
+
+  <div class="classic-add-player">
+    <div class="classic-add-player-group">
+      <h4>Agent</h4>
+      <div class="classic-add-player-form">
+        <div class="classic-add-player-group-input">
+          <label for="">Player to clone</label>
+
+          <p-dropdown class="" [options]="playerList" [(ngModel)]="selectedPlayerId" optionLabel="Player"
+            placeholder="Choose one">
+          </p-dropdown>
+        </div>
+        <div class="classic-add-player-group-input">
+          <label for="">Agent to assign</label>
+          <p-dropdown class="" [options]="agentList" [(ngModel)]="idAgent" optionLabel="Agent"
+            placeholder="Choose one">
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="classic-add-player-group">
+      <h4>Player Info</h4>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="classic-add-player-form">
+        <div class="classic-add-player-group-input">
+          <label for="name">Name:</label>
+          <input type="text" [(ngModel)]="name" formControlName="name" class="form-control">
+        </div>
+
+        <div class="classic-add-player-group-input">
+          <label for="lastName">Last Name:</label>
+          <input type="text" [(ngModel)]="lastName" formControlName="lastName" class="form-control">
+        </div>
+
+        <div class="classic-add-player-group-input">
+          <label for="username">*Username:</label>
+          <input type="text" [(ngModel)]="player" formControlName="username" class="form-control">
+          <!-- Mensaje de error si el campo es requerido y está vacío -->
+          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+            <small>* This field is required.</small>
+          </div>
+        </div>
+
+        <div class="classic-add-player-group-input">
+          <label for="password">*Password:</label>
+          <input type="password" [(ngModel)]="password" formControlName="password" class="form-control">
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <small>* This field is required.</small>
+          </div>
+        </div>
+
+        <div class="classic-add-player-group-input">
+          <label for="confirmPassword">*Confirm Password:</label>
+          <input type="password" [(ngModel)]="confirmPassword" formControlName="confirmPassword" class="form-control">
+          <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+            <small>* This field is required.</small>
+          </div>
+        </div>
+
+        <button type="submit" class="btnAddPlayer">Add Player</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>

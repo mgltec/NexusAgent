@@ -1,0 +1,232 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card card-table">
+      <div class="card-header">
+        <div class="card-title">
+          <i class="fas fa-arrow-circle-down"></i>
+          <span>Weekly balance by Player for Agent {{_currentUser.AgentSelected}} from {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}} to {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}}</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>AGENT</th>
+                <th class="text-right">PREV BAL</th>
+                <th class="text-right">MON</th>
+                <th class="text-right">TUE</th>
+                <th class="text-right">WED</th>
+                <th class="text-right">THU</th>
+                <th class="text-right">FRI</th>
+                <th class="text-right">SAT</th>
+                <th class="text-right">SUN</th>
+                <th class="text-right">THIS WEEK</th>
+                <th class="text-right">NEW BAL</th>
+                <th class="text-right">AT RISK</th>
+                <th class="text-right">AVAIL</th>
+                <th class="text-right">SETTLE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GRAND TOTAL</td>
+                <td class="text-right">
+                  <span [ngClass]="calculateClasses(_TotalPrev)">{{_TotalPrev | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalMon)">{{_TotalMon | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalTue)">{{_TotalTue | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalWed)">{{_TotalWed | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalThu)">{{_TotalThu | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalFri)">{{_TotalFri | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalSat)">{{_TotalSat | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalSun)">{{_TotalSun | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalThisWeek)">{{_TotalThisWeek | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalNewBal)">{{_TotalNewBal | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalAtRisk)">{{_TotalAtRisk | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(_TotalAvail)">{{_TotalAvail | number: '1.2-2'}}</span>
+                </td>
+                <td>--</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+<div class="row">
+  <div class="col-12">
+    <div class="card card-table">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th class="frozen-column">AGENT</th>
+                <th class="text-right">PREV BAL</th>
+                <th class="text-right">MON</th>
+                <th class="text-right">TUE</th>
+                <th class="text-right">WED</th>
+                <th class="text-right">THU</th>
+                <th class="text-right">FRI</th>
+                <th class="text-right">SAT</th>
+                <th class="text-right">SUN</th>
+                <th class="text-right">THIS WEEK</th>
+                <th class="text-right">PAYM</th>
+                <th class="text-right">NEW BAL</th>
+                <th class="text-right">AT RISK</th>
+                <th class="text-right">AVAIL</th>
+                <th class="text-right">SETTLE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container  *ngFor="let detail of _dataReportWeeklyBalance.AgentList">
+              <tr>
+                <td colspan="15" style="background-color: rgb(201, 201, 201);"> {{detail._Agent}}</td>
+              </tr>
+
+              <tr *ngFor="let player of detail.PlayerList">
+                <td class="frozen-column"> <a [routerLink]="['/mainbk/playerdetails']" [queryParams]="{idplayer: player._IdPlayer, player: player._Player}">{{player._Player}} / {{player._Password}}</a></td>
+                <td class="text-right">
+                  <span [ngClass]="calculateClasses(player._BalFwd)">{{player._BalFwd | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._WeekDay1)">{{player._WeekDay1 | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._WeekDay2)">{{player._WeekDay2 | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._WeekDay3)">{{player._WeekDay3 | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._WeekDay4)">{{player._WeekDay4 | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._WeekDay5)">{{player._WeekDay5 | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._WeekDay6)">{{player._WeekDay6 | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._WeekDay7)">{{player._WeekDay7 | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._ThisWeek)">{{player._ThisWeek | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._Ptms)">{{player._Ptms}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._Balance)">{{player._Balance | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._AmountAtRisk)">{{player._AmountAtRisk | number: '1.2-2'}}</span>
+                </td>
+                <td class="text-right">
+                    <span [ngClass]="calculateClasses(player._AvailableBalance)">{{player._AvailableBalance | number: '1.2-2'}}</span>
+                </td>
+                <td>-</td>
+              </tr>
+
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <!-- <h5>Filters</h5>
+  <hr>
+  <div class="row mb-2 mt-2">
+    <div class="col">
+      <button onclick="window.print();" class="btn btn-light btn-smaction-bar-link fa fa-print fa-2x mr-3"></button>
+      <button onclick="refresh()" class="btn btn-light btn-sm action-bar-link fa fa-redo fa-2x"></button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <p-dropdown styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true"
+      filterBy="value._agent" [showClear]="true" placeholder="Select an Agent" (onChange)="OnChangeAgent();">
+      <ng-template pTemplate="selectedItem">
+        <div *ngIf="this.agentSelected._agent">
+          <div>{{agentSelected._agent}}</div>
+        </div>
+      </ng-template>
+      <ng-template let-Agente pTemplate="item">
+        <div>
+          <div>{{Agente.value._agent}}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </div> -->
+
+  <div class="form-group">
+    <label for="txtagent">Week:</label>
+    <select [(ngModel)]="_currentUser.RangeDateSelected" class="custom-select"
+      (change)="onChangeDateSelection($event)">
+      <option *ngFor="let week of _currentUser.WeekList; let i = index" [value]="i">
+        {{week.MonDate| date: 'MM/dd/yyyy'}} - {{week.SunDate | date: 'MM/dd/yyyy'}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group mb-3">
+    <div class="form-group mb-1" id="divSports">
+      <label for="cars">Business Unit:</label>
+      <select class="custom-select" name="ddlbusinessUnit" id="ddlbusinessUnit" [(ngModel)]="businessUnitSelected"
+        (change)="businessUnitChange()">
+        <option value="-1">All Units</option>
+        <option value="0">Sports</option>
+        <option value="1">Casino</option>
+        <option value="2">Racing</option>
+      </select>
+    </div>
+  </div> 
+
+
+</p-sidebar>
+
+<!-- <button type="text" (click)="display = true"  label="Show">test</button> -->
+
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>
+</div>

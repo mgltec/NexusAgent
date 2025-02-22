@@ -1,0 +1,29 @@
+<div class="classic-container">
+  <p class="classic-pblue">Wagers</p>
+  <div class="classic-container-row">
+    <div class="classic-container-card" *ngIf="hasRight(165)">
+      <img src="../../../assets/images/classic/wagers/wagers1.png" alt="wagers 1">
+      <button class="classic-button" [routerLink]="'/mainclassic/openbets'">Open Bets</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(164)">
+      <img src="../../../assets/images/classic/wagers/wagers2.png" alt="wagers 2">
+      <button class="classic-button" [routerLink]="'/mainclassic/playerhistory'">Player History</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(170)">
+      <img src="../../../assets/images/classic/wagers/wagers3.png" alt="wagers 3">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentposition'">Agent Position</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(169)">
+      <img src="../../../assets/images/classic/wagers/wagers4.png" alt="wagers 4">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentexposure'">Agent Exposure</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(173)">
+      <img src="../../../assets/images/classic/wagers/wagers5.png" alt="wagers 5">
+      <button class="classic-button" [routerLink]="'/mainclassic/changedWager'">Change Wager</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(186)">
+      <img src="../../../assets/images/classic/wagers/wagers5.png" alt="wagers 5">
+      <button class="classic-button" [routerLink]="'/mainclassic/agentwagers'">Wager Listing</button>
+    </div>
+  </div>
+</div>

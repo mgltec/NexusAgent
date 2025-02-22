@@ -1,0 +1,65 @@
+
+
+
+
+    <h4>Sports Wagers for agent {{this._currentUser.AgentSelected}} from {{posDetailsObj.StartDate | date}} to {{posDetailsObj.EndDate | date}}</h4>
+
+    <div class="table-responsive">
+    <table class="table table-sm table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center" scope="col">TOTAL RISK</th>
+          <th class="text-center" scope="col">TOTAL WIN</th>
+          <th class="text-center" scope="col">WON/LOSS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td  style="text-align: right;">{{ totalRisk | number: '1.1-2'}}</td>
+          <td  style="text-align: right;">{{ totalWin | number: '1.1-2'}}</td>
+          <td  style="text-align: right;">{{ totalWager | number: '1.1-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="table-responsive">
+    <table class="table table-sm table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>AGENT/PLAYER/PASSWORD</th>
+          <th>DATE</th>
+          <th>TRANSACTION</th>
+          <th>EVENT DATE/DESCRIPTION</th>
+          <th>RISK/WIN</th>
+          <th>WON/LOSS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of posDetailsObj.ListDetail">
+          <td>{{this._currentUser.AgentSelected}} / {{detail._player}} / {{detail._password}}</td>
+          <td>{{detail._placeddate}}</td>
+          <td>{{detail._ticketnumber}}</td>
+          <td>{{detail._completedescription}}</td>
+          <td >{{detail._riskamount | number: '1.2-2'}} / {{detail._winamount | number: '1.2-2'}}</td>
+          <td style="text-align: right;">{{detail._wageramount | number: '1.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>
+</div>

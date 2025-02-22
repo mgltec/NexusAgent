@@ -1,0 +1,53 @@
+<h6><span>Agent Commission for agent: {{_currentUser.AgentSelected}}</span></h6>
+<div>
+
+  <p-accordion [style]="{'margin-bottom': '10px;'}">
+    <p-accordionTab header="Filters">
+      <h5>Filters</h5>
+      <hr>
+      <div class="filter-items">
+        <div class="form-group mb-3">
+          <label for="txtdateWeek">Week Date:</label>
+          <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.Start">
+        </div>
+        <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+  <div *ngFor="let agent of reportData.SubAgents; let i = index">
+    <hr />
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-table">
+          <div class="card-header">
+            <div class="card-title">
+              <i class="fas fa-arrow-circle-down"></i>
+              <span>{{agent.Agent}}</span>
+            </div>
+            <span class="card-subtitle classic-row-w">(new MakeUp: {{agent.NewMakeUp | number: '1.2-2'}}) // Commission: {{agent.Commission | number: '1.2-2'}}</span>
+            <!-- <button (click)="GetPlayerTopWinLoss()" type="button" class="btn btn-light btn-sm float-right border"><i class="fas fa-sync-alt"></i></button> -->
+          </div>
+          <div class="card-body">
+            <app-responsive-table [data]="agent.Players" [totalsData]="agent" [columns]="columns" [loading]="_loadingReport"></app-responsive-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }"
+    [template]="customLoadingTemplate"></ngx-loading>
+</div>
+
+<app-landscape-notice></app-landscape-notice>

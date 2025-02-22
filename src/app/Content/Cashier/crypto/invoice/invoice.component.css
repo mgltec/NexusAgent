@@ -1,0 +1,36 @@
+.Invoice {
+  height: 100% !important;
+  width: 340px !important;
+
+  overflow: hidden;
+}
+
+.InvoiceContainer {
+  height: 550px !important;
+  width: 340px !important;
+  overflow: hidden;
+}
+
+
+::ng-deep .modal-card .modal-dialog {
+
+  .modal-content {
+    width: 340px !important;
+    margin: 0 auto;
+    overflow-x: scroll;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  ::ng-deep .modal-card .modal-dialog {
+    width: auto !important;
+
+    .modal-content {
+      background-color: white !important;
+      width: 340px !important;
+      height: 550px !important;
+
+      overflow: hidden;
+    }
+  }
+}

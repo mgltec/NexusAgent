@@ -1,0 +1,32 @@
+.Pending {
+  color: rgb(202, 138, 4) !important;
+}
+
+.Rejected {
+  color: rgb(220, 38, 38) !important;
+}
+
+.Requested {
+  color: rgb(71, 85, 105) !important;
+}
+
+.Cancelled {
+  color: rgb(196, 121, 23) !important;
+}
+
+.ActiveMenu {
+  @apply text-blue-600 hover:text-blue-800 cursor-pointer font-semibold;
+  color: rgb(37, 99, 235) !important;
+}
+
+.ActiveMenu:hover {
+  color: rgb(30, 64, 175) !important;
+}
+
+.table{
+  user-select: text; /* Permite la selección de texto */
+}
+.table td{
+  font-weight: 500;
+  font-size: 14px;
+}

@@ -1,0 +1,4 @@
+.radio-inp{
+    display: flex;
+    flex-direction: column;
+}

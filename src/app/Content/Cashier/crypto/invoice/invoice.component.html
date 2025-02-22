@@ -1,0 +1,15 @@
+<ng-template #content let-modal>
+  <!-- <app-bs-pop-up *ngIf="!isDesktop" class="betslip-card" [initialOpen]="true" [height]="95" (closed)="closePopupMenu(modal)">
+    <div class="flex flex-col justify-center items-center h-full">
+      <i class="fa fa-spinner fa-pulse absolute"></i>
+
+      <iframe [src]="sanitizedUrl" frameborder="0" class="Invoice z-10"></iframe>
+    </div>
+  </app-bs-pop-up> -->
+
+  <div class="flex flex-col justify-center items-center InvoiceContainer">
+    <i class="fa fa-spinner fa-pulse absolute"></i>
+
+    <iframe [src]="sanitizedUrl" frameborder="0" class="Invoice z-10" scrolling="no" style="overflow: hidden"></iframe>
+  </div>
+</ng-template>

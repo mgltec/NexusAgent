@@ -1,0 +1,74 @@
+<h6><span>Agent History for agent: {{_currentUser.AgentSelected}}</span></h6>
+<div>
+
+
+  <p-accordion [style]="{'margin-bottom': '10px;'}">
+    <p-accordionTab header="Filters">
+      <h5>Filters</h5>
+      <hr>
+      <div class="filter-items">
+        <div class="form-group mb-3">
+          <label for="txtdateWeek">Initial Date:</label>
+          <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.Start"
+            (ngModelChange)="_dateRange.Start = $event" aria-describedby="datefrom">
+        </div>
+        <div class="form-group mb-3">
+          <label for="txtdateWeek">End Date:</label>
+          <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.End"
+            (ngModelChange)="_dateRange.End = $event" aria-describedby="datefrom">
+        </div>
+        <div class="form-group mb-3">
+          <label for="ddlTransactionType">Transaction:</label>
+          <select class="form-select" id="ddlTransactionType" [(ngModel)]="_TransactionSelected">
+              <option value="0">All</option>
+              <option value="1">Payments</option>
+              <option value="2">Adjustments</option>
+          </select>
+        </div>
+        <!-- <div class="form-group mb-3">
+          <label for="ddlTransactionType">Currency:</label>
+          <select class="form-control" [(ngModel)]="_CurrencySelected">
+            <option *ngFor="let currency of CurrencyList" [value]="currency.IdCurrency">
+              {{currency.Currency}}  
+            </option>
+          </select>
+        </div> -->
+        <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-table">
+        <div class="card-body">
+          <app-responsive-table [data]="reportData" [columns]="columns" [loading]="_loadingReport"></app-responsive-table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+      </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>
+
+
+
+<app-landscape-notice></app-landscape-notice>

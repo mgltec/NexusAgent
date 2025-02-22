@@ -1,0 +1,249 @@
+.classic-principal-container{
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    // padding: 0 40px;
+    &-dashboard{
+        // padding-top: 30px;
+        width: 50%;
+    }
+}
+
+.classic-pblue{
+    background-color: #003a74;
+    padding: 8px 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 500;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.classic-dashboard{
+    width: 50%;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #000;
+    font-weight: 500;
+    p{
+        margin: 0;
+        font-size: 14px;
+    }
+}
+
+.classic-hotlinks{
+    display: flex;
+    gap: 10px;
+    
+    justify-content: center;
+    width: 100%;
+    margin: 15px auto;
+
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        // width: 100%;
+
+        button{
+            height: 40px;
+            background-color: #333333;
+            border: none;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: 500;
+
+            &:hover{
+                background-color: gray;
+                border-bottom: 3px solid #003a74;
+            }
+
+        }
+    }
+}
+
+.classic-features{
+    list-style: none;
+    font-weight: 600;
+    font-size: 17px;
+    color: #003a74;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    // flex-direction: column;
+    gap: 10px;
+    margin: 30px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 0;
+
+
+    li{
+        &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+
+@media only screen and (max-width:1024px){
+    .classic-principal-container{
+        flex-direction: column;
+
+        &-dashboard{
+            width: 100%;
+        }
+
+        &-chatimg{
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .classic-dashboard{
+        width: 100%;
+    }
+    .classic-features{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width:450px){
+    .classic-features{
+        grid-template-columns: 1fr;
+    }
+}
+
+.back{
+    font-size: 14px;
+    font-weight: 600;
+    color: #003a74;
+    cursor: pointer;
+    padding: 50px 0 0 50px;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 0;
+    &:hover{
+        opacity: 0.8;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .back{
+        padding: 30px 0 0 30px;
+    }
+
+    .tree{
+        width: 100%;
+        // margin-bottom: 15px;
+    }
+}
+
+.classic-features-btn{
+    background-color: #003a74;
+    color: #ffffff;
+    // height: 30px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 18px 1px rgba(49, 53, 72, 0.1);
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    min-width: 35px;
+    min-height: 35px;
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid white;
+    background-color: #003a74;
+  }
+  
+  .tree {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .btn-tree{
+        background: #333333 !important;
+        color: #FFFFFF;
+    }
+  
+    > .list-group {
+      > .list-group-item {
+        border: none;
+        border-width: 0 !important;
+      }
+    }
+  
+    ul {
+    //   width: 100%;
+      padding-left: 50px;
+      margin-left: -0px;
+      margin-bottom: -1px;
+    //   background: white;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      border-style: dotted;
+      border-width: 1px 0 0 0;
+      background-color: #FFFFFF;
+    }
+  
+    .list-group {
+      padding-bottom: 35px;
+      border-width: 0;
+      padding-left: 0;
+      overflow-y: scroll;
+      height: 100vh;
+
+    //   i{
+    //     color: white;
+    //   }
+      
+
+      &::-webkit-scrollbar{
+        display: none;
+      }
+  
+      .list-group-item {
+        padding: 0 0 0 1.25rem;
+        width: 100%;
+        border-style: dotted;
+        border-width: 0 0 1px 1px;
+        background-color: #FFFFFF;
+  
+        .list-agent {
+          top: 26px;
+          height: 50px;
+          background-color: #FFFFFF;
+          width: 100%;
+          z-index: 1;
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+  
+          i {
+            cursor: pointer;
+            margin-right: 4px;
+          }
+  
+          .avatar {
+            margin-right: 4px;
+          }
+  
+          button {
+            background-color: white;
+            min-width: 110px;
+          }
+        }
+      }
+    }
+  }

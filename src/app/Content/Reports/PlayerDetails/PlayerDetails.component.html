@@ -1,0 +1,737 @@
+<div *ngIf="_PlayerInfo != null && _PlayerInfo != undefined">
+
+  <H6><span>Details for account: {{_Player}} from
+      {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}} to
+      {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}}</span></H6>
+
+  <p-dialog header="Player Management - Account Editing" [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000" p-dialog-titlebar="background-color: red;" [draggable]="false"
+    [resizable]="false">
+
+    <div class="pill">Player: {{_Player}}</div>
+
+    <app-EditPlayer [player]="_Player" [idplayer]="_idPlayer"></app-EditPlayer>
+
+    <ng-template pTemplate="footer">
+      <button type="button" (click)="displayModal=false" class="btn btn-outline-danger">Close</button>
+    </ng-template>
+  </p-dialog>
+
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-table">
+        <div class="card-header">
+          <div class="card-row">
+            <div>
+              <i class="fas fa-th"></i>
+              <span>Player Information</span>
+            </div>
+            <button (click)="GetPlayerInformation()" type="button" class="btn btn-light btn-sm float-right border"><i class="fas fa-sync-alt"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fa-3x spinner" *ngIf="_loadingPlayerInfo">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+
+          <div class="table-responsive" *ngIf="!_loadingPlayerInfo">
+            <table class="table table-bordered table-sm table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>AGENT/PLAYER</th>
+                  <th>PASSWORD</th>
+                  <th>BALANCE</th>
+                  <th>AT RISK</th>
+                  <th>CREDIT</th>
+                  <th>WAGER LIMIT</th>
+                  <th>LIFE TIME NET</th>
+                  <th>PROFILE</th>
+                  <th>ENABLED</th>
+                  <th>ONLINE</th>
+                  <th>LAST</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="action-cell">
+                    <button type="button" (click)="showModalDialog()" class="btn btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                    <button type="button" (click)="open(contentTrans)" class="btn btn-outline-secondary"><i class="fas fa-credit-card"></i></button>
+                    <button type="button" (click)="gotoPlayerHistory()" class="btn btn-outline-secondary"><i class="fas fa-history"></i></button>
+                  </td>
+                  <td>{{_PlayerInfo.Agent}} / {{_PlayerInfo.Player}}</td>
+                  <td>{{_PlayerInfo.Password}}</td>
+                  <td class="text-right" [ngClass]="calculateClasses(_PlayerInfo.Current_Balance)">
+                    {{_PlayerInfo.Current_Balance |
+                    number: '1.2-2'}}</td>
+                  <td style="text-align: right;  cursor: pointer;"  [ngClass]="calculateClasses(_PlayerInfo.Amount_at_Risk)" (click)="GetPlayerOpenBets(_idPlayer, contentOpenBets)">
+                    {{_PlayerInfo.Amount_at_Risk
+                    |
+                    number: '1.2-2'}}</td>
+                  <td class="text-right">{{_PlayerInfo.Temp_Credit}}</td>
+                  <td class="text-right">{{_PlayerInfo.MaxWager}}</td>
+                  <td  class="text-right" [ngClass]="calculateClasses(_lifeTimeNet)" >{{_lifeTimeNet | number: '1.2-2'}}</td>
+                  <td>Profile name: {{_PlayerInfo.ProfileName}} Line Style: {{_PlayerInfo.LineStyle}}</td>
+                  <td style="text-align: center;"> <i class="fa fa-times-circle fa-listing red"
+                      *ngIf="_PlayerInfo.Status == 'D'"></i> <i class="fa fa-check-circle fa-listing green"
+                      *ngIf="_PlayerInfo.Status== 'E'"></i> </td>
+                  <td style="text-align: center;"> <i class="fa fa-times-circle fa-listing red"
+                      *ngIf="!_PlayerInfo.OnlineAccess"></i> <i class="fa fa-check-circle fa-listing green"
+                      *ngIf="_PlayerInfo.OnlineAccess"></i> </td>
+                  <td>{{_PlayerInfo.LastWager}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-table">
+        <div class="card-header">
+          <div class="card-row">
+            <div>
+              <i class="fas fa-th"></i>
+              <span>All Transactions from {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}} to {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}}  </span>
+            </div>
+            <button (click)="GetPlayerTransaction()" type="button" class="btn btn-light btn-sm float-right border"><i class="fas fa-sync-alt"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fa-3x spinner" *ngIf="_loadingPlayerTran">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+
+
+          <div class="table-responsive" *ngIf="!_loadingPlayerTran">
+            <table class="table table-bordered table-sm table-striped">
+              <thead>
+                <tr>
+                  <th class="frozen-column">DATE</th>
+                  <th>SPORT</th>
+                  <th>TRANSACTION</th>
+                  <th>TYPE</th>
+                  <th>DESCRIPTION</th>
+                  <th>RESULT</th>
+                  <th>RISK AMOUNT</th>
+                  <th>WIN AMOUNT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let trans of _PlayerTransaction">
+                  <td class="frozen-column">{{trans.PlacedDate | date: 'MM/dd/yyyy'}}</td>
+                  <td>{{trans.IdSport}}</td>
+                  <td>{{trans.IdWager}}</td>
+                  <td>{{trans.HeaderDescription}}</td>
+                  <td>{{trans.DetialDescription}}</td>
+                  <td [ngClass]="{'red': trans.HeaderResult == 'LOSE', 'green': trans.HeaderResult == 'WIN'}">
+                    {{trans.HeaderResult}}</td>
+                  <td class="text-right" [ngClass]="calculateClasses(trans.RiskAmount)">{{trans.RiskAmount}}</td>
+                  <td class="text-right" [ngClass]="calculateClasses(trans.RiskAmount)">{{trans.WinAmount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-table">
+        <div class="card-header">
+          <div class="card-row">
+            <div>
+              <i class="fas fa-th"></i>
+              <span>Balance History</span>
+            </div>
+            <button (click)="GetPlayerBalanceHistory()" type="button" class="btn btn-light btn-sm float-right border"><i class="fas fa-sync-alt"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fa-3x spinner" *ngIf="_loadingPlayerBalanceHistory">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+
+
+          <div class="table-responsive" *ngIf="!_loadingPlayerBalanceHistory">
+            <table class="table table-bordered table-sm table-striped">
+              <thead>
+                <tr>
+                  <th class="frozen-column">DATE</th>
+                  <th>MON</th>
+                  <th>TUE</th>
+                  <th>WED</th>
+                  <th>THU</th>
+                  <th>FRI</th>
+                  <th>SAT</th>
+                  <th>SUN</th>
+                  <th>BALANCE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.DTDay1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LDay1)">{{_PlayerBalanceHistory.LDay1 | number: '1.2-2'}}</span>
+                  </td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LDay2)">
+                      {{_PlayerBalanceHistory.LDay2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LDay3)">
+                      {{_PlayerBalanceHistory.LDay3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LDay4)">
+                      {{_PlayerBalanceHistory.LDay4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LDay5)">
+                      {{_PlayerBalanceHistory.LDay5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LDay6)">
+                      {{_PlayerBalanceHistory.LDay6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LDay7)">
+                      {{_PlayerBalanceHistory.LDay7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.LTotal)">
+                      {{_PlayerBalanceHistory.LTotal | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.DLDay1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TDay1)">
+                      {{_PlayerBalanceHistory.TDay1 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TDay2)">
+                      {{_PlayerBalanceHistory.TDay2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TDay3)">
+                      {{_PlayerBalanceHistory.TDay3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TDay4)">
+                      {{_PlayerBalanceHistory.TDay4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TDay5)">
+                      {{_PlayerBalanceHistory.TDay5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TDay6)">
+                      {{_PlayerBalanceHistory.TDay6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TDay7)">
+                      {{_PlayerBalanceHistory.TDay7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.TTotal)">
+                      {{_PlayerBalanceHistory.TTotal | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.D3Day1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Day1)">
+                      {{_PlayerBalanceHistory.W3Day1 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Day2)">
+                      {{_PlayerBalanceHistory.W3Day2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Day3)">
+                      {{_PlayerBalanceHistory.W3Day3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Day4)">
+                      {{_PlayerBalanceHistory.W3Day4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Day5)">
+                      {{_PlayerBalanceHistory.W3Day5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Day6)">
+                      {{_PlayerBalanceHistory.W3Day6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Day7)">
+                      {{_PlayerBalanceHistory.W3Day7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W3Total)">
+                      {{_PlayerBalanceHistory.W3Total | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.D4Day1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Day1)">
+                      {{_PlayerBalanceHistory.W4Day1 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Day2)">
+                      {{_PlayerBalanceHistory.W4Day2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Day3)">
+                      {{_PlayerBalanceHistory.W4Day3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Day4)">
+                      {{_PlayerBalanceHistory.W4Day4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Day5)">
+                      {{_PlayerBalanceHistory.W4Day5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Day6)">
+                      {{_PlayerBalanceHistory.W4Day6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Day7)">
+                      {{_PlayerBalanceHistory.W4Day7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W4Total)">
+                      {{_PlayerBalanceHistory.W4Total | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.D5Day1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Day1)">
+                      {{_PlayerBalanceHistory.W5Day1 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Day2)">
+                      {{_PlayerBalanceHistory.W5Day2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Day3)">
+                      {{_PlayerBalanceHistory.W5Day3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Day4)">
+                      {{_PlayerBalanceHistory.W5Day4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Day5)">
+                      {{_PlayerBalanceHistory.W5Day5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Day6)">
+                      {{_PlayerBalanceHistory.W5Day6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Day7)">
+                      {{_PlayerBalanceHistory.W5Day7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W5Total)">
+                      {{_PlayerBalanceHistory.W5Total | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.D6Day1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Day1)">
+                      {{_PlayerBalanceHistory.W6Day1 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Day2)">
+                      {{_PlayerBalanceHistory.W6Day2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Day3)">
+                      {{_PlayerBalanceHistory.W6Day3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Day4)">
+                      {{_PlayerBalanceHistory.W6Day4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Day5)">
+                      {{_PlayerBalanceHistory.W6Day5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Day6)">
+                      {{_PlayerBalanceHistory.W6Day6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Day7)">
+                      {{_PlayerBalanceHistory.W6Day7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W6Total)">
+                      {{_PlayerBalanceHistory.W6Total | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.D7Day1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Day1)">
+                      {{_PlayerBalanceHistory.W7Day1 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Day2)">
+                      {{_PlayerBalanceHistory.W7Day2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Day3)">
+                      {{_PlayerBalanceHistory.W7Day3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Day4)">
+                      {{_PlayerBalanceHistory.W7Day4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Day5)">
+                      {{_PlayerBalanceHistory.W7Day5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Day6)">
+                      {{_PlayerBalanceHistory.W7Day6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Day7)">
+                      {{_PlayerBalanceHistory.W7Day7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W7Total)">
+                      {{_PlayerBalanceHistory.W7Total | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td class="frozen-column">{{_PlayerBalanceHistory.D8Day1}}</td>
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Day1)">
+                      {{_PlayerBalanceHistory.W8Day1 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Day2)">
+                      {{_PlayerBalanceHistory.W8Day2 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Day3)">
+                      {{_PlayerBalanceHistory.W8Day3 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Day4)">
+                      {{_PlayerBalanceHistory.W8Day4 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Day5)">
+                      {{_PlayerBalanceHistory.W8Day5 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Day6)">
+                      {{_PlayerBalanceHistory.W8Day6 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Day7)">
+                      {{_PlayerBalanceHistory.W8Day7 | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                  <td class="text-right">
+                    <span [ngClass]="calculateClasses(_PlayerBalanceHistory.W8Total)">
+                      {{_PlayerBalanceHistory.W8Total | number: '1.2-2'}}
+                    </span>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+  <ng-template #contentTrans let-modal>
+    <div class="modal-header" style="background-color: #337ab7;">
+      <h4 class="modal-title" id="modal-basic-title" style="color:white">Player transaction</h4>
+      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      Add Player Adjustment
+
+
+      <div *ngIf="_idPlayer != null">
+        <app-PlayerTransaction [idplayer]="_idPlayer"></app-PlayerTransaction>
+      </div>
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+
+    </div>
+  </ng-template>
+
+
+
+
+  <p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+    <h5>Filters</h5>
+    <hr>
+    <div class="row mb-2 mt-2">
+      <div class="col">
+        <button onclick="window.print();" class="btn btn-light btn-smaction-bar-link fa fa-print fa-2x mr-3"></button>
+        <button onclick="refresh()" class="btn btn-light btn-sm action-bar-link fa fa-redo fa-2x"></button>
+      </div>
+    </div>
+  
+    <!-- <div class="form-group">
+      <p-dropdown styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent"
+        [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Select an Agent"
+        (onChange)="OnChangeAgent();">
+        <ng-template pTemplate="selectedItem">
+          <div *ngIf="this.agentSelected._agent">
+            <div>{{agentSelected._agent}}</div>
+          </div>
+        </ng-template>
+        <ng-template let-Agente pTemplate="item">
+          <div>
+            <div>{{Agente.value._agent}}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div> -->
+  
+    <div class="form-group">
+      <label for="txtagent">Week:</label>
+      <select [(ngModel)]="_currentUser.RangeDateSelected" class="custom-select" (change)="onChangeDateSelection($event)">
+        <option *ngFor="let week of _currentUser.WeekList; let i = index" [value]="i">
+          {{week.MonDate| date: 'MM/dd/yyyy'}} - {{week.SunDate | date: 'MM/dd/yyyy'}}
+        </option>
+      </select>
+    </div>
+  
+    <!-- <div class="form-group mb-3">
+      <div class="form-group mb-1" id="divSports">
+        <label for="cars">Business Unit:</label>
+        <select class="custom-select" name="ddlbusinessUnit" id="ddlbusinessUnit" [(ngModel)]="businessUnitSelected"
+          (change)="businessUnitChange()">
+          <option value="-1">All Units</option>
+          <option value="0">Sports</option>
+          <option value="1">Casino</option>
+          <option value="2">Racing</option>
+        </select>
+      </div>
+    </div> -->
+  
+  
+  </p-sidebar>
+
+
+
+</div>
+
+<ng-template #contentOpenBets let-modal>
+  <div class="modal-header" style="background-color: #337ab7;">
+    <h4 class="modal-title" id="modal-basic-title" style="color:white">Player Open Bets</h4>
+    <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Placed</th>
+          <th scope="col">User/Phone</th>
+          <th scope="col">WagerType</th>
+          <th scope="col">Game Date</th>
+          <th scope="col">Sport</th>
+          <th scope="col">Description</th>
+          <th scope="col">Risk/Win</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hist of OpenBets.wagers">
+          <td>{{hist._PlacedDate}}</td>
+          <td>{{hist._UserName}}</td>
+          <td>{{hist._HeaderDesc}}</td>
+          <td>
+            <ul *ngFor="let value1 of hist.details">
+              <li>{{value1._GameDate}} {{value1._GameTime}}</li>
+            </ul>
+          </td>
+          <td>
+            <ul *ngFor="let value1 of hist.details">
+              <li>{{value1._IdSport}}</li>
+            </ul>
+          </td>
+          <td>
+            <ul *ngFor="let value1 of hist.details">
+              <li [innerHTML]="value1._DetailDesc"></li>
+            </ul>
+          </td>
+          <td>{{hist._RiskAmount}}/{{hist._WinAmount}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>

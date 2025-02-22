@@ -1,0 +1,36 @@
+.text-input {
+  border: 1px solid #e8e8f7;
+  margin-bottom: 24px;
+
+  input {
+    height: 32px;
+    outline: none !important;
+    width: 100%;
+  }
+}
+
+.button-input {
+  text-align: center !important;
+  background-color: rgb(24, 27, 44) !important;
+}
+
+.button-input:hover {
+  background-color: rgb(2, 11, 20) !important;
+}
+
+.button-input:disabled {
+  background-color: rgb(130, 134, 136) !important;
+}
+
+
+::ng-deep{
+  .p-drop{
+    .p-dropdown{
+      width: 100%;
+      border-radius: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 7px 0;
+    }
+  }
+}

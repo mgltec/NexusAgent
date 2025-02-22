@@ -1,0 +1,25 @@
+<div class="classic-container">
+  <p class="classic-pblue">Information</p>
+  <div class="classic-container-row">
+    <div class="classic-container-card" *ngIf="hasRight(188)">
+      <img src="../../../assets/images/classic/information/information1.png" alt="information 1">
+      <button class="classic-button" [routerLink]="'/mainclassic/playeractivity'">Player Activity</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(172)">
+      <img src="../../../assets/images/classic/information/information2.png" alt="information 2">
+      <button class="classic-button" [routerLink]="'/mainclassic/holdpercent'">Hold Percent</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(197)">
+      <img src="../../../assets/images/classic/information/information3.png" alt="information 3">
+      <button class="classic-button" [routerLink]="'/mainclassic/topplayers'">Top Players</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(175)">
+      <img src="../../../assets/images/classic/information/information4.png" alt="information 4">
+      <button class="classic-button" [routerLink]="'/mainclassic/webvsphone'">Web vs Phone</button>
+    </div>
+    <div class="classic-container-card" *ngIf="hasRight(191)">
+      <img src="../../../assets/images/classic/information/information5.png" alt="information 5">
+      <button class="classic-button" [routerLink]="'/mainclassic/playeraccess'">Player Access</button>
+    </div>
+  </div>
+</div>

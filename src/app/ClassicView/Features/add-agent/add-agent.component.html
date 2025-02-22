@@ -1,0 +1,96 @@
+<div class="classic-add-player-container">
+  <!-- <p (click)="changeStep(1)" class="back"><i class="fa fa-chevron-left"></i> Back</p> -->
+  
+  <h5>Add Agent</h5>
+
+  
+    <form action="" [formGroup]="agentForm" (ngSubmit)="onSubmit()" class="classic-add-player">
+      <div class="classic-add-player-group">
+        <h4>Agent Login</h4>
+        <div class="classic-add-player-group-input">
+          <label for="username">*Master Agent:</label>
+          <p-dropdown 
+            [options]="agentList" 
+            optionLabel="Agent" 
+            placeholder="Choose one"
+            (onChange)="onAgentChange($event.value)"
+            >
+          </p-dropdown>
+          <!-- Mensaje de error si el campo es requerido y está vacío -->
+          <div *ngIf="agentForm.get('masterAgent')?.invalid && agentForm.get('masterAgent')?.touched">
+            <small>* This field is required.</small>
+          </div>
+        </div>
+        <div class="classic-add-player-group-input">
+          <label for="username">*Agent Username:</label>
+          <input type="text" formControlName="agentUsername" class="form-control">
+          <!-- Mensaje de error si el campo es requerido y está vacío -->
+          <div *ngIf="agentForm.get('agentUsername')?.invalid && agentForm.get('agentUsername')?.touched">
+            <small>* This field is required.</small>
+          </div>
+        </div>
+        <div class="classic-add-player-group-input">
+          <label for="password">*Password:</label>
+          <input type="password" formControlName="password" class="form-control">
+          <div *ngIf="agentForm.get('password')?.invalid && agentForm.get('password')?.touched">
+            <small>* This field is required.</small>
+          </div>
+        </div>
+      
+        <div class="classic-add-player-group-input">
+          <label for="confirmPassword">*Confirm Password:</label>
+          <input type="password" formControlName="confirmPassword" class="form-control">
+          <div *ngIf="agentForm.get('confirmPassword')?.invalid && agentForm.get('confirmPassword')?.touched">
+            <small>* This field is required.</small>
+          </div>
+        </div>
+        <div class="classic-add-player-group-input classic-checkbox">
+          <input type="checkbox" formControlName="distributor">
+          <label for="">*Distributor</label>
+        </div>
+      </div>
+      <div class="classic-add-player-group">
+        <h4>Agent Commission</h4>
+        <div class="classic-add-player-group-input">
+          <label for="name">Make Up:</label>
+          <input type="number" formControlName="makeUp" class="form-control">
+        </div>
+      
+        <div class="classic-add-player-group-input">
+          <label for="lastName">Comm Percent:</label>
+          <input type="number" formControlName="commPercent" class="form-control">
+        </div>
+        <div class="classic-add-player-group-input classic-checkbox">
+          <label for="">Carry Over Player Balances</label>
+          <input type="checkbox" formControlName="carryOver">
+        </div>
+      </div>
+      <div class="classic-add-player-group">
+        <h4>Agent Info</h4>
+        <div class="classic-add-player-group-input">
+          <label for="name">Name:</label>
+          <input type="text" formControlName="name" class="form-control">
+        </div>
+      
+        <div class="classic-add-player-group-input">
+          <label for="lastName">Last Name:</label>
+          <input type="text" formControlName="lastName" class="form-control">
+        </div>
+        <button type="submit" class="btnAddPlayer" >Add Agent</button>
+      </div>
+      <!-- <div class="classic-add-player-group">
+        <h4>Agent Line Type</h4>
+        <div class="classic-add-player-group-input">
+          <label for="">Line Type</label>
+          <select name="" id="" class="form-control">
+            <option value="">Select</option>
+          </select>
+        </div>
+        
+        
+      </div> -->
+    </form>
+
+</div>
+
+<p-toast></p-toast>
