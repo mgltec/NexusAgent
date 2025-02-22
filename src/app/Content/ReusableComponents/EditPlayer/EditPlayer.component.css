@@ -1,0 +1,30 @@
+.form-row {
+    display: flex;
+    margin-right: -5px;
+    margin-left: -5px;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.form-row-item{
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-r-item{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+@media screen and (max-width:775px) {
+    .form-row{
+        flex-direction: column;
+    }
+    .form-row-item{
+        width: 100%;
+    }
+}

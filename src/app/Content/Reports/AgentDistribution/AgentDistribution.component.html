@@ -1,0 +1,55 @@
+
+<div *ngIf="week!=null">
+  <h6><span >Distribution for agent: {{_currentUser.AgentSelected}} from 
+    {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}} to {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}} </span></h6>
+</div>
+
+
+<p-accordion [style]="{'margin-bottom': '10px;'}">
+  <p-accordionTab header="Filters">
+    <h5 class="card-title">Filters</h5>
+    <hr>
+    <div class="filter-items">
+      <div class="form-group mb-3">
+        <label for="txtagent">Agent:</label>
+        <select [(ngModel)]="agentSelected" class="custom-select">
+          <option *ngFor="let agent of agentList" [value]="agent._idagent">
+            {{agent._agent}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="txtagent">Week:</label>
+        <select [(ngModel)]="weekSelected" class="custom-select">
+          <option *ngFor="let week of weekList; let i = index" [value]="i">
+            {{week.MonDate| date: 'MM/dd/yyyy'}} - {{week.SunDate | date: 'MM/dd/yyyy'}}
+          </option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" (click)="GetReport()">Submit</button>
+    </div>
+  </p-accordionTab>
+</p-accordion>
+
+<hr>
+<div class="row">
+  <div class="col-12">
+    <div class="card card-table">
+      <div class="card-body">
+        <app-responsive-table [data]="reportData" [columns]="columns" [loading]="_loadingReport"></app-responsive-table>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+      </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>

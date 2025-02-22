@@ -1,0 +1,19 @@
+<div *ngIf="AgentInformation != null && AgentInformation != undefined && AgentDetails != null && AgentDetails != undefined">
+
+  Agent: {{AgentDetails.Agent}}
+
+  <p-toast></p-toast>
+
+  <div class="form-group mb-3">
+    <label for="txtAccount">Account</label>
+    <input type="text" class="form-control" id="txtAccount" [(ngModel)]="AgentInformation.Agent">
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+  <div class="form-group mb-3">
+    <label for="txtPassword">Password</label>
+    <input type="text" class="form-control" id="txtPassword" [(ngModel)]="AgentInformation.Password">
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+  <button type="button" class="btn btn-primary" (click)="InsertSubAgent()">Create Sub Agent</button>
+
+</div>

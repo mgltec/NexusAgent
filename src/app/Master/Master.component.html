@@ -1,0 +1,508 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button *ngIf="isDesktop" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div [ngClass]="{collapse: isDesktop}" class="navbar-collapse flex justify-content-between" id="navbarSupportedContent">
+    <ul class="navbar-nav main-nav mr-auto gap-2">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/mainbk/agentplayermagment">
+          <i class="fa-solid fa-border-all"></i>
+          Home <span class="sr-only">(current)</span>
+          <span class="empty"></span>
+        </a>
+      </li>
+
+      <!-- <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+           <i class="fa-solid fa-chart-simple"></i>
+           Figures
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem *ngIf="hasRight(163)" class="dropdown-item" routerLink="/mainbk/weeklyClassic">Weekly Balance Classic</a>
+            <a ngbDropdownItem *ngIf="hasRight(163)" class="dropdown-item" routerLink="/mainbk/weeklydaysheet">Weekly Balance V2</a>
+            <a ngbDropdownItem *ngIf="hasRight(168)" class="dropdown-item" routerLink="/mainbk/playerstanding">Player Standings</a>
+            <a ngbDropdownItem *ngIf="hasRight(166)" class="dropdown-item" routerLink="/mainbk/playeraction">Action by Player</a>
+            <div class="dropdown-divider"></div>
+            <a ngbDropdownItem *ngIf="hasRight(176)" class="dropdown-item" routerLink="/mainbk/playertotal">Player Totals</a>
+            <a ngbDropdownItem *ngIf="hasRight(185)" class="dropdown-item" routerLink="/mainbk/agentgrossweek">Gross Week</a>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+           <i class="fa-solid fa-circle-dollar-to-slot"></i>
+           Financial
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/openbets">Open Parlays</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerhistory">Player History</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playeraction">Action by Player</a>
+            <!-- <a ngbDropdownItem *ngIf="hasRight(170)" class="dropdown-item" routerLink="/mainbk/agentposition">Agent Position</a>
+            <div class="dropdown-divider"></div>
+            <a ngbDropdownItem *ngIf="hasRight(169)" class="dropdown-item" routerLink="/mainbk/agentexposure">Agent Exposure</a>
+            <a ngbDropdownItem *ngIf="hasRight(173)" class="dropdown-item" routerLink="/mainbk/changedWager">Change Wager</a>
+            <a ngbDropdownItem *ngIf="hasRight(186)" class="dropdown-item" routerLink="/mainbk/agentwagers">Wager Listing</a>
+            <div class="dropdown-divider"></div>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentwagersticket">Wagers Ticker (Live)</a> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+           <i class="fa fa-briefcase"></i>
+           Tools
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/qrgenerator">QR Generator</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="fa-solid fa-people-group"></i>
+              Agents
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem *ngIf="hasRight(171)" class="dropdown-item" routerLink="/mainbk/agentdistribution">Agent Distribution</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agenthistory">Agent History</a>
+            <a class="dropdown-item" ngbDropdownItem routerLink="/mainbk/actionbyplayers">Action By Players</a>
+            <div class="dropdown-divider"></div>
+            <a ngbDropdownItem *ngIf="hasRight(182)" class="dropdown-item" routerLink="/mainbk/agentcommission">Agent Commission</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/smsalert">SMS Alert</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/telegram">Telegram Bet Alert</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerip">IP Report</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/hiddenleagues">Hidden Leagues</a>
+            <a ngbDropdownItem *ngIf="hasRight(200)" class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
+            <a ngbDropdownItem *ngIf="hasRight(204)" class="dropdown-item" (click)="open(contentNewSubAgent)">Add SubAgent</a>
+            <a ngbDropdownItem *ngIf="hasRight(195)" class="dropdown-item" (click)="open(contentAgentTrans)">Add Adjustment</a>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="fa-solid fa-person"></i>
+            Player Management
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem *ngIf="hasRight(167)" class="dropdown-item" routerLink="/mainbk/agentplayermagment">Players Management</a>
+            <a ngbDropdownItem class="dropdown-item" (click)="open(contentLookup)">Look up Player</a>
+            <a ngbDropdownItem *ngIf="hasRight(200)" class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
+            <a ngbDropdownItem class="dropdown-item" (click)="open(contentPlayerEdit)">Edit Player</a>
+            <a ngbDropdownItem class="dropdown-item" (click)="open(contentTrans)">Add Payment</a>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="fa-solid fa-receipt"></i>
+            Service Billing
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/resellerProgram">Reseller Program (coming soon)</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/layOffAccount">Lay off account (coming soon)</a>
+          </div>
+        </div>
+      </div> -->
+
+      
+      <!-- <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="fa-solid fa-chart-line"></i>
+            Financial
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem *ngIf="hasRight(174)" class="dropdown-item" routerLink="/mainbk/agentcashflow">Cash Flow</a>
+            <a ngbDropdownItem *ngIf="hasRight(187)" class="dropdown-item" routerLink="/mainbk/agentweeklypayment">Weekly Payments</a>
+            <a ngbDropdownItem *ngIf="hasRight(183)" class="dropdown-item" routerLink="/mainbk/agentadjusment">Agent Adjustment</a>
+            <div class="dropdown-divider"></div>
+            <a ngbDropdownItem *ngIf="hasRight(189)" class="dropdown-item" routerLink="/mainbk/agentsettledfigure">Settled Figures</a>
+            <a ngbDropdownItem class="dropdown-item" (click)="open(contentTrans)">Player Payments</a>
+            <div class="dropdown-divider"></div>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/beattheline">Beat the line</a>
+          </div>
+        </div>
+      </div> -->
+      <!-- <li class="nav-item" *ngIf="_isPhone">
+        <a class="nav-link" href="tel:855-219-5820"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span>
+            <i class="fa-solid fa-phone"></i>
+            855-219-5820
+          </span>
+        </a>
+       
+      </li>
+      <li *ngIf="isDesktop">
+        <a class="nav-link"><i data-toggle="tooltip" title="Exit" (click)="display = true">Agent Tree</i> </a>
+      </li> -->
+    </ul>
+    <ul class="navbar-nav navbar-right nav-item-logout">
+      <li>
+        <a href="#" class="nav-link"><i class="fa fa-power-off text-danger" style="font-size: 1.3rem" data-toggle="tooltip" title="Exit" (click)="logout()"></i> </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<p-sidebar  *ngIf="display" [(visible)]="display" styleClass="p-sidebar-md" position="left" (onHide)="onHide()">
+  <h4>Agent Tree</h4>
+  <ul class="list-group">
+    <ng-template #recursiveList let-nodes>
+      <!-- nodos: {{nodes | json}} -->
+      <li *ngFor="let node of nodes" class="list-group-item">
+        <!-- el nodo: -->
+        <div class="list-agent" *ngIf="node != undefined">
+          <i *ngIf="node.children.length > 0" (click)="toggleNode(node)" [class]="'fas fa-' + (node.expanded ? 'minus' : 'plus')"></i>
+          <div class="avatar">{{node.Agent | getInitials}}</div>
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="nodeSelect(node)">{{ node.Agent }}</button><input *ngIf="node.children.length == 0" class="form-check-input ml-2" type="checkbox" value="" id="flexCheckChecked" [(ngModel)]="node.AgentExcluded" (ngModelChange)="onCheckboxChange(node)">
+        </div>
+        <div *ngIf="node != undefined">
+          <ul *ngIf="node.expanded && node.children?.length > 0">
+            <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: node.children }"></ng-container>
+          </ul>
+        </div>
+      </li>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: [rootNode] }"></ng-container>
+  </ul>
+</p-sidebar>
+
+<div #content class="container-fluid" [class]="{ 'menu-opened': menuOpened }" (touchstart)="touchStart($event)" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+  <div class="backdrop" [class]="{ show: !isDesktop && menuOpened }" (click)="closeMenu()"></div>
+  <div *ngIf="!isDesktop" class="header">
+    <div class="header-bars" (click)="openMenu()">
+      <i class="fa fa-bars"></i>
+    </div>
+    <!-- <img [ngClass]="{ hidden: scrollPosition > 80 }" class="h-12" src="../../../../assets/images/logo.png" alt="" /> -->
+  </div>
+
+  <div *ngIf="rootNode" class="" id="pageFilters" (click)="openSidebar()">
+    <div class="title">
+      <span>Agent Tree ({{rootNode.children.length}})</span>
+    </div>
+    <div class="agents">
+      <div>+{{rootNode.children.length - rootNode.children.slice(0, 4).length}}</div>
+      <div *ngFor="let item of rootNode.children.slice(0, 4).reverse()">
+        {{item.Agent | getInitials}}
+      </div>
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+
+  <ng-template #contentLookup let-modal>
+    <div class="modal-header" style="background-color: #337ab7">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
+      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="height: 300px">
+      <div class="form-group">
+        <p>First select the agent:</p>
+        <div class="fa-3x" *ngIf="_loadingAgentList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.AgentSelected._agent">
+              <div>{{ AgentSelected._agent }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value._agent }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+  
+        <p>Select player:</p>
+        <div class="fa-3x" *ngIf="loadingPlayerList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+  
+        <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.playerSelected.Player">
+              <div>{{ playerSelected.Player }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value.Player }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="alert alert-primary" role="alert">Note: You will be redirected to the Player Details page after pressing 'Continue'.</div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+      <button type="button" class="btn btn-outline-primary" (click)="gotoPlayerDetails()">Continue</button>
+    </div>
+  </ng-template>
+
+  <ng-template #contentTrans let-modal>
+    <div class="modal-header" style="background-color: #337ab7">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
+      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Add Player Adjustment
+
+      <div class="fa-3x" *ngIf="loadingPlayerList">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+
+      <div *ngIf="_stepTrans == 1">
+        <p>First select the agent:</p>
+        <div class="fa-3x" *ngIf="_loadingAgentList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.AgentSelected._agent">
+              <div>{{ AgentSelected._agent }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value._agent }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <p>Select player:</p>
+        <div class="fa-3x" *ngIf="loadingPlayerList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+
+        <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.playerSelected.Player">
+              <div>{{ playerSelected.Player }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value.Player }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
+        <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button>
+      </div>
+
+      <div *ngIf="_stepTrans == 2 && playerSelected != null">
+        <app-PlayerTransaction [idplayer]="playerSelected.IdPlayer"></app-PlayerTransaction>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </ng-template>
+
+  <ng-template #contentNewPlayer let-modal>
+    <div class="modal-header" style="background-color: #337ab7">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
+      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Add Player
+
+      <div class="fa-3x" *ngIf="loadingPlayerList">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+
+      <div *ngIf="_stepTrans == 1">
+        <p>First select the agent:</p>
+        <div class="fa-3x" *ngIf="_loadingAgentList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="OpenAddPlayerForm()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.AgentSelected._agent">
+              <div>{{ AgentSelected._agent }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value._agent }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button>
+      </div>
+
+      <div *ngIf="_stepTrans == 2 && AgentSelected != null">
+        <app-AddPlayer [IdAgent]="AgentSelected._idagent"></app-AddPlayer>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </ng-template>
+
+  <ng-template #contentPlayerEdit let-modal>
+    <div class="modal-header" style="background-color: #337ab7">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
+      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Select Player for edit
+  
+      <div *ngIf="_stepTrans == 1">
+        <p>First select the agent:</p>
+        <div class="fa-3x" *ngIf="_loadingAgentList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.AgentSelected._agent">
+              <div>{{ AgentSelected._agent }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value._agent }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+  
+        <p>Select player:</p>
+        <div class="fa-3x" *ngIf="loadingPlayerList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+  
+        <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.playerSelected.Player">
+              <div>{{ playerSelected.Player }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value.Player }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
+        <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button>
+      </div>
+  
+      <div *ngIf="_stepTrans == 2 && playerSelected != null">
+        <!-- <app-PlayerTransaction [idplayer]="playerSelected.IdPlayer"></app-PlayerTransaction> -->
+        <app-EditPlayer [player]="" [idplayer]="playerSelected.IdPlayer"></app-EditPlayer>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </ng-template>
+  <ng-template #contentAgentTrans let-modal>
+    <div class="modal-header" style="background-color: #337ab7">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
+      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Add Agent Payment
+  
+      <div class="fa-3x" *ngIf="loadingPlayerList">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+  
+      <div *ngIf="_stepTrans == 1">
+        <p>First select the agent:</p>
+        <div class="fa-3x" *ngIf="_loadingAgentList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.AgentSelected._agent">
+              <div>{{ AgentSelected._agent }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value._agent }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
+        <button type="button" class="btn btn-outline-primary" (click)="OpenAgentTransForm()">Continue</button>
+      </div>
+  
+      <div *ngIf="_stepTrans == 2 && AgentSelected != null">
+        <app-AgentTransaction [idagent]="AgentSelected._idagent" [agent] = "AgentSelected._agent"></app-AgentTransaction>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </ng-template>
+  <ng-template #contentNewSubAgent let-modal>
+    <div class="modal-header" style="background-color: #337ab7">
+      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
+      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Add SubAgent
+
+      <div class="fa-3x" *ngIf="loadingPlayerList">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+
+      <div *ngIf="_stepTrans == 1">
+        <p>First select the agent:</p>
+        <div class="fa-3x" *ngIf="_loadingAgentList">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="OpenAddSubAgentForm()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="this.AgentSelected._agent">
+              <div>{{ AgentSelected._agent }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-play pTemplate="item">
+            <div>
+              <div>{{ play.value._agent }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <button type="button" class="btn btn-outline-primary" (click)="OpenAddSubAgentForm()">Continue</button>
+      </div>
+
+      <div *ngIf="_stepTrans == 2 && AgentSelected != null">
+        <app-AddSubAgent [IdAgent]="AgentSelected._idagent"></app-AddSubAgent>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,118 @@
+<!-- TODO: Styling (not used?) -->
+<h4>Agent Customer Performance</h4>
+<h6><span>Customer Performace for agent: {{_currentUser.AgentSelected}} From {{_dateRange.Start | date}} To {{_dateRange.End | date}}</span></h6>
+
+<div *ngIf="businessUnit == true">
+
+  <div class="table-responsive">
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>DATE</th>
+        <th class="text-right">SPORTS</th>
+        <th class="text-right">HORSES</th>
+        <th class="text-right">CASINO</th>
+        <th class="text-right">LIVE BETTING</th>
+        <th class="text-right">LIVE CASINO</th>
+        <th class="text-right">TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rep of reportData; let x = index">
+        <td>{{rep.Date}}</td>
+        <td class="text-right">{{rep.Sports }}</td>
+        <td class="text-right">{{rep.Racing}}</td>
+        <td class="text-right">{{rep.Casino}}</td>
+        <td class="text-right">{{rep.LiveBetting}}</td>
+        <td class="text-right">{{rep.LiveDealer}}</td>
+        <td class="text-right">{{rep.Sports + rep.Racing + rep.Casino + rep.LiveBetting + rep.LiveDealer | number:'1.2'}}  </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div *ngIf="businessUnit == false">
+  <div class="table-responsive">
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>DATE</th>
+        <th class="text-right">TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rep of reportData; let x = index">
+        <td>{{rep.Date}}</td>
+        <td class="text-right">{{rep.Sports + rep.Racing + rep.Casino + rep.LiveBetting + rep.LiveDealer | number:'1.2'}}  </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <h5>Filters</h5>
+  <hr>
+  <div class="row mb-2 mt-2">
+    <div class="col">
+      <button onclick="window.print();" class="btn btn-light btn-smaction-bar-link fa fa-print fa-2x mr-3"></button>
+      <button onclick="refresh()" class="btn btn-light btn-sm action-bar-link fa fa-redo fa-2x"></button>
+    </div>
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="txtagent">Agent:</label>
+    <select [(ngModel)]="agentSelected" class="custom-select" (change)="GetPlayerList()">
+      <option *ngFor="let agent of agentList" [value]="agent._idagent">
+      {{agent._agent}}
+      </option>
+    </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="txtagent">Players</label>
+      <select [(ngModel)]="playerSelected" class="custom-select">
+        <option value="0"> All Players </option>
+        <option *ngFor="let player of playerList" [value]="player.IdPlayer">
+        {{player.Player}}
+        </option>
+    </select>
+    </div>
+
+
+  <div class="form-group mb-3">
+    <label for="txtdateFrom">Initial Date:</label>
+    <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.Start"
+      (ngModelChange)="_dateRange.Start = $event" aria-describedby="datefrom">
+  </div>
+  <div class="form-group  mb-3">
+    <label for="txtdateTo">End Date:</label>
+    <input type="date" class="form-control" id="txtdateTo" [(ngModel)]="_dateRange.End" aria-describedby="dateto">
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="txtagent">Group By:</label>
+    <select [(ngModel)]="groupbySelected" class="custom-select">
+      <option value="1"> WEEK </option>
+      <option value="2"> MONTH </option>
+      <option value="3"> YEAR </option>
+    </select>
+  </div>
+  <div class="form-group  mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="chkbusinessunit" [(ngModel)]="businessUnit">
+    <label class="form-check-label" for="businessUnit">Show Business Units</label>
+  </div>
+
+<button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+</p-sidebar>
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+      </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>

@@ -1,0 +1,136 @@
+<h6><span>Player Action from:   {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}} to {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}} </span></h6>
+<p-accordion [style]="{'margin-bottom': '10px;'}">
+  <p-accordionTab header="Filters">
+    <h5>Filters</h5>
+    <hr>
+    <div class="filter-items">
+      <div class="form-group mb-3">
+        <label for="txtdateWeek">Initial Date:</label>
+        <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.Start"
+          (ngModelChange)="_dateRange.Start = $event" aria-describedby="datefrom">
+      </div>
+      <div class="form-group mb-3">
+        <label for="txtdateWeek">End Date:</label>
+        <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.End"
+          (ngModelChange)="_dateRange.End = $event" aria-describedby="datefrom">
+      </div>
+      <!-- <div class="form-group mb-3">
+        <label>Currency:</label>
+        <select class="form-control" [(ngModel)]="_CurrencySelected">
+          <option *ngFor="let currency of CurrencyList" [value]="currency.IdCurrency">
+            {{currency.Currency}}
+          </option>
+        </select>
+      </div> -->
+      <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+    </div>
+  </p-accordionTab>
+</p-accordion>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card card-table">
+      <div class="card-header">
+        <div class="card-title">
+          <i class="fas fa-arrow-circle-down"></i>
+          <span>Master Agent</span>
+        </div>
+        <!-- <button (click)="GetPlayerTopWinLoss()" type="button" class="btn btn-light btn-sm float-right border"><i class="fas fa-sync-alt"></i></button> -->
+      </div>
+      <div class="card-body">
+        <app-responsive-table [data]="[{
+          MasterTPlayers: MasterTPlayers
+        }]" [columns]="totalsColumns" [loading]="_loadingReport"></app-responsive-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngFor="let rep of reportData; let i = index">
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-table">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-arrow-circle-down"></i>
+            <span>{{reportData[i].Agent}}</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- <app-responsive-table [data]="rep.Table" [totalsData]="rep" [columns]="columns2" [loading]="_loadingReport"></app-responsive-table> -->
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered table-striped" *ngIf="!loading">
+              <thead class="table-dark">
+                <tr>
+                    <th *ngFor="let column of columns2" [ngClass]="{'frozen-column': column.frozen}">{{column.title}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="rep.Table?.length === 0">
+                  <td [attr.colspan]="columns.length">
+                    No data available in table
+                  </td>
+                </tr>
+                <tr *ngFor="let item of rep.Table">
+                    <ng-container *ngFor="let column of columns2">
+                      <td *ngIf="column.template" [ngClass]="{'frozen-column': column.frozen}" [class]="column.cellClasses ?? ''" [innerHTML]="column.template(item)"></td>
+                      <td *ngIf="!column.template" [ngClass]="{'frozen-column': column.frozen}" [class]="column.cellClasses ?? ''" >
+                        <a *ngIf="column.route !== undefined" [routerLink]="column.route(item)" [queryParams]="column.params ? column.params(item) : null" [ngClass]="getClasses(item, column)">
+                          {{getValuePipe(item, column)}}
+                        </a>
+                        <span *ngIf="column.route === undefined" [ngClass]="column.key === 'PcHitsAmount' && item.PcHitsAmount > 0 ? 'NumNegative' : getClasses(item, column)">
+                          {{getValuePipe(item, column)}}
+                        </span>
+                      </td>
+                    </ng-container>
+                </tr>
+              </tbody>
+              <!-- <tfoot *ngIf="totalsData && hasTotals">
+                <tr style="background-color: lightyellow; font-weight: bold;">
+                    <td *ngFor="let column of columns" [ngClass]="{'frozen-column': column.frozen}" [class]="getTotalsClasses(column) ?? ''">{{hasTotal(column) ? getTotalsPipe(column) : ""}}</td>
+                </tr> -->
+                <tfoot>
+                  <tr style="background-color: lightyellow; font-weight: bold;">
+                    <td *ngFor="let column of columns2" [ngClass]="{'frozen-column': column.frozen}">
+                      
+                      <p *ngIf="column.key === 'Player'">Total Players: {{ getPlayersTotal(rep.Table) }}</p>
+                      <p *ngIf="column.key === 'Password'">Totals:</p>
+                      <p *ngIf="column.key === 'Parlay'" 
+                      [ngStyle]="{
+                        'color': getTotalAgentParlay(rep.Table) < 0 ? '#008000' : '#d9534f',
+                        'font-weight': 'bold'
+                      }">
+                     {{ getTotalAgentParlay(rep.Table) }}
+                   </p>
+                      <p *ngIf="column.key === 'AmountPcPlayed'" style="color: #008000!important;">{{getTotalAgentPcPlayed(rep.Table)}}</p>
+                      <p *ngIf="column.key === 'PcHits'" style="color: #008000!important;">{{getTotalAgentPcHits(rep.Table)}}</p>
+                      <p *ngIf="column.key === 'PcHitsAmount'" style="color: #008000!important;">{{getTotalAgentPcHitsAmnount(rep.Table)}}</p>
+                    </td>
+                  </tr>
+                </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+
+</p-sidebar>
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }"
+    [template]="customLoadingTemplate"></ngx-loading>
+</div>

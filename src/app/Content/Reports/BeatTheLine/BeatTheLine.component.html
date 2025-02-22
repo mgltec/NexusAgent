@@ -1,0 +1,135 @@
+<H6><span>Beat the line</span></H6>
+<div>
+  <div>
+    <p-accordion [style]="{'margin-bottom': '10px;'}">
+      <p-accordionTab header="Filters">
+        <h5>Filters</h5>
+        <hr>
+        <div class="filter-items">
+          <div class="form-group mb-3">
+            <label for="txtdateWeek">Initial Date:</label>
+            <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.Start"
+              (ngModelChange)="_dateRange.Start = $event" aria-describedby="datefrom">
+          </div>
+          <div class="form-group mb-3">
+            <label for="txtdateWeek">End Date:</label>
+            <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateRange.End"
+              (ngModelChange)="_dateRange.End = $event" aria-describedby="datefrom">
+          </div>
+          <div class="form-group mb-3">
+            <p-dropdown styleClass="custom-select" [options]="agentList"[(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true"
+            (onChange)="GetAgentList()" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+              <ng-template pTemplate="selectedItem">
+                <div *ngIf="this.AgentSelected._agent">
+                  <div>{{AgentSelected._agent}}</div>
+                </div>
+              </ng-template>
+              <ng-template let-play pTemplate="item">
+                <div>
+                  <div>{{play.value._agent}}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group mb-3">
+            <p-dropdown styleClass="custom-select" [options]="playerList"
+            [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true"
+            placeholder="Select a Player">
+            <ng-template pTemplate="selectedItem">
+              <div *ngIf="this.playerSelected.Player">
+                <div>{{playerSelected.Player}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-play pTemplate="item">
+              <div>
+                <div>{{play.value.Player}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          </div>
+          <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+
+  <div class="table-responsive" *ngIf="reportData != null && reportData != undefined && reportData.length > 0" >
+    {{reportData}} gggg
+    <div *ngFor="let rep of reportData; let i = index">
+      <hr />
+      <h3>{{reportData[i].Agent}}</h3>
+      <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-sm"
+        *ngIf="!_loadingReport">
+        <thead class="table-dark">
+          <tr>
+            <th>Player</th>
+            <th>Password</th>
+            <th>Credit Limit</th>
+            <th>This Week</th>
+            <th>At Risk</th>
+            <th>Current Balance</th>
+            <th>This Week Sports</th>
+            <th>This Week Horses</th>
+            <th>This Week Casino</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let rep of reportData[i].Players; let x = index">
+            <tr>
+              <td>{{rep.Player}}</td>
+              <td>{{rep.Password}}</td>
+              <td>{{rep.CreditLimit | number: '1.2-2'}}</td>
+              <td style="text-align: right;" [ngStyle]="{'color': rep.ThisWeekSports < 0 ? 'red' : 'black'}">
+                {{rep.ThisWeekSports | number: '1.2-2'}}</td>
+              <td style="text-align: right;" [ngStyle]="{'color': rep.AmountAtRisk < 0 ? 'red' : 'black'}">
+                {{rep.AmountAtRisk | number: '1.2-2'}}</td>
+              <td style="text-align: right;" [ngStyle]="{'color': rep.CurrentBalance < 0 ? 'red' : 'black'}">
+                {{rep.CurrentBalance | number: '1.2-2'}}</td>
+              <td style="text-align: right;" [ngStyle]="{'color': rep.ThisWeekSports < 0 ? 'red' : 'black'}">
+                {{rep.ThisWeekSports | number: '1.2-2'}}</td>
+              <td style="text-align: right;" [ngStyle]="{'color': rep.ThisWeekHorses < 0 ? 'red' : 'black'}">
+                {{rep.ThisWeekHorses | number: '1.2-2'}}</td>
+              <td style="text-align: right;" [ngStyle]="{'color': rep.ThisWeekCasino < 0 ? 'red' : 'black'}">
+                {{rep.ThisWeekCasino | number: '1.2-2'}}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+        <tfoot>
+          <tr style="background-color: lightyellow; font-weight: bold;">
+            <td>Totals</td>
+            <td></td>
+            <td></td>
+            <td style="text-align: right;" [ngStyle]="{'color': reportData[i].TotalThisWeek < 0 ? 'red' : 'black'}">
+              {{reportData[i].TotalThisWeek | number: '1.2-2'}}</td>
+            <td style="text-align: right;" [ngStyle]="{'color': reportData[i].TotalAtRisk < 0 ? 'red' : 'black'}">
+              {{reportData[i].TotalAtRisk | number: '1.2-2'}}</td>
+            <td style="text-align: right;" [ngStyle]="{'color': reportData[i].TotalCurrentBalance < 0 ? 'red' : 'black'}">
+              {{reportData[i].TotalCurrentBalance | number: '1.2-2'}}</td>
+            <td style="text-align: right;" [ngStyle]="{'color': reportData[i].TotalSport < 0 ? 'red' : 'black'}">
+              {{reportData[i].TotalSport | number: '1.2-2'}}</td>
+            <td style="text-align: right;" [ngStyle]="{'color': reportData[i].TotalHorses < 0 ? 'red' : 'black'}">
+              {{reportData[i].TotalHorses | number: '1.2-2'}}</td>
+            <td style="text-align: right;" [ngStyle]="{'color': reportData[i].TotalCasino < 0 ? 'red' : 'black'}">
+              {{reportData[i].TotalCasino | number: '1.2-2'}}</td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+  </div>
+
+  <div style="text-align: center;" *ngIf="reportData == null || reportData == undefined || reportData.length == 0">
+    ----NO DATA----
+  </div>
+</div>
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>
+</div>
+

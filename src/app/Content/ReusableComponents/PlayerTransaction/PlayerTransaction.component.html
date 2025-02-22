@@ -1,0 +1,73 @@
+<div *ngIf="_PlayerInfo != null">
+
+  <p-toast></p-toast>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Agent:</td>
+        <td>{{_PlayerInfo.Agent}}</td>
+        <td>Player:</td>
+        <td>{{_PlayerInfo.Player}}</td>
+      <tr>
+      <tr>
+        <td>Balance:</td>
+        <td>{{_PlayerInfo.Current_Balance | number: '1.2-2'}}</td>
+        <td>Avail Balance:</td>
+        <td>{{_PlayerInfo.Available_Balance | number: '1.2-2'}}</td>
+      <tr>
+      <tr>
+        <td>Player Status::</td>
+        <td>{{_PlayerInfo.Status}}</td>
+        <td></td>
+        <td></td>
+      <tr>
+    </tbody>
+  </table>
+
+
+  <div class="form-group mb-3">
+    <label class="mb-2" for="ddlTransactionType">Transaction Type:</label>
+    <select class="form-control" id="ddlTransactionType" [(ngModel)]="_transactionType">
+      <option value='R'>Receipt</option>
+      <option value='D'>Disbursement</option>
+      <option value='A'>Sport Adjustment</option>
+      <option value='H'>Horses Adjustment</option>
+      <option value='C'>Accural adjustment</option>
+      <option value='P'>Free Play</option>
+    </select>
+  </div>
+
+
+  <div class="form-group mb-3">
+    <label class="mb-2" for="txtNotes">Description:</label>
+    <input type="text" class="form-control" id="txtNotes" [(ngModel)]="_CreatePlayerTransaction.Description">
+  </div>
+
+  <div class="form-group mb-3">
+    <label class="mb-2" for="txtAmount">Amount:</label>
+    <input type="number" class="form-control" id="txtAmount" [(ngModel)]="_CreatePlayerTransaction.Amount">
+  </div>
+
+  <div class="form-group mb-3" *ngIf="_transactionType == 'R'">
+    <label class="mb-2" for="txtBonus">Bonus:</label>
+    <input type="number" class="form-control" id="txtBonus" [(ngModel)]="_CreatePlayerTransaction.Bonus">
+  </div>
+
+  <div class="form-group mb-3" *ngIf="_transactionType == 'R' || _transactionType == 'D' ">
+    <label class="mb-2" for="txtFees">Fees:</label>
+    <input type="number" class="form-control" id="txtFees" [(ngModel)]="_CreatePlayerTransaction.Fee">
+  </div>
+
+  <div class="form-group mb-3"
+    *ngIf="_transactionType == 'R' || _transactionType == 'D'  || _transactionType == 'A'  || _transactionType == 'H'  || _transactionType == 'C' || _transactionType == 'P' ">
+    <label class="mb-2" for="txtNotes">Reference:</label>
+    <input type="text" class="form-control" id="txtNotes" [(ngModel)]="_CreatePlayerTransaction.Reference">
+  </div>
+
+
+
+
+  <button type="button" class="btn btn-primary" (click)="CreateTransaction()">Create Transaction</button>
+
+</div>

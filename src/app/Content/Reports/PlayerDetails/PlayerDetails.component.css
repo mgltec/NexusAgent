@@ -1,0 +1,21 @@
+.red{
+    color: #d9534f;
+}
+
+.green{
+    color: #5cb85c;
+}
+
+.fa-listing{
+    font-size: 1rem;
+}
+
+.p-dialog .p-dialog-header{
+    background-image: none;
+    background-color: red !important;
+}
+
+::ng-deep .my-class .modal-dialog { 
+    max-width: 80%;
+    width: 80%;
+}

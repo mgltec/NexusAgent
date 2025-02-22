@@ -1,0 +1,146 @@
+<p-toast></p-toast>
+
+<div class="container-fluid" *ngIf="_PlayerData != null && _PlayerData != undefined">
+
+<!-- Player Management - Account Editing. <h1>{{_PlayerData.Player}}</h1> -->
+  <div class="form-row" >
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtName">Name</label>
+      <input type="text" class="form-control" id="txtName" [(ngModel)]="_PlayerData.Name" >
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtLastName">Last Name</label>
+      <input type="text" class="form-control" id="txtLastName" [(ngModel)]="_PlayerData.LastName" >
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtEmail">Email</label>
+      <input type="text" class="form-control" id="txtEmail" [(ngModel)]="_PlayerData.Email" >
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtPhones">Phone</label>
+      <input type="text" class="form-control" id="txtPhones" [(ngModel)]="_PlayerData.Phone" >
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtAddress1">Address1</label>
+      <input type="text" class="form-control" id="txtAddress1" [(ngModel)]="_PlayerData.Address1" >
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtAddress2">Address2</label>
+      <input type="text" class="form-control" id="txtAddress2" [(ngModel)]="_PlayerData.Address2" > 
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtCity">City</label>
+      <input type="text" class="form-control" id="txtCity" [(ngModel)]="_PlayerData.City" >
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtPhone">State</label>
+      <input type="text" class="form-control" id="txtPhone" [(ngModel)]="_PlayerData.State" >
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtZip">Post Code</label>
+      <input type="text" class="form-control" id="txtZip" [(ngModel)]="_PlayerData.Zip" >
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtCountry">Country</label>
+      <input type="text" class="form-control" id="txtCountry" [(ngModel)]="_PlayerData.Country" >
+    </div>
+  </div>
+  <div class="form-row">
+
+    <div class="form-group form-r-item">
+      <label for="txtMessage">Online Message</label>
+      <input type="text" class="form-control" id="txtMessage" [(ngModel)]="_PlayerData.OnlineMessage" >
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtCreditLimit">Credit Limit</label>
+      <input type="text" class="form-control" id="txtCreditLimit" [(ngModel)]="_PlayerData.CreditLimit" >
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtTempCreditLim">Temp Credit Limit</label>
+      <input type="text" class="form-control" id="txtTempCreditLim" [(ngModel)]="_PlayerData.Temp_Credit">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtPassword">Password</label>
+      <input type="text" class="form-control" id="txtPassword" [(ngModel)]="_PlayerData.Password" >
+    </div>
+  </div>
+
+  <!--Betting information
+
+
+ 
+  <div *ngIf="hasRight(156)" class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtMaxWager">Max Wager</label>
+      <input type="text" class="form-control" id="txtMaxWager" [(ngModel)]="_PlayerData.MaxWager">
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtMinWager">Min Wager</label>
+      <input type="text" class="form-control" id="txtMinWager" [(ngModel)]="_PlayerData.MinWager">
+    </div>
+  </div>
+  <div *ngIf="hasRight(158)" class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtOnlineMaxWager">Online Max Wager</label>
+      <input type="text" class="form-control" id="txtOnlineMaxWager" [(ngModel)]="_PlayerData.OnlineMaxWager">
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <label for="txtOnlinMinWager">Online Min Wager</label>
+      <input type="text" class="form-control" id="txtOnlinMinWager"  [(ngModel)]="_PlayerData.OnlineMinWager">
+    </div>
+  </div>
+  <div class="form-row">
+    <div *ngIf="hasRight(160)" class="form-group col-md-6 form-row-item">
+      <input class="form-check-input" type="checkbox" id="chkEnableAccount" [(ngModel)]="_AccountStatus">
+      <label class="form-check-label" for="chkEnableAccount">
+        Enable Account
+      </label>
+    </div>
+    <div *ngIf="hasRight(160)" class="form-group col-md-6 form-row-item">
+      <input class="form-check-input" type="checkbox" id="chkOnlineAccess" [(ngModel)]="_PlayerData.OnlineAccess">
+      <label class="form-check-label" for="chkOnlineAccess">
+        Online Access
+      </label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <input class="form-check-input" type="checkbox" id="chkSports" [(ngModel)]="_PlayerData.EnableSports">
+      <label class="form-check-label" for="chkSports">
+        Enable Sports
+      </label>
+    </div>
+    <div class="form-group col-md-6 form-row-item">
+      <input class="form-check-input" type="checkbox" id="chkCasino" [(ngModel)]="_PlayerData.EnableCasino">
+      <label class="form-check-label" for="chkCasino">
+        Online Casino
+      </label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6 form-row-item">
+      <input class="form-check-input" type="checkbox" id="chkHorses" [(ngModel)]="_PlayerData.EnableHorses">
+      <label class="form-check-label" for="chkHorses">
+        Enable Horses
+      </label>
+    </div>
+  </div>-->
+
+
+
+
+  <button type="submit" class="btn btn-primary" (click)="UpdatePlayerInformation();">Save</button>
+</div>

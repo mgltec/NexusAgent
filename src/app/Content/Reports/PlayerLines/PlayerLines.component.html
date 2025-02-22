@@ -1,0 +1,127 @@
+<h1>Player Lines</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>DATE</th>
+        <th>EVENT</th>
+
+        <th>POINT SPREAD</th>
+        <th>TOTAL</th>
+        <th>MONEY LINE</th>
+    </tr>
+    </thead>
+      <tbody >
+       <ng-container *ngFor="let rep of reportData; let x = index">
+        <tr *ngIf="(x == 0 ) || (x != 0 && reportData[x].IdSport.trim() != reportData[x-1].IdSport.trim())">
+          <td colspan="6" style="background-color: #D6D6D6">{{rep.IdSport}}</td>
+        </tr>
+        <tr>
+          <td>{{rep.GameDateTime | date:'medium'}}</td>
+          <td>{{rep.VisitorTeam}}</td>
+          <!--Spread-->
+          <td *ngIf="rep.VisitorSpread >  0 && rep.VisitorSpreadOdds > 0">+{{rep.VisitorSpread.toString().replace('.5','½')}} +{{rep.VisitorSpreadOdds}}</td>
+          <td *ngIf="rep.VisitorSpread >  0 && rep.VisitorSpreadOdds < 0">+{{rep.VisitorSpread.toString().replace('.5','½')}} {{rep.VisitorSpreadOdds}}</td>
+          <td *ngIf="rep.VisitorSpread <= 0 && rep.VisitorSpreadOdds > 0 && rep.VisitorSpread != null">{{rep.VisitorSpread.toString().replace('.5','½')}} +{{rep.VisitorSpreadOdds}}</td>
+          <td *ngIf="rep.VisitorSpread <= 0 && rep.VisitorSpreadOdds < 0 && rep.VisitorSpread != null">{{rep.VisitorSpread.toString().replace('.5','½')}} {{rep.VisitorSpreadOdds}}</td>
+          <td *ngIf="rep.VisitorSpread == null"></td>
+          <!--Total-->
+          <td *ngIf="rep.OverOdds > 0">Ov {{rep.TotalOver.toString().replace('.5','½')}} +{{rep.OverOdds}}</td>
+          <td *ngIf="rep.OverOdds <= 0 && rep.TotalOver != null">Ov {{rep.TotalOver.toString().replace('.5','½')}} {{rep.OverOdds}}</td>
+          <td *ngIf="rep.TotalOver == null"></td>
+          <!--ML-->
+          <td *ngIf="rep.VisitorOdds > 0">+{{rep.VisitorOdds}}</td>
+          <td *ngIf="rep.VisitorOdds <= 0">{{rep.VisitorOdds}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>{{rep.HomeTeam }}</td>
+          <!--Spread-->
+          <td *ngIf="rep.HomeSpread >  0 && rep.HomeSpreadOdds > 0">+{{rep.HomeSpread.toString().replace('.5','½')}} +{{rep.HomeSpreadOdds}}</td>
+          <td *ngIf="rep.HomeSpread >  0 && rep.HomeSpreadOdds < 0">+{{rep.HomeSpread.toString().replace('.5','½')}} {{rep.HomeSpreadOdds}}</td>
+          <td *ngIf="rep.HomeSpread <= 0 && rep.HomeSpreadOdds > 0 && rep.HomeSpread != null">{{rep.HomeSpread.toString().replace('.5','½')}} +{{rep.HomeSpreadOdds}}</td>
+          <td *ngIf="rep.HomeSpread <= 0 && rep.HomeSpreadOdds < 0 && rep.HomeSpread != null">{{rep.HomeSpread.toString().replace('.5','½')}} {{rep.HomeSpreadOdds}}</td>
+          <td *ngIf="rep.HomeSpread == null"></td>
+           <!--total-->
+          <td *ngIf="rep.UnderOdds > 0">Un {{rep.TotalUnder.toString().replace('.5','½')}} +{{rep.UnderOdds}}</td>
+          <td *ngIf="rep.UnderOdds <= 0 && rep.TotalUnder != null">Un {{rep.TotalUnder.toString().replace('.5','½')}} {{rep.UnderOdds}}</td>
+          <td *ngIf="rep.TotalUnder == null "></td>
+          <!--ML-->
+          <td *ngIf="rep.HomeOdds > 0">+{{rep.HomeOdds}}</td>
+          <td *ngIf="rep.HomeOdds <= 0 ">{{rep.HomeOdds}}</td>
+        </tr>
+    </ng-container>
+
+     </tbody>
+  </table>
+</div>
+  <div class="alert alert-primary" role="alert" *ngIf="playerSelected == '-1'">
+    Please select a Player first to view the Lines.
+  </div>
+
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <h5>Filters</h5>
+  <hr>
+  <div class="row mb-2 mt-2">
+    <div class="col">
+      <button onclick="window.print();" class="btn btn-light btn-smaction-bar-link fa fa-print fa-2x mr-3"></button>
+      <button onclick="refresh()" class="btn btn-light btn-sm action-bar-link fa fa-redo fa-2x"></button>
+    </div>
+  </div>
+  <div class="form-group mb-3">
+    <label for="txtagent">Agent:</label>
+    <select [(ngModel)]="agentSelected" class="custom-select" (change)="GetPlayerList()">
+      <option value=""> Select an Agent </option>
+      <option *ngFor="let agent of agentList" [value]="agent._idagent">
+      {{agent._agent}}
+      </option>
+  </select>
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="txtagent">Players</label>
+    <select [(ngModel)]="playerSelected" class="form-control">
+      <option value="-1"> Select a Player </option>
+      <option *ngFor="let player of playerList" [value]="player.IdPlayer">
+      {{player.Player}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="txtagent">Sport:</label>
+    <select [(ngModel)]="sportSelected" class="form-control">
+        <option value="">ALL</option>
+        <option value="CBB">COLLEGE BASKETBALL</option>
+        <option value="CFB">COLLEGE FOOTBALL</option>
+        <option value="ESOC">EUROPEAN SOCCER</option>
+        <option value="MLB">ML BASEBALL</option>
+        <option value="MU">MATCHUPS</option>
+        <option value="NBA">NBA BASKETBALL</option>
+        <option value="NFL">NFL FOOTBALL</option>
+        <option value="NHL">NHL HOCKEY</option>
+        <option value="PROP">PROPOSITIONS</option>
+        <option value="RAC">RACING</option>
+        <option value="RBL">RAPID BET</option>
+        <option value="SOC">SOCCER</option>
+        <option value="TNT">TOURNAMENTS</option>
+    </select>
+  </div>
+
+    <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+
+</p-sidebar>
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+      </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+</div>
+
+
+

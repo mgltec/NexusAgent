@@ -1,0 +1,48 @@
+<div *ngIf="_PlayerInfo != null">
+
+  <p-toast></p-toast>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Agent:</td>
+        <td>{{this.agent}}</td>
+        <td>Balance:</td>
+        <td>{{_PlayerInfo.CurrentBalance | number: '1.2-2'}}</td>
+      <tr>
+      <tr>
+        <td>This Week:</td>
+        <td>{{_PlayerInfo.ThisWeek | number: '1.2-2'}}</td>
+        <td>Last Week:</td>
+        <td>{{_PlayerInfo.LastWeek | number: '1.2-2'}}</td>
+      <tr>
+      
+    </tbody>
+  </table>
+
+
+  <div class="form-group">
+    <label for="ddlTransactionType">Transaction Type</label>
+    <select class="form-control" id="ddlTransactionType" [(ngModel)]="_transactionType">
+      <option value='R'>Receipt</option>
+      <option value='D'>Disbursement</option>
+      <option value='A'>Sport Adjustment</option>
+      <option value='H'>Horses Adjustment</option>
+      <option value='C'>Accural adjustment</option>
+      <option value='P'>Free Play</option>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label for="txtNotes">Description:</label>
+    <input type="text" class="form-control" id="txtNotes" [(ngModel)]="_InsertAgentTransactionRequest.Description">
+  </div>
+
+  <div class="form-group">
+    <label for="txtAmount">Amount:</label>
+    <input type="number" class="form-control" id="txtAmount" [(ngModel)]="_InsertAgentTransactionRequest.Amount">
+  </div>
+  <button type="button" class="btn btn-primary" (click)="CreateTransaction()">Create Transaction</button>
+
+</div>

@@ -1,0 +1,135 @@
+<h6><span>Agent Players Management</span></h6>
+
+<p-accordion [style]="{'margin-bottom': '10px;'}">
+  <p-accordionTab header="Filters">
+    <h5 class="card-title">Filters</h5>
+    <hr>
+    <div class="filter-items">
+      <div class="form-group mb-3">
+        <label class="mb-2" for="txtagent">Agent:</label>
+        <select [(ngModel)]="agentSelected" class="custom-select form-select">
+          <option *ngFor="let agent of agentList" [value]="agent._idagent">
+            {{agent._agent}}
+          </option>
+        </select>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-block" (click)="GetReport()">Submit</button>
+    </div>
+  </p-accordionTab>
+</p-accordion>
+<div>
+
+  <div *ngFor="let rep of reportData; let i = index">
+    <hr />
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-table">
+          <div class="card-header">
+            <div class="card-title">
+              <i class="fas fa-arrow-circle-down"></i>
+              <span>{{reportData[i].Agent}}</span>
+            </div>
+            <!-- <button (click)="GetPlayerTopWinLoss()" type="button" class="btn btn-light btn-sm float-right border"><i class="fas fa-sync-alt"></i></button> -->
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered table-striped" >
+                <thead class="table-dark">
+                  <tr>
+                      <th class="frozen-column">Player</th>
+                      <th>Password</th>
+                      <th>Life Time Win</th>
+                      <th>Life Time Lose</th>
+                      <th>Current Balance</th>
+                      <th>Available Balance</th>
+                      <th>Enable</th>
+                      <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="reportData?.length === 0">
+                    <td [attr.colspan]="reportData.length">
+                      No data available in table
+                    </td>
+                  </tr>
+                  <tr *ngFor="let column of rep.Players">
+                      <ng-container >
+                        <td class="frozen-column">{{column.Player}}</td>
+                        <td>{{column.Password}}</td>
+                        <td>{{column.LifeTimeWin | number : "1.2-2"}}</td>
+                        <td>{{column.LifeTimeLose | number : "1.2-2"}}</td>
+                        <td>{{column.CurrentBalance | number : "1.2-2"}}</td>
+                        <td>{{column.CurrentBalance + column.CreditLimit | number : "1.2-2"}}</td>
+                        <td style="text-align: center;"> <i class="fa fa-times-circle fa-listing red"
+                          *ngIf="column.Status == 'D'"></i> <i class="fa fa-check-circle fa-listing green"
+                          *ngIf="column.Status== 'E'"></i> 
+                        </td>
+                        <td class="action-cell">
+                          <button type="button" (click)="showEditModalDialog(column)" class="btn btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                          <button type="button" (click)="OpenFinantialModal(contentTrans, column)" class="btn btn-outline-secondary"><i class="fas fa-credit-card"></i></button>
+                        </td>
+                      </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+    </div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }"
+    [template]="customLoadingTemplate"></ngx-loading>
+</div>
+
+<!-- <app-landscape-notice></app-landscape-notice> -->
+
+<p-dialog header="Player Management - Account Editing" [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000" p-dialog-titlebar="background-color: red;" [draggable]="false"
+[resizable]="false">
+
+<div class="pill">Player: {{_Player}}</div>
+
+<app-EditPlayer *ngIf="displayModal" [player]="_Player" [idplayer]="_idPlayer"></app-EditPlayer>
+
+<ng-template pTemplate="footer">
+  <button type="button" (click)="closeEditPlayer()" class="btn btn-outline-danger">Close</button>
+</ng-template>
+</p-dialog>
+
+<ng-template #contentTrans let-modal>
+  <div class="modal-header" style="background-color: #337ab7;">
+    <h4 class="modal-title" id="modal-basic-title" style="color:white">Player transaction</h4>
+    <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    Add Player Adjustment
+
+
+    <div *ngIf="_idPlayer != null">
+      <app-PlayerTransaction [idplayer]="_idPlayer"></app-PlayerTransaction>
+    </div>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+
+  </div>
+</ng-template>

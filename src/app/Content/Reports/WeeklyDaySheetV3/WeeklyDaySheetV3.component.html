@@ -1,0 +1,859 @@
+<h6>Weekly Balance by Agent</h6>
+<p-accordion [style]="{ 'margin-bottom': '10px;' }">
+  <p-accordionTab header="Filters">
+    <h5>Filters</h5>
+    <hr />
+    <div class="filter-items">
+      <div class="form-group mb-3">
+        <label for="txtdateWeek">Week Date:</label>
+        <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateFromSelected" />
+      </div>
+      <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetAgentWeekly()">Submit</button>
+    </div>
+  </p-accordionTab>
+</p-accordion>
+
+<hr />
+
+<div class="card card-table">
+  <div class="card-header">
+    <div>
+      <i class="fas fa-th"></i>
+      <span>Weekly balance by agent for {{ _currentUser.AgentSelected }}</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col" style="position: sticky !important; text-align: left !important; z-index: 11;" class="frozen-column">Name</th>
+            <th scope="col" class="frozen-column">Mon</th>
+            <th scope="col" class="frozen-column">Tue</th>
+            <th scope="col" class="frozen-column">Wed</th>
+            <th scope="col" class="frozen-column">Thu</th>
+            <th scope="col" class="frozen-column">Fri</th>
+            <th scope="col" class="frozen-column">Sat</th>
+            <th scope="col" class="frozen-column">Sun</th>
+            <th scope="col" class="frozen-column">Total</th>
+            <th scope="col" class="frozen-column">Pending</th>
+            <th scope="col" class="frozen-column"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container>
+            <!-- Child Level #1 - Start -->            
+            <tr class="parent-row" style="background-color: #fff3cd">
+              <td style="text-align: left !important;" [style.--parent-line-height]="GetLineHeight(_dataReportWeeklyBalance, true)" class="frozen-column" title="{{ _dataReportWeeklyBalance.Name }}">
+                <div class="name-column">
+                  <span>{{ _dataReportWeeklyBalance.Name }}</span>
+                </div>
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Day1)">
+                {{ _dataReportWeeklyBalance.Day1 | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Day2)">
+                {{ _dataReportWeeklyBalance.Day2 | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Day3)">
+                {{ _dataReportWeeklyBalance.Day3 | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Day4)">
+                {{ _dataReportWeeklyBalance.Day4 | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Day5)">
+                {{ _dataReportWeeklyBalance.Day5 | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Day6)">
+                {{ _dataReportWeeklyBalance.Day6 | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Day7)">
+                {{ _dataReportWeeklyBalance.Day7 | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Total)">
+                {{ _dataReportWeeklyBalance.Total | number : '1.2-2' }}
+              </td>
+              <td style="text-align: right" [ngClass]="calculateClasses(_dataReportWeeklyBalance.Pending)">
+                {{ _dataReportWeeklyBalance.Pending | number : '1.2-2' }}
+              </td>
+            </tr>
+
+            <ng-container>
+              <!-- Child Level #2 - Start -->
+              <ng-container *ngFor="let agent of _dataReportWeeklyBalance.Agents">
+                <tr class="child-row-1">
+                  <td style="text-align: left !important;" [style.--parent-line-height]="GetLineHeight(agent)" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - {{ agent.Name }}">
+                    <div class="name-column">
+                      <span>{{ agent.Name }}</span>
+                    </div>
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Day1)">
+                    {{ agent.Day1 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Day2)">
+                    {{ agent.Day2 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Day3)">
+                    {{ agent.Day3 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Day4)">
+                    {{ agent.Day4 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Day5)">
+                    {{ agent.Day5 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Day6)">
+                    {{ agent.Day6 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Day7)">
+                    {{ agent.Day7 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Total)">
+                    {{ agent.Total | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(agent.Pending)">
+                    {{ agent.Pending | number : '1.2-2' }}
+                  </td>
+                  <td class="action-cell">
+                    <button *ngIf="agent.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agent.Id, true)">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button *ngIf="agent.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agent.Id, false)">
+                      <i class="fas fa-eye-slash"></i>
+                    </button>
+                    <button *ngIf="agent.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agent.Id, true)">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button *ngIf="agent.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agent.Id, false)">
+                      <i class="fas fa-eye-slash"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Child Level #3 - Start -->
+                <ng-container *ngFor="let agentN2 of agent.Agents">
+                  <tr class="child-row-2" style="background-color: #d1e7dd" *ngIf="agentN2.Show" [@myAnimation]="agentN2.Show">
+                    <td style="text-align: left !important;" [style.--parent-line-height]="GetLineHeight(agentN2)" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - ({{ agent.Name }}) - {{ agentN2.Name }}">
+                      <div class="name-column">
+                        <span>{{ agentN2.Name }}</span>
+                      </div>
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Day1)">
+                      {{ agentN2.Day1 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Day2)">
+                      {{ agentN2.Day2 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Day3)">
+                      {{ agentN2.Day3 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Day4)">
+                      {{ agentN2.Day4 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Day5)">
+                      {{ agentN2.Day5 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Day6)">
+                      {{ agentN2.Day6 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Day7)">
+                      {{ agentN2.Day7 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Total)">
+                      {{ agentN2.Total | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(agentN2.Pending)">
+                      {{ agentN2.Pending | number : '1.2-2' }}
+                    </td>
+                    <td class="action-cell">
+                      <button *ngIf="agentN2.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN2.Id, true)">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button *ngIf="agentN2.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN2.Id, false)">
+                        <i class="fas fa-eye-slash"></i>
+                      </button>
+                      <button *ngIf="agentN2.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN2.Id, true)">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button *ngIf="agentN2.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN2.Id, false)">
+                        <i class="fas fa-eye-slash"></i>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <!-- Child Level #4 - Start -->  
+                  <ng-container *ngFor="let agentN3 of agentN2.Agents">
+                    <tr class="child-row-3" style="background-color: #bccfc6" *ngIf="agentN3.Show" [@myAnimation]="agentN3.Show">
+                      <td style="text-align: left !important;" [style.--parent-line-height]="GetLineHeight(agentN3)" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - ({{ agent.Name }}) - ({{ agentN2.Name }}) - {{ agentN3.Name }}">
+                        <div class="name-column">
+                          <span>{{ agentN3.Name }}</span>
+                        </div>
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Day1)">
+                        {{ agentN3.Day1 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Day2)">
+                        {{ agentN3.Day2 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Day3)">
+                        {{ agentN3.Day3 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Day4)">
+                        {{ agentN3.Day4 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Day5)">
+                        {{ agentN3.Day5 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Day6)">
+                        {{ agentN3.Day6 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Day7)">
+                        {{ agentN3.Day7 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Total)">
+                        {{ agentN3.Total | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(agentN3.Pending)">
+                        {{ agentN3.Pending | number : '1.2-2' }}
+                      </td>
+                      <td class="action-cell">
+                        <button *ngIf="agentN3.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN3.Id, true)">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button *ngIf="agentN3.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN3.Id, false)">
+                          <i class="fas fa-eye-slash"></i>
+                        </button>
+                        <button *ngIf="agentN3.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN3.Id, true)">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button *ngIf="agentN3.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN3.Id, false)">
+                          <i class="fas fa-eye-slash"></i>
+                        </button>
+                      </td>
+                    </tr>
+
+                    <!-- Child Level #5 - Start -->
+                    <ng-container *ngFor="let agentN4 of agentN3.Agents">
+                      <tr class="child-row-4" style="background-color: #96a59e" *ngIf="agentN4.Show" [@myAnimation]="agentN4.Show">
+                        <td style="text-align: left !important;" [style.--parent-line-height]="GetLineHeight(agentN4)" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - ({{ agent.Name }}) - ({{ agentN2.Name }}) - ({{ agentN3.Name }}) - {{ agentN4.Name }}">
+                          <div class="name-column">
+                            <span>{{ agentN4.Name }}</span>
+                          </div>
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Day1)">
+                          {{ agentN4.Day1 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Day2)">
+                          {{ agentN4.Day2 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Day3)">
+                          {{ agentN4.Day3 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Day4)">
+                          {{ agentN4.Day4 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Day5)">
+                          {{ agentN4.Day5 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Day6)">
+                          {{ agentN4.Day6 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Day7)">
+                          {{ agentN4.Day7 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Total)">
+                          {{ agentN4.Total | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(agentN4.Pending)">
+                          {{ agentN4.Pending | number : '1.2-2' }}
+                        </td>
+                        <td class="action-cell">
+                          <button *ngIf="agentN4.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN4.Id, true)">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button *ngIf="agentN4.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN4.Id, false)">
+                            <i class="fas fa-eye-slash"></i>
+                          </button>
+                          <button *ngIf="agentN4.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN4.Id, true)">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button *ngIf="agentN4.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN4.Id, false)">
+                            <i class="fas fa-eye-slash"></i>
+                          </button>
+                        </td>
+                      </tr>
+
+                      <ng-container *ngFor="let agentN5 of agentN4.Agents">
+                        <tr class="child-row-5" style="background-color: #d1e7dd" *ngIf="agentN5.Show" [@myAnimation]="agentN5.Show">
+                          <td style="text-align: left !important;" [style.--parent-line-height]="GetLineHeight(agentN5)" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - ({{ agent.Name }}) - ({{ agentN2.Name }}) - ({{ agentN3.Name }}) - ({{ agentN4.Name }}) - {{ agentN5.Name }}">
+                            <div class="name-column">
+                              <span>{{ agentN5.Name }}</span>
+                            </div>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Day1)">
+                            {{ agentN5.Day1 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Day2)">
+                            {{ agentN5.Day2 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Day3)">
+                            {{ agentN5.Day3 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Day4)">
+                            {{ agentN5.Day4 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Day5)">
+                            {{ agentN5.Day5 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Day6)">
+                            {{ agentN5.Day6 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Day7)">
+                            {{ agentN5.Day7 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Total)">
+                            {{ agentN5.Total | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(agentN5.Pending)">
+                            {{ agentN5.Pending | number : '1.2-2' }}
+                          </td>
+                          <td class="action-cell">
+                            <button *ngIf="agentN5.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN5.Id, true)">
+                              <i class="fas fa-eye"></i>
+                            </button>
+                            <button *ngIf="agentN5.Agents != null" type="button" class="btn btn-outline-secondary btn-sm" (click)="ShowInfo(agentN5.Id, false)">
+                              <i class="fas fa-eye-slash"></i>
+                            </button>
+                            <button *ngIf="agentN5.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN5.Id, true)">
+                              <i class="fas fa-eye"></i>
+                            </button>
+                            <button *ngIf="agentN5.Players != null" type="button" class="btn btn-outline-info btn-sm" (click)="ShowInfo(agentN5.Id, false)">
+                              <i class="fas fa-eye-slash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+
+                      <ng-container *ngFor="let playerN5 of agentN4.Players">
+                        <tr class="child-row-5" style="background-color: #cff4fc" *ngIf="playerN5.Show" [@myAnimation]="playerN5.Show">
+                          <!-- <td><i class="fas fa-arrow-right"></i>({{_dataReportWeeklyBalance.Name}})->({{agent.Name}})->({{agentN2.Name}})->({{agentN3.Name}})->({{agentN4.Name}})->{{playerN5.Name}}</td> -->
+
+                          <td style="text-align: left !important;" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - ({{ agent.Name }}) - ({{ agentN2.Name }}) - ({{ agentN3.Name }}) - ({{ agentN4.Name }}) - {{ playerN5.Name }}">
+                            <div class="name-column">
+                              <a
+                                [routerLink]="['/mainbk/playerdetails']"
+                                [queryParams]="{
+                                  player: playerN5.Name,
+                                  idplayer: playerN5.Id
+                                }"
+                                >{{ playerN5.Name }}</a
+                              >
+                            </div>
+                          </td>
+
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Day1)" (click)="GetPlayerHistory(playerN5.Parent, playerN5.Id, 1, content)">
+                            {{ playerN5.Day1 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Day2)" (click)="GetPlayerHistory(playerN5.Parent, playerN5.Id, 2, content)">
+                            {{ playerN5.Day2 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Day3)" (click)="GetPlayerHistory(playerN5.Parent, playerN5.Id, 3, content)">
+                            {{ playerN5.Day3 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Day4)" (click)="GetPlayerHistory(playerN5.Parent, playerN5.Id, 4, content)">
+                            {{ playerN5.Day4 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Day5)" (click)="GetPlayerHistory(playerN5.Parent, playerN5.Id, 5, content)">
+                            {{ playerN5.Day5 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Day6)" (click)="GetPlayerHistory(playerN5.Parent, playerN5.Id, 6, content)">
+                            {{ playerN5.Day6 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Day7)" (click)="GetPlayerHistory(playerN5.Parent, playerN5.Id, 7, content)">
+                            {{ playerN5.Day7 | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right" [ngClass]="calculateClasses(playerN5.Total)">
+                            {{ playerN5.Total | number : '1.2-2' }}
+                          </td>
+                          <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN5.Pending)" (click)="GetPlayerOpenBets(playerN5.Id, contentOpenBets)">
+                            {{ playerN5.Pending | number : '1.2-2' }}
+                          </td>
+                          <td class="action-cell">
+                            <button type="button" class="btn btn-success btn-sm" (click)="EditPlayer(playerN5.Id, contentPlayerEdit)">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" (click)="PlayerTransaction(playerN5.Id, contentTrans)">
+                              <i class="fas fa-credit-card"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngFor="let playerN3 of agentN3.Players">
+                      <tr class="child-row-4" style="background-color: #cff4fc" *ngIf="playerN3.Show" [@myAnimation]="playerN3.Show">
+                        <!-- <td><i class="fas fa-arrow-right"></i>({{_dataReportWeeklyBalance.Name}})->({{agent.Name}})->({{agentN2.Name}})->({{agentN3.Name}})->{{playerN3.Name}}</td> -->
+                        <td style="text-align: left !important;" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - ({{ agent.Name }}) - ({{ agentN2.Name }}) - ({{ agentN3.Name }}) - {{ playerN3.Name }}">
+                          <div class="name-column">
+                            <a
+                              [routerLink]="['/mainbk/playerdetails']"
+                              [queryParams]="{
+                                player: playerN3.Name,
+                                idplayer: playerN3.Id
+                              }"
+                              >{{ playerN3.Name }}</a
+                            >
+                          </div>
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Day1)" (click)="GetPlayerHistory(playerN3.Parent, playerN3.Id, 1, content)">
+                          {{ playerN3.Day1 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Day2)" (click)="GetPlayerHistory(playerN3.Parent, playerN3.Id, 2, content)">
+                          {{ playerN3.Day2 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Day3)" (click)="GetPlayerHistory(playerN3.Parent, playerN3.Id, 3, content)">
+                          {{ playerN3.Day3 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Day4)" (click)="GetPlayerHistory(playerN3.Parent, playerN3.Id, 4, content)">
+                          {{ playerN3.Day4 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Day5)" (click)="GetPlayerHistory(playerN3.Parent, playerN3.Id, 5, content)">
+                          {{ playerN3.Day5 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Day6)" (click)="GetPlayerHistory(playerN3.Parent, playerN3.Id, 6, content)">
+                          {{ playerN3.Day6 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Day7)" (click)="GetPlayerHistory(playerN3.Parent, playerN3.Id, 7, content)">
+                          {{ playerN3.Day7 | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right" [ngClass]="calculateClasses(playerN3.Total)">
+                          {{ playerN3.Total | number : '1.2-2' }}
+                        </td>
+                        <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN3.Pending)" (click)="GetPlayerOpenBets(playerN3.Id, contentOpenBets)">
+                          {{ playerN3.Pending | number : '1.2-2' }}
+                        </td>
+                        <td class="action-cell">
+                          <button type="button" class="btn btn-success btn-sm" (click)="EditPlayer(playerN3.Id, contentPlayerEdit)">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button type="button" class="btn btn-success btn-sm" (click)="PlayerTransaction(playerN3.Id, contentTrans)">
+                            <i class="fas fa-credit-card"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                    <!-- Child Level #5 - End -->
+                  </ng-container>
+
+                  <ng-container *ngFor="let playerN2 of agentN2.Players">
+                    <tr class="child-row-3" style="background-color: #cff4fc" *ngIf="playerN2.Show" [@myAnimation]="playerN2.Show">
+                      <!-- <td><i class="fas fa-arrow-right"></i>({{_dataReportWeeklyBalance.Name}})->({{agent.Name}})->({{agentN2.Name}})->{{playerN2.Name}}</td> -->
+                      <td style="text-align: left !important;" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - ({{ agent.Name }}) - ({{ agentN2.Name }}) - {{ playerN2.Name }}">
+                        <div class="name-column">
+                          <a
+                            [routerLink]="['/mainbk/playerdetails']"
+                            [queryParams]="{
+                              player: playerN2.Name,
+                              idplayer: playerN2.Id
+                            }"
+                            >{{ playerN2.Name }}</a
+                          >
+                        </div>
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Day1)" (click)="GetPlayerHistory(playerN2.Parent, playerN2.Id, 1, content)">
+                        {{ playerN2.Day1 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Day2)" (click)="GetPlayerHistory(playerN2.Parent, playerN2.Id, 2, content)">
+                        {{ playerN2.Day2 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Day3)" (click)="GetPlayerHistory(playerN2.Parent, playerN2.Id, 3, content)">
+                        {{ playerN2.Day3 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Day4)" (click)="GetPlayerHistory(playerN2.Parent, playerN2.Id, 4, content)">
+                        {{ playerN2.Day4 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Day5)" (click)="GetPlayerHistory(playerN2.Parent, playerN2.Id, 5, content)">
+                        {{ playerN2.Day5 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Day6)" (click)="GetPlayerHistory(playerN2.Parent, playerN2.Id, 6, content)">
+                        {{ playerN2.Day6 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Day7)" (click)="GetPlayerHistory(playerN2.Parent, playerN2.Id, 7, content)">
+                        {{ playerN2.Day7 | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right" [ngClass]="calculateClasses(playerN2.Total)">
+                        {{ playerN2.Total | number : '1.2-2' }}
+                      </td>
+                      <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN2.Pending)" (click)="GetPlayerOpenBets(playerN2.Id, contentOpenBets)">
+                        {{ playerN2.Pending | number : '1.2-2' }}
+                      </td>
+                      <td class="action-cell">
+                        <button type="button" class="btn btn-success btn-sm" (click)="EditPlayer(playerN2.Id, contentPlayerEdit)">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-success btn-sm" (click)="PlayerTransaction(playerN2.Id, contentTrans)">
+                          <i class="fas fa-credit-card"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </ng-container>
+                  <!-- Child Level #4 - End -->
+                </ng-container>
+
+                <ng-container *ngFor="let playerN1 of agent.Players">
+                  <tr class="child-row-2" style="background-color: #cff4fc" *ngIf="playerN1.Show" [@myAnimation]="playerN1.Show">
+                    <!-- <td><i class="fas fa-arrow-right"></i>({{agent.Name}})->{{playerN1.Name}}</td> -->
+                    <td style="text-align: left !important;" class="frozen-column" title="({{ agent.Name }}) - {{ playerN1.Name }}">
+                      <div class="name-column">
+                        <a
+                          [routerLink]="['/mainbk/playerdetails']"
+                          [queryParams]="{
+                            player: playerN1.Name,
+                            idplayer: playerN1.Id
+                          }"
+                          >{{ playerN1.Name }}</a
+                        >
+                      </div>
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day1)" (click)="GetPlayerHistory(playerN1.Parent, playerN1.Id, 1, content)">
+                      {{ playerN1.Day1 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day2)" (click)="GetPlayerHistory(playerN1.Parent, playerN1.Id, 2, content)">
+                      {{ playerN1.Day2 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day3)" (click)="GetPlayerHistory(playerN1.Parent, playerN1.Id, 3, content)">
+                      {{ playerN1.Day3 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day4)" (click)="GetPlayerHistory(playerN1.Parent, playerN1.Id, 4, content)">
+                      {{ playerN1.Day4 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day5)" (click)="GetPlayerHistory(playerN1.Parent, playerN1.Id, 5, content)">
+                      {{ playerN1.Day5 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day6)" (click)="GetPlayerHistory(playerN1.Parent, playerN1.Id, 6, content)">
+                      {{ playerN1.Day6 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day7)" (click)="GetPlayerHistory(playerN1.Parent, playerN1.Id, 7, content)">
+                      {{ playerN1.Day7 | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right" [ngClass]="calculateClasses(playerN1.Total)">
+                      {{ playerN1.Total | number : '1.2-2' }}
+                    </td>
+                    <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Pending)" (click)="GetPlayerOpenBets(playerN1.Id, contentOpenBets)">
+                      {{ playerN1.Pending | number : '1.2-2' }}
+                    </td>
+                    <td class="action-cell">
+                      <button type="button" class="btn btn-success btn-sm" (click)="EditPlayer(playerN1.Id, contentPlayerEdit)">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button type="button" class="btn btn-success btn-sm" (click)="PlayerTransaction(playerN1.Id, contentTrans)">
+                        <i class="fas fa-credit-card"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+                <!-- Child Level #3 - End -->
+              </ng-container>
+
+              <ng-container *ngFor="let playerN1 of _dataReportWeeklyBalance.Players">
+                <tr class="child-row-1" style="background-color: #cff4fc" *ngIf="playerN1.Show" [@myAnimation]="playerN1.Show">
+                  <!-- <td><i class="fas fa-arrow-right"></i>({{_dataReportWeeklyBalance.Name}})->{{playerN1.Name}}</td> -->
+                  <td style="text-align: left !important;" class="frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - {{ playerN1.Name }}">
+                    <div class="name-column">
+                      <a
+                        [routerLink]="['/mainbk/playerdetails']"
+                        [queryParams]="{
+                          player: playerN1.Name,
+                          idplayer: playerN1.Id
+                        }">
+                        {{ playerN1.Name }}
+                      </a>
+                    </div>
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day1)">
+                    {{ playerN1.Day1 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day2)">
+                    {{ playerN1.Day2 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day3)">
+                    {{ playerN1.Day3 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day4)">
+                    {{ playerN1.Day4 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day5)">
+                    {{ playerN1.Day5 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day6)">
+                    {{ playerN1.Day6 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Day7)">
+                    {{ playerN1.Day7 | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right" [ngClass]="calculateClasses(playerN1.Total)">
+                    {{ playerN1.Total | number : '1.2-2' }}
+                  </td>
+                  <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN1.Pending)" (click)="GetPlayerOpenBets(playerN1.Id, contentOpenBets)">
+                    {{ playerN1.Pending | number : '1.2-2' }}
+                  </td>
+                  <td class="action-cell">
+                    <button type="button" class="btn btn-success btn-sm" (click)="EditPlayer(playerN1.Id, contentPlayerEdit)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm" (click)="PlayerTransaction(playerN1.Id, contentTrans)">
+                      <i class="fas fa-credit-card"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+              <!-- Child Level #2 - End -->
+            </ng-container>
+
+            
+            <ng-container *ngFor="let playerN0 of _dataReportWeeklyBalance.Players">
+              <tr class="child-row" style="background-color: #cff4fc">
+                <td style="text-align: left !important;" class="name-column frozen-column" title="({{ _dataReportWeeklyBalance.Name }}) - {{ playerN0.Name }}">
+                  <a [routerLink]="['/mainbk/playerdetails']" [queryParams]="{ player: _dataReportWeeklyBalance.Name, idplayer: _dataReportWeeklyBalance.Id }">
+                    {{ playerN0.Name }}
+                  </a>
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Day1)" (click)="GetPlayerHistory(playerN0.Parent, playerN0.Id, 1, content)">
+                  {{ playerN0.Day1 | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Day2)" (click)="GetPlayerHistory(playerN0.Parent, playerN0.Id, 2, content)">
+                  {{ playerN0.Day2 | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Day3)" (click)="GetPlayerHistory(playerN0.Parent, playerN0.Id, 3, content)">
+                  {{ playerN0.Day3 | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Day4)" (click)="GetPlayerHistory(playerN0.Parent, playerN0.Id, 4, content)">
+                  {{ playerN0.Day4 | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Day5)" (click)="GetPlayerHistory(playerN0.Parent, playerN0.Id, 5, content)">
+                  {{ playerN0.Day5 | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Day6)" (click)="GetPlayerHistory(playerN0.Parent, playerN0.Id, 6, content)">
+                  {{ playerN0.Day6 | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Day7)" (click)="GetPlayerHistory(playerN0.Parent, playerN0.Id, 7, content)">
+                  {{ playerN0.Day7 | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right" [ngClass]="calculateClasses(playerN0.Total)">
+                  {{ playerN0.Total | number : '1.2-2' }}
+                </td>
+                <td style="text-align: right; cursor: pointer" [ngClass]="calculateClasses(playerN0.Pending)" (click)="GetPlayerOpenBets(playerN0.Id, contentOpenBets)">
+                  {{ playerN0.Pending | number : '1.2-2' }}
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="btn btn-success btn-sm" (click)="EditPlayer(playerN0.Id, contentPlayerEdit)">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button type="button" class="btn btn-alert-info btn-sm" (click)="PlayerTransaction(playerN0.Id, contentTrans)">
+                        <i class="fas fa-credit-card"></i>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <!-- Child Level #1 - End -->
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <h5>Filters</h5>
+  <hr />
+  <div class="row mb-2 mt-2">
+    <div class="col">
+      <button onclick="window.print();" class="btn btn-light btn-smaction-bar-link fa fa-print fa-2x mr-3"></button>
+      <button onclick="refresh()" class="btn btn-light btn-sm action-bar-link fa fa-redo fa-2x"></button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <p-dropdown styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Select an Agent" (onChange)="OnChangeAgent()">
+      <ng-template pTemplate="selectedItem">
+        <div *ngIf="this.agentSelected._agent">
+          <div>{{ agentSelected._agent }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-Agente pTemplate="item">
+        <div>
+          <div>{{ Agente.value._agent }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </div>
+
+  <div class="form-group">
+    <label for="txtagent">Week:</label>
+    <select [(ngModel)]="_currentUser.RangeDateSelected" class="custom-select" (change)="onChangeDateSelection($event)">
+      <option *ngFor="let week of _currentUser.WeekList; let i = index" [value]="i">
+        {{ week.MonDate | date : 'MM/dd/yyyy' }} -
+        {{ week.SunDate | date : 'MM/dd/yyyy' }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group mb-3">
+    <div class="form-group mb-1" id="divSports">
+      <label for="cars">Business Unit:</label>
+      <select class="custom-select" name="ddlbusinessUnit" id="ddlbusinessUnit" [(ngModel)]="businessUnitSelected" (change)="businessUnitChange()">
+        <option value="-1">All Units</option>
+        <option value="0">Sports</option>
+        <option value="1">Casino</option>
+        <option value="2">Racing</option>
+      </select>
+    </div>
+  </div>
+</p-sidebar>
+
+<!-- <button type="text" (click)="display = true"  label="Show">test</button> -->
+
+<ng-template #content let-modal>
+  <div class="modal-header" style="background-color: #337ab7">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">Player History</h4>
+    <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Agent</th>
+          <th scope="col">Player</th>
+          <th scope="col">Ticket</th>
+          <th scope="col">Phone/User</th>
+          <th scope="col">Placed</th>
+          <th scope="col">Wager</th>
+          <th scope="col">Game Selection</th>
+          <th scope="col">Risk/Win</th>
+          <th scope="col">Game Result</th>
+          <th scope="col">Score</th>
+          <th scope="col">Win Loss</th>
+          <th scope="col">Game Date/Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hist of _historyData">
+          <td>{{ hist.Agent }}</td>
+          <td>{{ hist.Player }}</td>
+          <td>{{ hist.Result01 }}</td>
+          <td>{{ hist.Result02 }}</td>
+          <td>{{ hist.Result03 }}</td>
+          <td>{{ hist.Result04 }}</td>
+          <td [innerHTML]="hist.Result05"></td>
+          <td>{{ hist.Result06 }}</td>
+          <td [innerHTML]="hist.Result07"></td>
+          <td [innerHTML]="hist.Result08"></td>
+          <td style="text-align: right" [ngClass]="calculateClasses(hist.Result09)">
+            {{ hist.Result09 | number : '1.2-2' }}
+          </td>
+          <td>{{ hist.Result10 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #contentPlayerEdit let-modal>
+  <div class="modal-header" style="background-color: #337ab7">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">Player Edit</h4>
+    <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-EditPlayer [player]="" [idplayer]="IdPlayerSelected"></app-EditPlayer>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #contentTrans let-modal>
+  <div class="modal-header" style="background-color: #337ab7">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">Player Transaction</h4>
+    <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Add Player Adjustment
+
+    <app-PlayerTransaction [idplayer]="IdPlayerSelected"></app-PlayerTransaction>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #contentOpenBets let-modal>
+  <div class="modal-header" style="background-color: #337ab7">
+    <h4 class="modal-title" id="modal-basic-title" style="color: white">Player Open Bets</h4>
+    <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Placed</th>
+          <th scope="col">User/Phone</th>
+          <th scope="col">WagerType</th>
+          <th scope="col">Game Date</th>
+          <th scope="col">Sport</th>
+          <th scope="col">Description</th>
+          <th scope="col">Risk/Win</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hist of OpenBets.wagers">
+          <td>{{ hist._PlacedDate }}</td>
+          <td>{{ hist._UserName }}</td>
+          <td>{{ hist._HeaderDesc }}</td>
+          <td>
+            <ul *ngFor="let value1 of hist.details">
+              <li>{{ value1._GameDate }} {{ value1._GameTime }}</li>
+            </ul>
+          </td>
+          <td>
+            <ul *ngFor="let value1 of hist.details">
+              <li>{{ value1._IdSport }}</li>
+            </ul>
+          </td>
+          <td>
+            <ul *ngFor="let value1 of hist.details">
+              <li [innerHTML]="value1._DetailDesc"></li>
+            </ul>
+          </td>
+          <td>{{ hist._RiskAmount }}/{{ hist._WinAmount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<!-- ******************** Loading div ********************* -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class"></div>
+  </ng-template>
+  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"> </ngx-loading>
+</div>
