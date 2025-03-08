@@ -90,6 +90,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this._unsubscribeAll))
         .subscribe(
           (data) => {
+
+            console.log("data==>", data)
+
+
             if (data.Agent == null) {
               this.showMessage("error", "Login Error", data._sErrorMsg);
             }

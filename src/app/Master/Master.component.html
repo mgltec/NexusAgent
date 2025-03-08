@@ -128,13 +128,13 @@
         </a>
        
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link justify-start" routerLink="/mainclassic/principal">
           <i class="fa fa-window-maximize"></i>
           Classic
           <span class="empty"></span>
         </a>
-      </li>
+      </li> -->
       <li *ngIf="isDesktop">
         <a class="nav-link"><i data-toggle="tooltip" title="Exit" (click)="display = true">Agent Tree</i> </a>
       </li>
@@ -428,9 +428,8 @@
   </ng-template>
 </div>
 
-<p-dialog header="Player preferences" [modal]="true" [(visible)]="modalSettings" [style]="{ width: '25rem' }">
-  <!-- <span class="p-text-secondary block mb-5">Update your information.</span> -->
-   <div>
+<p-dialog header="Agent preferences" [modal]="true" [(visible)]="modalSettings" [style]="{ width: '25rem' }">
+   <!-- <div>
      <p>Theme:</p>
       <div class="flex gap-8">
         <div class="flex gap-3">
@@ -445,7 +444,6 @@
    </div>
    <div class="flex gap-3 mt-4">
      <button class="btn btn-primary m-auto" (click)="InsertOrUpdateAgentSettings()">Apply</button>
-     <!-- <button class="btn btn-danger">Cancel</button> -->
-   </div>
+   </div> -->
   
 </p-dialog>

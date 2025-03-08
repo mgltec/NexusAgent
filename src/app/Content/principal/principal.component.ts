@@ -107,7 +107,7 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._unsubscribeAll.unsubscribe();
+    this._unsubscribeAll.complete();
   }
 
   ngOnInit() {
@@ -621,20 +621,43 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this.router.navigate(["mainbk/distributionV2"]);
   }
 
-  GetAgentRights() {
+  // GetAgentRights() {
+  //   this._loadingAgentList = true;
+  //   this._reportService
+  //     .GetAgentRights(this._currentUser, this._currentUser.IdAgentSelected)
+  //     .pipe(takeUntil(this._unsubscribeAll))
+  //     .subscribe(
+  //       (data) => {
+  //         this.agentRights = data;
+  //         this._DataService.changeAgentRights(data);
+  //         localStorage.setItem("agentRights", JSON.stringify(this.agentRights));
+  //       },
+  //       (error) => {
+  //         console.log("Error in GetAgentRights");
+  //       }
+  //     );
+  // }
+
+  GetAgentRights(): void {
     this._loadingAgentList = true;
     this._reportService
       .GetAgentRights(this._currentUser, this._currentUser.IdAgentSelected)
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(
-        (data) => {
+      .subscribe({
+        next: (data) => {
           this.agentRights = data;
           this._DataService.changeAgentRights(data);
-          localStorage.setItem("agentRights", JSON.stringify(this.agentRights));
+          localStorage.setItem('agentRights', JSON.stringify(this.agentRights));
         },
-        (error) => {
-          console.log("Error in GetAgentRights");
+        error: (error) => {
+          console.error('Error in GetAgentRights', error);
+        },
+        complete: () => {
+          this._loadingAgentList = false;
         }
-      );
+      });
   }
+
+
+
 } // end component
