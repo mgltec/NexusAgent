@@ -1,42 +1,103 @@
-
-
 <p-toast></p-toast>
 
-
-    <div class="container" *ngIf="showLoginForm">
-        <div class="row mx-auto">
-            <div class="col-12 col-lg-4"></div>
-            <div class="col-12 col-lg-4">
-                <div class="cvhc mt-5 mb-5">
-                    <div class="mt-5 mb-5 text-center">
-                        <h2 class="mb-3">Sports Reports</h2>
-                        <form [formGroup]="form" (ngSubmit)="submitForm()">
-                            <div class="input-group mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text h-full bg-gray-900" id="Username"><i class="fas fa-user"></i></span>
-                                </div>
-                                <input type="text" [formControlName]="'username'" class="form-control" id="txtUser" placeholder="Username" aria-label="Username" aria-describedby="Username">
-                                <small id="txtUser" class="form-text text-muted" *ngIf="f.username.dirty && f.username.errors?.required">Username is a required field</small>
-                            </div>
-
-                            <div class="input-group mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text h-full" id="Password"><i class="fas fa-key"></i></span>
-                                </div>
-                                <input type="password" [formControlName]="'password'" id="txtPassword" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="Password">
-                                <small id="txtUser" class="form-text text-muted" *ngIf="f.username.dirty && f.username.errors?.required">Username is a required field</small>
-                            </div>
-
-                            <button type="submit" class="btn btn-success btn-block mb-4 w-full">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4"></div>
+<div class="login-wrapper" *ngIf="showLoginForm">
+  <div class="login-overlay"></div>
+  
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Logo/Brand Section -->
+      <div class="login-header">
+        <div class="brand-icon">
+          <i class="fas fa-trophy"></i>
         </div>
+        <h1 class="brand-title">Sports Reports</h1>
+        <p class="brand-subtitle">Agent Dashboard & Analytics</p>
+      </div>
+
+      <!-- Login Form -->
+      <form [formGroup]="form" (ngSubmit)="submitForm()" class="login-form">
+        <!-- Username Input -->
+        <div class="form-group-modern">
+          <label for="txtUser" class="form-label">
+            <i class="fas fa-user"></i>
+            Username
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              [formControlName]="'username'" 
+              class="form-control-modern" 
+              id="txtUser" 
+              placeholder="Enter your username"
+              [class.error]="f.username.dirty && f.username.errors?.required"
+            >
+            <div class="input-underline"></div>
+          </div>
+          <small class="error-message" *ngIf="f.username.dirty && f.username.errors?.required">
+            <i class="fas fa-exclamation-circle"></i>
+            Username is required
+          </small>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group-modern">
+          <label for="txtPassword" class="form-label">
+            <i class="fas fa-lock"></i>
+            Password
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              [formControlName]="'password'" 
+              id="txtPassword" 
+              class="form-control-modern" 
+              placeholder="Enter your password"
+              [class.error]="f.password.dirty && f.password.errors?.required"
+            >
+            <div class="input-underline"></div>
+          </div>
+          <small class="error-message" *ngIf="f.password.dirty && f.password.errors?.required">
+            <i class="fas fa-exclamation-circle"></i>
+            Password is required
+          </small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-login" [disabled]="_loadingReport">
+          <span *ngIf="!_loadingReport">
+            <i class="fas fa-sign-in-alt"></i>
+            Sign In
+          </span>
+          <span *ngIf="_loadingReport" class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            Signing in...
+          </span>
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <p class="footer-text">
+          <i class="fas fa-shield-alt"></i>
+          Secure Login
+        </p>
+      </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Sports Stats Decoration -->
+    <div class="stats-decoration">
+      <div class="stat-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Real-time Analytics</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-users"></i>
+        <span>Player Management</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-dollar-sign"></i>
+        <span>Financial Reports</span>
+      </div>
+    </div>
+  </div>
+</div>

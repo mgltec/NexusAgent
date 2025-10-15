@@ -12,13 +12,326 @@
   @tailwind utilities;
 }
 
-/* You can add global styles to this file, and also import other style files */
+/* ============================================
+   THEME SYSTEM - Light & Dark Mode Variables
+   ============================================ */
+
+/* Light Theme (Default) */
+:root,
+.light-theme {
+  /* Colors */
+  --color-primary: #3065FB;
+  --color-primary-dark: #1e4fd6;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
+  --color-info: #3B82F6;
+  
+  /* Text Colors */
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+  --text-inverse: #ffffff;
+  
+  /* Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #F9FAFB;
+  --bg-tertiary: #F3F4F6;
+  --bg-body: #f7f6fb;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  
+  /* Border Colors */
+  --border-primary: #E5E7EB;
+  --border-secondary: #D1D5DB;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  /* Card & Component Colors */
+  --card-bg: #ffffff;
+  --card-hover: #F9FAFB;
+  --navbar-bg: #ffffff;
+  --navbar-text: #042a51;
+  --dropdown-bg: #ffffff;
+}
+
+/* Dark Theme */
+.dark-theme {
+  /* Colors */
+  --color-primary: #60A5FA;
+  --color-primary-dark: #3B82F6;
+  --color-success: #34D399;
+  --color-danger: #F87171;
+  --color-warning: #FBBF24;
+  --color-info: #60A5FA;
+  
+  /* Text Colors */
+  --text-primary: #F9FAFB;
+  --text-secondary: #D1D5DB;
+  --text-tertiary: #9CA3AF;
+  --text-inverse: #1F2937;
+  
+  /* Background Colors */
+  --bg-primary: #1F2937;
+  --bg-secondary: #111827;
+  --bg-tertiary: #374151;
+  --bg-body: #0F172A;
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+  
+  /* Border Colors */
+  --border-primary: #374151;
+  --border-secondary: #4B5563;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+  
+  /* Card & Component Colors */
+  --card-bg: #1F2937;
+  --card-hover: #374151;
+  --navbar-bg: #1F2937;
+  --navbar-text: #F9FAFB;
+  --dropdown-bg: #374151;
+}
+
+/* Apply theme to body and key elements */
 body {
   font-family: "Montserrat", sans-serif;
   font-size: 0.75rem !important;
   line-height: 1rem;
-  color: #333;
-  background-color: #f7f6fb;
+  color: var(--text-primary);
+  background-color: var(--bg-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-theme {
+  color-scheme: dark;
+  
+  /* Override Bootstrap and PrimeNG for dark theme */
+  .card {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+  }
+  
+  .table {
+    color: var(--text-primary) !important;
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-primary) !important;
+    
+    thead {
+      background-color: var(--bg-secondary) !important;
+      
+      th {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-secondary) !important;
+        border-color: var(--border-primary) !important;
+      }
+      
+      tr {
+        background-color: var(--bg-secondary) !important;
+      }
+    }
+    
+    tbody {
+      background-color: var(--card-bg) !important;
+      
+      tr {
+        background-color: var(--card-bg) !important;
+        border-color: var(--border-primary) !important;
+        
+        &:hover {
+          background-color: var(--card-hover) !important;
+        }
+        
+        td {
+          background-color: transparent !important;
+          border-color: var(--border-primary) !important;
+          color: var(--text-primary) !important;
+        }
+      }
+    }
+    
+    tfoot {
+      background-color: var(--bg-secondary) !important;
+      
+      tr {
+        background-color: var(--bg-secondary) !important;
+      }
+      
+      td {
+        background-color: var(--bg-secondary) !important;
+        border-color: var(--border-primary) !important;
+        color: var(--text-primary) !important;
+      }
+    }
+    
+    // Override striped table styles in dark mode
+    &.table-striped tbody tr:nth-of-type(odd) {
+      background-color: var(--card-bg) !important;
+    }
+    
+    &.table-striped tbody tr:nth-of-type(even) {
+      background-color: var(--bg-secondary) !important;
+    }
+  }
+  
+  .btn-light {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-primary);
+    color: var(--text-primary);
+    
+    &:hover {
+      background-color: var(--card-hover);
+      color: var(--text-primary);
+    }
+  }
+  
+  .modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+  }
+  
+  .form-control {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+    
+    &:focus {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-color: var(--color-primary);
+    }
+    
+    &::placeholder {
+      color: var(--text-tertiary);
+    }
+  }
+  
+  .dropdown-menu {
+    background-color: var(--dropdown-bg);
+    border-color: var(--border-primary);
+    
+    .dropdown-item {
+      color: var(--text-primary);
+      
+      &:hover {
+        background-color: var(--card-hover);
+        color: var(--text-primary);
+      }
+    }
+  }
+  
+  input, select, textarea {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+  }
+  
+  // Bootstrap navbar fixes for dark theme
+  .navbar {
+    background-color: var(--navbar-bg) !important;
+    
+    .navbar-nav {
+      .nav-link {
+        color: var(--navbar-text) !important;
+        
+        &:hover, &:focus {
+          color: var(--color-primary) !important;
+        }
+      }
+      
+      .nav-item.active .nav-link {
+        color: var(--color-primary) !important;
+      }
+    }
+  }
+  
+  // Ensure button text is visible
+  .btn {
+    &:not(.btn-primary):not(.btn-success):not(.btn-danger):not(.btn-warning):not(.btn-info) {
+      color: var(--text-primary);
+      border-color: var(--border-primary);
+      
+      &:hover {
+        background-color: var(--bg-tertiary);
+        color: var(--text-primary);
+      }
+    }
+  }
+  
+  .btn-outline-primary {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    
+    &:hover {
+      background-color: var(--color-primary);
+      color: white;
+    }
+  }
+  
+  .btn-outline-danger {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+    
+    &:hover {
+      background-color: var(--color-danger);
+      color: white;
+    }
+  }
+  
+  // Alert styles
+  .alert {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-primary);
+    
+    &.alert-primary {
+      background-color: rgba(96, 165, 250, 0.15);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+  
+  // Close button visibility
+  .close {
+    color: var(--text-primary);
+    opacity: 0.7;
+    
+    &:hover {
+      color: var(--text-primary);
+      opacity: 1;
+    }
+  }
+  
+  // Table responsive container
+  .table-responsive {
+    background-color: var(--card-bg) !important;
+  }
+  
+  // Card body
+  .card-body {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  // Card header
+  .card-header {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+    border-bottom: 2px solid var(--border-primary) !important;
+  }
+  
+  // Chart container
+  .p-chart {
+    background-color: transparent !important;
+  }
 }
 
 
@@ -46,10 +359,11 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow-x: hidden; // Prevenir scroll horizontal
 }
 
 body {
-  @apply bg-custom-gray-100;
+  background-color: var(--bg-body) !important; // Sobrescribir Tailwind con tema
   position: relative;
   min-height: 100%;
   min-width: 100%;

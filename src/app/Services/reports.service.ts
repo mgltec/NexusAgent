@@ -78,7 +78,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/ThisWeek';
+    const apiUrl = environment.webAPI1 + 'AgentExt/ThisWeek';
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<WeekRangeDto>('GetWeekRange', a))
@@ -93,7 +93,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetReportAgentPosition';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetReportAgentPosition';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentPosition', a))
@@ -108,7 +108,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetReportAgentPositionDetail';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetReportAgentPositionDetail';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentPositionDetails', a))
@@ -126,7 +126,7 @@ export class ReportsService {
     console.log("AgentList", t);
 
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetReportAgentList';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetReportAgentList';
     return this.httpClient.post(apiUrl, t, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<AgentListModel>('GetAgentsList', a))
@@ -142,7 +142,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentAllPlayers';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentAllPlayers';
     return this.httpClient.post(apiUrl, t, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<RequestPlayerListModel>('GetPlayerList', a))
@@ -159,7 +159,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/AgentGetAllPlayersTree?idAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/AgentGetAllPlayersTree?idAgent=' + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<RequestPlayerListModel>('AgentGetAllPlayersTree', a))
@@ -176,7 +176,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/AddPlayerClassic';
+    const apiUrl = environment.webAPI1 + 'AgentExt/AddPlayerClassic';
     return this.httpClient.post(apiUrl, t, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<PlayerClassicCloneRequest>('AddPlayerClassic', a))
@@ -192,7 +192,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetReportAgentDistribution';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetReportAgentDistribution';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentPositionDetails', a))
@@ -209,7 +209,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWeeks';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWeeks';
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetWeeks', a))
@@ -226,7 +226,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetCustomerPerformance';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetCustomerPerformance';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetCustomerPerfromance', a))
@@ -245,7 +245,7 @@ export class ReportsService {
   //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   //   });
   //   const options = { headers };
-  //   const apiUrl = environment.webAPI1 + 'Agent/GetAgentTree';
+  //   const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentTree';
   //   return this.httpClient.post(apiUrl, data, options).pipe(
   //     map((response: any) => response),
   //     catchError(this.handleError<any>('GetAgenTree', a))
@@ -254,7 +254,7 @@ export class ReportsService {
 
   // GetAgentTree(IdAgent: number): Observable<any[]> {
   //   let a: any;
-  //   const apiUrl = environment.webAPI1 + 'Agent/GetAgentTree?IdAgent=' + IdAgent;
+  //   const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentTree?IdAgent=' + IdAgent;
   //   return this.httpClient.get(apiUrl).pipe(
   //     map((response: any) => response),
   //     catchError(this.handleError<any[]>('GetAgentTree', a))
@@ -263,7 +263,7 @@ export class ReportsService {
 
   GetAgentTree(IdAgent: number): Observable<Node> {
     let a: any;
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentTree?IdAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentTree?IdAgent=' + IdAgent;
     return this.httpClient.get<Node>(apiUrl)
       .pipe(catchError(this.handleError<any[]>('GetAgentTree', a))
       )
@@ -271,7 +271,7 @@ export class ReportsService {
 
   InsertAgentExclusion(IdAgent: number): Observable<any> {
     let a: any;
-    const apiUrl = environment.webAPI1 + 'Agent/InsertAgentExclusion?idAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/InsertAgentExclusion?idAgent=' + IdAgent;
     return this.httpClient.get<any>(apiUrl)
       .pipe(catchError(this.handleError<any[]>('GetAgentTree', a))
       )
@@ -279,7 +279,7 @@ export class ReportsService {
 
   DeleteAgentExclusion(IdAgent: number): Observable<any> {
     let a: any;
-    const apiUrl = environment.webAPI1 + 'Agent/DeleteAgentExclusion?idAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/DeleteAgentExclusion?idAgent=' + IdAgent;
     return this.httpClient.get<any>(apiUrl)
       .pipe(catchError(this.handleError<any[]>('GetAgentTree', a))
       )
@@ -293,7 +293,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWagerListing';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWagerListing';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentWagers', a))
@@ -308,7 +308,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWagerTicker';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWagerTicker';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentWagersTicket', a))
@@ -324,7 +324,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentBalance?IdAgent=' + CurrentUser.IdAgentSelected;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentBalance?IdAgent=' + CurrentUser.IdAgentSelected;
     console.log(apiUrl);
     return this.httpClient.get<PlayerStatisticsResult | null>(apiUrl, options).pipe(
       map((response: any) => response),
@@ -335,7 +335,7 @@ export class ReportsService {
 
   GetIdAgent(agent: string): Observable<number> {
     let a: any;
-    const apiUrl = environment.webAPI2 + 'Agent/GetAgentId/' + agent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentId/' + agent;
     return this.httpClient.get(apiUrl).pipe(
       map((response: any) => response),
       catchError(this.handleError<number>('GetAgentTree', a))
@@ -350,7 +350,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetReportAgentPositionV2';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetReportAgentPositionV2';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetReportAgentPositionV2', a))
@@ -365,7 +365,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWeeklyBalanceStandarHistoryDay';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWeeklyBalanceStandarHistoryDay';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetWeeklyBalanceByAgent', a))
@@ -381,7 +381,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWeeklyBalanceStandarHistoryLevelZero';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWeeklyBalanceStandarHistoryLevelZero';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetWeeklyBalanceByAgent', a))
@@ -396,7 +396,7 @@ export class ReportsService {
   //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
   //   });
   //   const options = { headers };
-  //   const apiUrl = environment.webAPI1 + 'Agent/GetWeeklyBalanceStandarHistoryByAgentName';
+  //   const apiUrl = environment.webAPI1 + 'AgentExt/GetWeeklyBalanceStandarHistoryByAgentName';
   //   return this.httpClient.post(apiUrl, data, options).pipe(
   //     map((response: any) => response),
   //     catchError(this.handleError<any>('GetWeeklyBalanceByAgent', a))
@@ -412,7 +412,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentDeleteWagersRights';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentDeleteWagersRights';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentDeleteWagersRights', a))
@@ -428,7 +428,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/DeleteWagers';
+    const apiUrl = environment.webAPI1 + 'AgentExt/DeleteWagers';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('DeleteWager', a))
@@ -444,7 +444,7 @@ export class ReportsService {
     });
     const options = { headers };
 
-    const apiUrl = environment.webAPI1 + 'Agent/GetDashboardPlayerData';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDashboardPlayerData';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDashboardPlayerData', a))
@@ -460,7 +460,7 @@ export class ReportsService {
     });
     const options = { headers };
 
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentDaySheetForNewAgentDashboardReport';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentDaySheetForNewAgentDashboardReport';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDashboardPlayerData', a))
@@ -475,7 +475,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWonLossByBusinessUnit';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWonLossByBusinessUnit';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDashboardPlayerData', a))
@@ -490,7 +490,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerActivity';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerActivity';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDashboardPlayerData', a))
@@ -508,7 +508,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetOpenGamesByPlayer';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetOpenGamesByPlayer';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerLines', a))
@@ -524,7 +524,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetGameScores';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetGameScores';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetScoreHistory', a))
@@ -539,7 +539,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerLoginHistory';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerLoginHistory';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerLoginHistory', a))
@@ -554,7 +554,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerChangesHistory';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerChangesHistory';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetTopPlayerListWinLos', a))
@@ -569,7 +569,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetTopWinningLosingPlayers';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetTopWinningLosingPlayers';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerChangesHistory', a))
@@ -584,7 +584,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerAdjustmentHistory';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerAdjustmentHistory';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerChangesHistory', a))
@@ -599,7 +599,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerInformation?IdPlayer=' + IdPlayer;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerInformation?IdPlayer=' + IdPlayer;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerInformation', a))
@@ -614,7 +614,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerTransactions';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerTransactions';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerTransactions', a))
@@ -629,7 +629,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetBalanceHistory';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetBalanceHistory';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerTransactions', a))
@@ -644,7 +644,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerInformationForEdit?IdPlayer=' + idplayer;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerInformationForEdit?IdPlayer=' + idplayer;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerTransactions', a))
@@ -674,7 +674,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/UpdatePlayerInformation';
+    const apiUrl = environment.webAPI1 + 'AgentExt/UpdatePlayerInformation';
     return this.httpClient.post(apiUrl, data, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('UpdatePlayerInformation', a))
@@ -690,7 +690,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/CreatePlayerTransaction';
+    const apiUrl = environment.webAPI1 + 'AgentExt/CreatePlayerTransaction';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('CreateTransaction', a))
@@ -707,7 +707,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetSummaryReport';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetSummaryReport';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('CreateTransaction', a))
@@ -722,7 +722,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI2 + 'Agent/AgentDistributionV2/' + IdAgent + '/' + StarDate;
+    const apiUrl = environment.webAPI1 + 'AgentExt/AgentDistributionV2/' + IdAgent + '/' + StarDate;
     console.log(apiUrl);
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
@@ -745,7 +745,7 @@ export class ReportsService {
        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
      });
      const options = { headers };
-     const apiUrl = environment.webAPI1 + 'Agent/GetAgentDistributionTangusma';
+     const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentDistributionTangusma';
      //console.log(apiUrl);
      return this.httpClient.post(apiUrl, i, options).pipe(
        map((response: any) => response),
@@ -768,7 +768,7 @@ export class ReportsService {
        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
      });
      const options = { headers };
-     const apiUrl = environment.webAPI1 + 'Agent/GetAgentDistributionTangusmaSub';
+     const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentDistributionTangusmaSub';
      //console.log(apiUrl);
      return this.httpClient.post(apiUrl, i, options).pipe(
        map((response: any) => response),
@@ -786,7 +786,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAllPlayersByAgentNoDetails?IdAgent=' + CurrentUser.IdAgentSelected;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAllPlayersByAgentNoDetails?IdAgent=' + CurrentUser.IdAgentSelected;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('CreateTransaction', a))
@@ -803,7 +803,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetDataForChart?IdAgent=' + CurrentUser.IdAgentSelected + "&fromDate=" + CurrentUser.WeekList[CurrentUser.RangeDateSelected].MonDate;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDataForChart?IdAgent=' + CurrentUser.IdAgentSelected + "&fromDate=" + CurrentUser.WeekList[CurrentUser.RangeDateSelected].MonDate;
     console.log(apiUrl);
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
@@ -821,7 +821,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentExposure?IdAgent=' + CurrentUser.IdAgentSelected + "&IdSport=" + IdSport;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentExposure?IdAgent=' + CurrentUser.IdAgentSelected + "&IdSport=" + IdSport;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -837,7 +837,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI2 + "Agent/GetAgentLimitsByIdAgent/" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgentLimitsByIdAgent/" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -854,7 +854,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/PlayerInsert';
+    const apiUrl = environment.webAPI1 + 'AgentExt/PlayerInsert';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('CreateTransaction', a))
@@ -871,7 +871,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/SubAgent_Insert';
+    const apiUrl = environment.webAPI1 + 'AgentExt/SubAgent_Insert';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('CreateTransaction', a))
@@ -888,7 +888,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetLineTypeByAgent?IdAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetLineTypeByAgent?IdAgent=' + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetLineTypeByAgent', a))
@@ -905,7 +905,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerProfileByAgent?IdAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerProfileByAgent?IdAgent=' + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerProfileByAgent', a))
@@ -922,7 +922,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerProfileLimitsByAgent?IdAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerProfileLimitsByAgent?IdAgent=' + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerProfileLimitsByAgent', a))
@@ -939,7 +939,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentDetails?IdAgent=' + IdAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentDetails?IdAgent=' + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerProfileLimitsByAgent', a))
@@ -956,7 +956,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerHistoryReport';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerHistoryReport';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerProfileLimitsByAgent', a))
@@ -974,7 +974,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentDaySheetForNewAgentReport';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentDaySheetForNewAgentReport';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetNewWeeklyBasedDaySheet', a))
@@ -992,7 +992,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerHistory';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerHistory';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetNewWeeklyBasedDaySheet', a))
@@ -1009,7 +1009,7 @@ export class ReportsService {
       //'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerLifeTimeNet?idPlayer=' + IdPlayer;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerLifeTimeNet?idPlayer=' + IdPlayer;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerLifeTimeNet', a))
@@ -1027,7 +1027,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetDaySheetClassic';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDaySheetClassic';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaySheetClassic', a))
@@ -1045,7 +1045,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentallowTransfer';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentallowTransfer';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentAllowTransfer', a))
@@ -1062,7 +1062,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentallowSettleFigureColumn';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentallowSettleFigureColumn';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentAllowSettleFigureColumn', a))
@@ -1078,7 +1078,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetDatesForHeaders';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDatesForHeaders';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaySheetClassic', a))
@@ -1095,7 +1095,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/DaysheetClassicBreadkown';
+    const apiUrl = environment.webAPI1 + 'AgentExt/DaysheetClassicBreadkown';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaySheetClassicBreadkown', a))
@@ -1112,7 +1112,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerLatestTransactions';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerLatestTransactions';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerLatestTransaction', a))
@@ -1132,7 +1132,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/InsertPlayerTransactionDaySheet';
+    const apiUrl = environment.webAPI1 + 'AgentExt/InsertPlayerTransactionDaySheet';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('InsertPlayerTransaction', a))
@@ -1150,7 +1150,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentLatestTransactions';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentLatestTransactions';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentLatestTransaction', a))
@@ -1168,7 +1168,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/InsertAgentTransaction';
+    const apiUrl = environment.webAPI1 + 'AgentExt/InsertAgentTransaction';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('InsertPlayerTransaction', a))
@@ -1186,7 +1186,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentInformation';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentInformation';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentInformation', a))
@@ -1203,7 +1203,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentStatistic?idAgent=' + idAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentStatistic?idAgent=' + idAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentInformation', a))
@@ -1220,7 +1220,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/EditAgentInfomation';
+    const apiUrl = environment.webAPI1 + 'AgentExt/EditAgentInfomation';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('EditAgentInfomation', a))
@@ -1238,7 +1238,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerHistoryDaySheet';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerHistoryDaySheet';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerHistoryDaySheet', a))
@@ -1255,7 +1255,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetDaysheetPlayerInformation';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDaysheetPlayerInformation';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaysheetPlayerInformation', a))
@@ -1272,7 +1272,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/EditDaySheetPlayerInfomation';
+    const apiUrl = environment.webAPI1 + 'AgentExt/EditDaySheetPlayerInfomation';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('DaysheetEditPlayerInformation', a))
@@ -1290,7 +1290,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentRedFigure';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentRedFigure';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentRedFigure', a))
@@ -1306,7 +1306,7 @@ export class ReportsService {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetCurrencyList';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetCurrencyList';
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetCurrency', a))
@@ -1324,7 +1324,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerHistoryAdvanced';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerHistoryAdvanced';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerHistoryAdvanced', a))
@@ -1341,7 +1341,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerIPAccess';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerIPAccess';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerIPAccess', a))
@@ -1358,7 +1358,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetInactivePlayers';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetInactivePlayers';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetInactivePlayers', a))
@@ -1375,7 +1375,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetCasinoDayHandle';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetCasinoDayHandle';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetCasinoDayHandle', a))
@@ -1393,7 +1393,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetCasinoGameDetails';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetCasinoGameDetails';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetCasinoDayHandle', a))
@@ -1410,7 +1410,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetCasinoGameHands';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetCasinoGameHands';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetCasinoDayHandle', a))
@@ -1427,7 +1427,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetDaySheetPlus';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDaySheetPlus';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaysheetPlus', a))
@@ -1444,7 +1444,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetDaySheetRowColorList';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDaySheetRowColorList';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaySheetRowColorList', a))
@@ -1462,7 +1462,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/SavePlayerDaysheetColorRow';
+    const apiUrl = environment.webAPI1 + 'AgentExt/SavePlayerDaysheetColorRow';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('SavePlayerDaysheetColorRow', a))
@@ -1479,7 +1479,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/SavePlayerDaysheetNote';
+    const apiUrl = environment.webAPI1 + 'AgentExt/SavePlayerDaysheetNote';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('SavePlayerDaysheetNote', a))
@@ -1496,7 +1496,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/SavePlayerDaysheetOnlineMessage';
+    const apiUrl = environment.webAPI1 + 'AgentExt/SavePlayerDaysheetOnlineMessage';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('SavePlayerDaysheetOnlineMessage', a))
@@ -1513,7 +1513,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerMessages';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerMessages';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerMessages', a))
@@ -1530,7 +1530,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetDaySheetLive';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetDaySheetLive';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaySheetLive', a))
@@ -1547,7 +1547,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/DaysheetLiveBreadkown';
+    const apiUrl = environment.webAPI1 + 'AgentExt/DaysheetLiveBreadkown';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDaySheetLiveBreadkown', a))
@@ -1563,7 +1563,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerStanding';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerStanding';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerStanding', a))
@@ -1579,7 +1579,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/AgentCashFlow';
+    const apiUrl = environment.webAPI1 + 'AgentExt/AgentCashFlow';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('AgentCashFlow', a))
@@ -1595,7 +1595,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerTotals';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerTotals';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerTotals', a))
@@ -1611,7 +1611,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerActions';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerActions';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerActions', a))
@@ -1627,7 +1627,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentGrossWeek';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentGrossWeek';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentGrossWeek', a))
@@ -1643,7 +1643,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentPlayerHistory';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentPlayerHistory';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentPlayerHistory', a))
@@ -1658,7 +1658,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/AgentWeeklyPayments';
+    const apiUrl = environment.webAPI1 + 'AgentExt/AgentWeeklyPayments';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentWeeklyPayment', a))
@@ -1673,7 +1673,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/AgentSettledFigure';
+    const apiUrl = environment.webAPI1 + 'AgentExt/AgentSettledFigure';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentSettledFigure', a))
@@ -1689,7 +1689,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/AgentPlayerAdjustment';
+    const apiUrl = environment.webAPI1 + 'AgentExt/AgentPlayerAdjustment';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('AgentPlayerAdjustment', a))
@@ -1706,7 +1706,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentHistory';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentHistory';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentHistory', a))
@@ -1722,7 +1722,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetOpenWagers';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetOpenWagers';
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetOpenWagers', a))
@@ -1738,7 +1738,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetOpenWagerCurrencies?idAgent=' + idAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetOpenWagerCurrencies?idAgent=' + idAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetOpenWagerCurrencies', a))
@@ -1754,7 +1754,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetOpenBetsIdSports?idAgent=' + idAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetOpenBetsIdSports?idAgent=' + idAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetOpenBetsIdSports', a))
@@ -1770,7 +1770,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetOpenWagerPlayers?idAgent=' + idAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetOpenWagerPlayers?idAgent=' + idAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetOpenWagerPlayers', a))
@@ -1786,7 +1786,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetOpenBetsWagertypes?idAgent=' + idAgent;
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetOpenBetsWagertypes?idAgent=' + idAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetOpenBetsWagertypes', a))
@@ -1802,7 +1802,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWeeklyBalanceClassic';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWeeklyBalanceClassic';
     return this.httpClient.post(apiUrl, t, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetWeeklyBalanceClassic', a))
@@ -1818,7 +1818,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetSMSAgentsAlerts';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetSMSAgentsAlerts';
     return this.httpClient.post(apiUrl, t, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetSMSAgentsAlerts', a))
@@ -1835,7 +1835,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/InsertSMSAgentAlert';
+    const apiUrl = environment.webAPI1 + 'AgentExt/InsertSMSAgentAlert';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('InsertSMSAgentAlert', a))
@@ -1852,7 +1852,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetPlayersLoginIpData";
+    const apiUrl = environment.webAPI1 + "AgentExt/GetPlayersLoginIpData";
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -1869,7 +1869,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetDuplicateIps";
+    const apiUrl = environment.webAPI1 + "AgentExt/GetDuplicateIps";
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDuplicateIps', a))
@@ -1886,7 +1886,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/UpdateSMSAgentAlert';
+    const apiUrl = environment.webAPI1 + 'AgentExt/UpdateSMSAgentAlert';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('UpdateSMSAgentAlert', a))
@@ -1914,7 +1914,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetAgents?idAgent=" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgents?idAgent=" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -1931,7 +1931,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetTelegramInfo?IdAgentSelected=" + IdAgentSelected;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetTelegramInfo?IdAgentSelected=" + IdAgentSelected;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -1948,7 +1948,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetPlayersTelegramSubcribed?TelegramChatId=" + TelegramChatId;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetPlayersTelegramSubcribed?TelegramChatId=" + TelegramChatId;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -1965,7 +1965,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetAgentPlayers?IdAgent=" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgentPlayers?IdAgent=" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -2050,7 +2050,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetBeatTheLine';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetBeatTheLine';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetBeatTheLine', a))
@@ -2068,7 +2068,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetReportAgentCommission";
+    const apiUrl = environment.webAPI1 + "AgentExt/GetReportAgentCommission";
     return this.httpClient.post(apiUrl, info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -2085,7 +2085,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetPlayerManagementReport?idAgent=" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetPlayerManagementReport?idAgent=" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -2102,7 +2102,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetAgentRights?idAgent=" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgentRights?idAgent=" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -2118,7 +2118,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/AgentPlayerCount';
+    const apiUrl = environment.webAPI1 + 'AgentExt/AgentPlayerCount';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentPlayerCount', a))
@@ -2134,7 +2134,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetAgentHoldPercent';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetAgentHoldPercent';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentHoldPercent', a))
@@ -2150,7 +2150,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetWebvsPhone';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetWebvsPhone';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetWebvsPhone', a))
@@ -2166,7 +2166,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetPlayerAccess';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetPlayerAccess';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerAccess', a))
@@ -2182,7 +2182,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'Agent/GetTopPlayer';
+    const apiUrl = environment.webAPI1 + 'AgentExt/GetTopPlayer';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetTopPlayer', a))
@@ -2217,7 +2217,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetAgentBalanceGeneral?idAgent=" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgentBalanceGeneral?idAgent=" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerAgentByIdAgent', a))
@@ -2234,7 +2234,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetAgentTree2?idAgent=" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgentTree2?idAgent=" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentTree2', a))
@@ -2284,7 +2284,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/PlayerProfileLimits_GetByAgent?idAgent=" + IdAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/PlayerProfileLimits_GetByAgent?idAgent=" + IdAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('PlayerProfileLimits_GetByAgent', a))
@@ -2301,7 +2301,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/ChangeProfilePlayer";
+    const apiUrl = environment.webAPI1 + "AgentExt/ChangeProfilePlayer";
     return this.httpClient.post(apiUrl,req, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('ChangeProfilePlayer', a))
@@ -2318,7 +2318,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetPlayerProfileLimits?idPlayer="+ idPlayer + "&idSport="+ idSport + "&online=" + online + "&flag=" + flag;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetPlayerProfileLimits?idPlayer="+ idPlayer + "&idSport="+ idSport + "&online=" + online + "&flag=" + flag;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetPlayerProfileLimits', a))
@@ -2335,7 +2335,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/CloneProfile";
+    const apiUrl = environment.webAPI1 + "AgentExt/CloneProfile";
     return this.httpClient.post(apiUrl,req, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('CloneProfile', a))
@@ -2352,7 +2352,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/SaveProfile";
+    const apiUrl = environment.webAPI1 + "AgentExt/SaveProfile";
     return this.httpClient.post(apiUrl,req, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('SaveProfile', a))
@@ -2369,7 +2369,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/SaveAgent";
+    const apiUrl = environment.webAPI1 + "AgentExt/SaveAgent";
     return this.httpClient.post(apiUrl,req, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('SaveAgent', a))
@@ -2386,7 +2386,7 @@ export class ReportsService {
       // 'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetAgentSettings?idAgent="+ idAgent;
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgentSettings?idAgent="+ idAgent;
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentSettings', a))
@@ -2403,7 +2403,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/InsertOrUpdateAgentSettings";
+    const apiUrl = environment.webAPI1 + "AgentExt/InsertOrUpdateAgentSettings";
     return this.httpClient.post(apiUrl, req, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('InsertOrUpdateAgentSettings', a))
@@ -2420,7 +2420,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "Agent/GetAgentExposureDetail";
+    const apiUrl = environment.webAPI1 + "AgentExt/GetAgentExposureDetail";
     return this.httpClient.post(apiUrl,req, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetAgentExposureDetail', a))

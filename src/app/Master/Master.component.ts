@@ -35,6 +35,7 @@ import {
 import { DataService } from "../Services/data.service";
 import { ReportsService } from "../Services/reports.service";
 import { PhoneDirectoryService } from "../Services/phoneDirectory.service";
+import { ThemeService, Theme } from "../Services/theme.service";
 import Swal from 'sweetalert2'
 
 @Component({
@@ -91,6 +92,10 @@ export class MasterComponent implements OnInit, OnDestroy {
 
   phoneDomain: string = "";
 
+  // Theme properties
+  public currentTheme: Theme = 'light';
+  public isDarkTheme: boolean = false;
+
   constructor(
     public _reportService: ReportsService,
     public _DataService: DataService,
@@ -98,7 +103,8 @@ export class MasterComponent implements OnInit, OnDestroy {
     public messageService: MessageService,
     private modalService: NgbModal,
     private renderer: Renderer2,
-    private phoneDirectoryService: PhoneDirectoryService
+    private phoneDirectoryService: PhoneDirectoryService,
+    private themeService: ThemeService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -189,6 +195,14 @@ export class MasterComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         this.closeMenu();
       }
+    });
+
+    // Initialize theme
+    this.themeService.theme$.pipe(
+      takeUntil(this._unsubscribeAll)
+    ).subscribe((theme: Theme) => {
+      this.currentTheme = theme;
+      this.isDarkTheme = theme === 'dark';
     });
 
     this._DataService.UserSession.subscribe((ServiceUserInformation) => {
@@ -554,6 +568,26 @@ export class MasterComponent implements OnInit, OnDestroy {
         },
         (error) => {}
       );
+  }
+
+  /**
+   * Toggle between light and dark theme
+   */
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+    const newTheme = this.isDarkTheme ? 'light' : 'dark';
+    this.showMessage(
+      "success", 
+      "Theme Changed", 
+      `Switched to ${newTheme} mode`
+    );
+  }
+
+  /**
+   * Set a specific theme
+   */
+  setTheme(theme: Theme): void {
+    this.themeService.setTheme(theme);
   }
 
 } //end component

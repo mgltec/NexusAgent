@@ -27,7 +27,7 @@ export class PhoneDirectoryService {
       // { domain: 'newagent.easywinsports.com', phone: '1-855-248-0132' },
       // { domain: 'newagent.newbreed365.com', phone: '1-855-248-0132' },
       // { domain: 'newagent.kowagers.com', phone: '1-855-248-0126' },
-      { domain: 'newagent.localhost', phone: '1-888-888-8888' },
+      { domain: 'newagent.localhost', phone: 'OfficePhone' },
   ];
 
   constructor() {}

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <button *ngIf="isDesktop" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-themed">
+  <button *ngIf="isDesktop" class="navbar-toggler navbar-toggler-themed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -21,13 +21,13 @@
             Figures
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownFigures">
-            <a *ngIf="hasRight(163)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/weeklyClassic">Weekly Balance Classic</a>
-            <a *ngIf="hasRight(163)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/weeklydaysheet">Weekly Balance V2</a>
-            <a *ngIf="hasRight(168)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerstanding">Player Standings</a>
-            <a *ngIf="hasRight(166)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playeraction">Action by Player</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/weeklyClassic">Weekly Balance Classic</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/weeklydaysheet">Weekly Balance V2</a>
+            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerstanding">Player Standings</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playeraction">Action by Player</a>
             <div class="dropdown-divider"></div>
-            <a *ngIf="hasRight(176)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playertotal">Player Totals</a>
-            <a *ngIf="hasRight(185)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentgrossweek">Gross Week</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playertotal">Player Totals</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentgrossweek">Gross Week</a>
           </div>
         </div>
       </div>
@@ -39,13 +39,13 @@
             Wagers
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownWagers">
-            <a *ngIf="hasRight(165)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/openbets">Open Bets</a>
-            <a *ngIf="hasRight(164)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerhistory">Player History</a>
-            <a *ngIf="hasRight(170)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentposition">Agent Position</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/openbets">Open Bets</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerhistory">Player History</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentposition">Agent Position</a>
             <div class="dropdown-divider"></div>
-            <a *ngIf="hasRight(169)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentexposure">Agent Exposure</a>
-            <a *ngIf="hasRight(173)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/changedWager">Change Wager</a>
-            <a *ngIf="hasRight(186)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentwagers">Wager Listing</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentexposure">Agent Exposure</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/changedWager">Change Wager</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentwagers">Wager Listing</a>
             <div class="dropdown-divider"></div>
             <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentwagersticket">Wagers Ticker (Live)</a>
           </div>
@@ -59,11 +59,11 @@
             Financial
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownFinancial">
-            <a *ngIf="hasRight(174)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentcashflow">Cash Flow</a>
-            <a *ngIf="hasRight(187)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentweeklypayment">Weekly Payments</a>
-            <a *ngIf="hasRight(183)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentadjusment">Agent Adjustment</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentcashflow">Cash Flow</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentweeklypayment">Weekly Payments</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentadjusment">Agent Adjustment</a>
             <div class="dropdown-divider"></div>
-            <a *ngIf="hasRight(189)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentsettledfigure">Settled Figures</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentsettledfigure">Settled Figures</a>
             <a ngbDropdownItem class="dropdown-item" (click)="open(contentTrans)">Player Payments</a>
             <div class="dropdown-divider"></div>
             <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/beattheline">Beat the line</a>
@@ -78,17 +78,17 @@
             Agents
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownAgents">
-            <a *ngIf="hasRight(171)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentdistribution">Agent Distribution</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentdistribution">Agent Distribution</a>
             <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agenthistory">Agent History</a>
             <div class="dropdown-divider"></div>
-            <a *ngIf="hasRight(182)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentcommission">Agent Commission</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentcommission">Agent Commission</a>
             <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/smsalert">SMS Alert</a>
             <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/telegram">Telegram Bet Alert</a>
             <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerip">IP Report</a>
             <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/hiddenleagues">Hidden Leagues</a>
-            <a *ngIf="hasRight(200)" ngbDropdownItem class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
-            <a *ngIf="hasRight(204)" ngbDropdownItem class="dropdown-item" (click)="open(contentNewSubAgent)">Add SubAgent</a>
-            <a *ngIf="hasRight(195)" ngbDropdownItem class="dropdown-item" (click)="open(contentAgentTrans)">Add Adjustment</a>
+            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
+            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentNewSubAgent)">Add SubAgent</a>
+            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentAgentTrans)">Add Adjustment</a>
           </div>
         </div>
       </div>
@@ -100,9 +100,9 @@
             Player Management
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownPlayerManagement">
-            <a *ngIf="hasRight(167)" ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentplayermagment">Players Management</a>
+            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentplayermagment">Players Management</a>
             <a ngbDropdownItem class="dropdown-item" (click)="open(contentLookup)">Look up Player</a>
-            <a *ngIf="hasRight(200)" ngbDropdownItem class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
+            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
             <a ngbDropdownItem class="dropdown-item" (click)="open(contentPlayerEdit)">Edit Player</a>
             <a ngbDropdownItem class="dropdown-item" (click)="open(contentTrans)">Add Payment</a>
           </div>
@@ -120,10 +120,10 @@
         </div>
       </li> -->
       <li class="nav-item" *ngIf="_isPhone">
-        <a class="nav-link" href="tel:855-219-5820"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link" href="tel:555555555"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span>
             <i class="fa-solid fa-phone"></i>
-            855-219-5820
+            Office Phone
           </span>
         </a>
        
@@ -143,8 +143,13 @@
       <div class="text-xl flex items-center justify-center">
         <i class="fa fa-cog hover:text-blue-900 cursor-pointer" (click)="modalSettings = true"></i>
       </div>
+      <li class="theme-toggle-item">
+        <button class="theme-toggle-btn" (click)="toggleTheme()" [attr.aria-label]="'Switch to ' + (isDarkTheme ? 'light' : 'dark') + ' theme'">
+          <i class="fas" [ngClass]="isDarkTheme ? 'fa-sun' : 'fa-moon'"></i>
+        </button>
+      </li>
       <li>
-        <a href="#" class="nav-link"><i class="fa fa-power-off text-danger" style="font-size: 1.3rem" data-toggle="tooltip" title="Exit" (click)="logout()"></i> </a>
+        <a href="#" class="nav-link"><i class="fa fa-power-off text-danger logout-icon" data-toggle="tooltip" title="Exit" (click)="logout()"></i> </a>
       </li>
     </ul>
   </div>
@@ -208,13 +213,13 @@
   <router-outlet></router-outlet>
 
   <ng-template #contentLookup let-modal>
-    <div class="modal-header" style="background-color: #337ab7">
-      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
-      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header modal-header-custom">
+      <h4 class="modal-title" id="modal-basic-title">Dashboard</h4>
+      <button type="button" class="close btn btn-sm modal-close-btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body modal-lookup" style="height: 300px">
+    <div class="modal-body modal-lookup modal-body-fixed">
       <div class="form-group">
         <p>First select the agent:</p>
         <div class="fa-3x" *ngIf="_loadingAgentList">
@@ -242,9 +247,9 @@
   </ng-template>
 
   <ng-template #contentTrans let-modal>
-    <div class="modal-header" style="background-color: #337ab7">
-      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
-      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header modal-header-custom">
+      <h4 class="modal-title" id="modal-basic-title">Dashboard</h4>
+      <button type="button" class="close btn btn-sm modal-close-btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -286,9 +291,9 @@
   </ng-template>
 
   <ng-template #contentNewPlayer let-modal>
-    <div class="modal-header" style="background-color: #337ab7">
-      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
-      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header modal-header-custom">
+      <h4 class="modal-title" id="modal-basic-title">Dashboard</h4>
+      <button type="button" class="close btn btn-sm modal-close-btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -321,9 +326,9 @@
   </ng-template>
 
   <ng-template #contentPlayerEdit let-modal>
-    <div class="modal-header" style="background-color: #337ab7">
-      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
-      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header modal-header-custom">
+      <h4 class="modal-title" id="modal-basic-title">Dashboard</h4>
+      <button type="button" class="close btn btn-sm modal-close-btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -359,9 +364,9 @@
     </div>
   </ng-template>
   <ng-template #contentAgentTrans let-modal>
-    <div class="modal-header" style="background-color: #337ab7">
-      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
-      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header modal-header-custom">
+      <h4 class="modal-title" id="modal-basic-title">Dashboard</h4>
+      <button type="button" class="close btn btn-sm modal-close-btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -393,9 +398,9 @@
     </div>
   </ng-template>
   <ng-template #contentNewSubAgent let-modal>
-    <div class="modal-header" style="background-color: #337ab7">
-      <h4 class="modal-title" id="modal-basic-title" style="color: white">Dashboard</h4>
-      <button type="button" class="close btn btn-sm" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header modal-header-custom">
+      <h4 class="modal-title" id="modal-basic-title">Dashboard</h4>
+      <button type="button" class="close btn btn-sm modal-close-btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
