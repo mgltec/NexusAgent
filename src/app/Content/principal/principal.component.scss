@@ -32,6 +32,27 @@ $spacing-unit: 8px;
     }
 }
 
+// Bootstrap row adjustments for better spacing
+.row {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    
+    @media (max-width: 768px) {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+}
+
+.col, [class*="col-"] {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    
+    @media (max-width: 768px) {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
 .pull-up {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
