@@ -57,14 +57,27 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.sub = this.activatedRoute.queryParams.subscribe(params => {
         this.varUsername = params['us'];
         let passEncryp = params?.['ps']?.trim?.();
-        let passDecrypt = atob(passEncryp);
+        let passDecrypt = '';
+        
+        // Only decode if passEncryp is valid
+        if (passEncryp && passEncryp.length > 0) {
+          try {
+            passDecrypt = atob(passEncryp);
+          } catch (decodeError) {
+            console.error('Error decoding password:', decodeError);
+            passDecrypt = '';
+          }
+        }
+        
         this.varOrigen = params?.['origen'];
         this.varPassword = passDecrypt;
         if (this.varUsername != null && this.varPassword != '') {
           this.showLoginForm = false;
           this.submitFormExt(this.varUsername.trim(), this.varPassword.trim());
         }else{
-          document.location.href= this.varOrigen;
+          if (this.varOrigen != null && this.varOrigen != "undefined" && this.varOrigen != '') {
+            document.location.href = this.varOrigen;
+          }
         }
       });
     } catch(error){}

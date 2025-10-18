@@ -382,6 +382,9 @@ getCurrentValue(observable: BehaviorSubject<number>): number {
 }
 
 formatValue(value: number): string {
+  if (value === null || value === undefined) {
+    return '0';
+  }
   return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
 }

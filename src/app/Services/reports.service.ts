@@ -1982,7 +1982,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + "AgentLeagues/GetWebRows";
+    const apiUrl = environment.webAPI1 + "AgentExt/GetWebRows";
     return this.httpClient.get(apiUrl, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('GetDataForChart', a))
@@ -1999,7 +1999,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'AgentLeagues/HiddenLeagues_GetLeague';
+    const apiUrl = environment.webAPI1 + 'AgentExt/HiddenLeagues_GetLeague';
     return this.httpClient.post(apiUrl, Info, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('HiddenLeagues_GetLeague', a))
@@ -2016,7 +2016,7 @@ export class ReportsService {
        'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'AgentLeagues/HiddenLeagues_Insert';
+    const apiUrl = environment.webAPI1 + 'AgentExt/HiddenLeagues_Insert';
     return this.httpClient.post(apiUrl, ObjValues, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('HiddenLeagues_GetLeague', a))
@@ -2033,7 +2033,7 @@ export class ReportsService {
       'Authorization': "bearer " + CurrentUser.Master.Password + '.' + CurrentUser.Master.IdAgent,
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'AgentLeagues/HiddenLeagues_InsertMasive';
+    const apiUrl = environment.webAPI1 + 'AgentExt/HiddenLeagues_InsertMasive';
     return this.httpClient.post(apiUrl, ObjValues, options).pipe(
       map((response: any) => response),
       catchError(this.handleError<any>('HiddenLeagues_GetLeague', a))

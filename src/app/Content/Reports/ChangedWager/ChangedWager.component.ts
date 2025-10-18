@@ -141,9 +141,12 @@ export class ChangedWagerComponent implements OnInit, OnDestroy {
     this._reportService.GetAgentHistory(this._currentUser, t).pipe(takeUntil(this._unsubscribeAll)).subscribe({
       next: (data) => {
         console.log("agenthis", data);
-        this.reportData = data;
+        // Ensure data is an array
+        this.reportData = Array.isArray(data) ? data : [];
       },
       error: (err) => {
+        console.error('Error fetching agent history:', err);
+        this.reportData = [];
         this._loadingReport = false;
       },
       complete: () => {

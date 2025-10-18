@@ -240,9 +240,18 @@ export class MasterComponent implements OnInit, OnDestroy {
     this.getPhoneNumber();
     //  this.GetWeeks();
     if(sessionStorage.getItem('agentSettings') != null){
-      this.settings = JSON.parse(sessionStorage.getItem('agentSettings') || '{}');
-      this.themeSelected = this.settings.Theme;
-      console.log(this.settings)
+      try {
+        const settingsData = sessionStorage.getItem('agentSettings');
+        if (settingsData) {
+          this.settings = JSON.parse(settingsData);
+          this.themeSelected = this.settings?.Theme || 0;
+          console.log(this.settings);
+        }
+      } catch (error) {
+        console.error('Error parsing agent settings:', error);
+        this.settings = new AgentSettingsResultDTO();
+        this.themeSelected = 0;
+      }
     }
   }
 

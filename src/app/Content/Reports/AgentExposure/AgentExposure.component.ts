@@ -157,15 +157,21 @@ export class AgentExposureComponent implements OnInit, OnDestroy {
          this.sumaTeasers = 0;
          this.sumaReverses = 0;
 
-        this.agentExposureReport.ListExposure.forEach((element:any) => {
-          this.sumaParlays += Number(element._ParlayVSpread) + Number(element._ParlayVTotal) + Number(element._ParlayVMoney) + Number(element._ParlayHSpread) + Number(element._ParlayHTotal) + Number(element._ParlayHMoney);
-          this.sumaStraight += Number(element._StraightbetVSpread) + Number(element._StraightbetVTotal) + Number(element._StraightbetVMoney) + Number(element._StraightbetHSpread) + Number(element._StraightbetHTotal) + Number(element._StraightbetHMoney);
-          this.sumaTeasers += Number(element._TeaserVSpread) + Number(element._TeaserVTotal) + Number(element._TeaserVMoney) + Number(element._TeaserHSpread) + Number(element._TeaserHTotal) + Number(element._TeaserHMoney);
-          this.sumaReverses += Number(element._ReversesVSpread) + Number(element._ReversesVTotal) + Number(element._ReversesVMoney) + Number(element._ReversesHSpread) + Number(element._ReversesHTotal) + Number(element._ReversesHMoney);
-
-        });
+        // Check if ListExposure exists and is an array before processing
+        if (this.agentExposureReport?.ListExposure && Array.isArray(this.agentExposureReport.ListExposure)) {
+          this.agentExposureReport.ListExposure.forEach((element:any) => {
+            this.sumaParlays += Number(element._ParlayVSpread) + Number(element._ParlayVTotal) + Number(element._ParlayVMoney) + Number(element._ParlayHSpread) + Number(element._ParlayHTotal) + Number(element._ParlayHMoney);
+            this.sumaStraight += Number(element._StraightbetVSpread) + Number(element._StraightbetVTotal) + Number(element._StraightbetVMoney) + Number(element._StraightbetHSpread) + Number(element._StraightbetHTotal) + Number(element._StraightbetHMoney);
+            this.sumaTeasers += Number(element._TeaserVSpread) + Number(element._TeaserVTotal) + Number(element._TeaserVMoney) + Number(element._TeaserHSpread) + Number(element._TeaserHTotal) + Number(element._TeaserHMoney);
+            this.sumaReverses += Number(element._ReversesVSpread) + Number(element._ReversesVTotal) + Number(element._ReversesVMoney) + Number(element._ReversesHSpread) + Number(element._ReversesHTotal) + Number(element._ReversesHMoney);
+          });
+        } else {
+          console.warn('ListExposure is not available or not an array:', this.agentExposureReport);
+        }
+        
         this._loadingReport = false;
       }, error => {
+        console.error('Error fetching agent exposure data:', error);
         this._loadingReport = false;
       });
   }
@@ -215,15 +221,22 @@ export class AgentExposureComponent implements OnInit, OnDestroy {
     this._reportService.GetSports(this._currentUser)
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(data => {
-        this._SportList = data.map(sport => {
-          return {
-            ...sport,
-            IdSport: sport.IdSport.trim()
-          };
-        });
+        // Check if data is an array before calling map
+        if (Array.isArray(data)) {
+          this._SportList = data.map(sport => {
+            return {
+              ...sport,
+              IdSport: sport.IdSport.trim()
+            };
+          });
+        } else {
+          console.warn('GetSports returned non-array data:', data);
+          this._SportList = [];
+        }
         console.log(this._SportList)
       }, error => {
-
+        console.error('Error fetching sports:', error);
+        this._SportList = [];
       });
   } //end submit form
 
