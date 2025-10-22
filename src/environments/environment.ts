@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  webAPI1: "http://localhost:54986/api/",
-  //webAPI1: "https://coreapi.nexuswager.com/api/",
-  //webAPI2:  "https://coreapi.nexuswager.com/api/",
+  webAPI1: 'https://api.mglsports.net/api/',
 };
 
