@@ -4,7 +4,10 @@
       <div class="card-header">
         <div class="card-title">
           <i class="fas fa-arrow-circle-down"></i>
-          <span>Weekly balance by Player for Agent {{_currentUser.AgentSelected}} from {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}} to {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}}</span>
+          <span>Weekly balance by Player for Agent {{_currentUser.AgentSelected}} from {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}} to {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}}</span>
+        </div>
+        <div class="card-subtitle" *ngIf="totalPages > 1">
+          <small><i class="fas fa-info-circle"></i> Showing page {{currentPage + 1}} of {{totalPages}} pages</small>
         </div>
       </div>
       <div class="card-body">
@@ -104,12 +107,34 @@
               </tr>
             </thead>
             <tbody>
-              <ng-container  *ngFor="let detail of _dataReportWeeklyBalance.AgentList">
-              <tr>
-                <td colspan="15" style="background-color: rgb(201, 201, 201);"> {{detail._Agent}}</td>
-              </tr>
 
-              <tr *ngFor="let player of detail.PlayerList">
+
+
+
+              <ng-container *ngFor="let detail of _dataReportWeeklyBalance.AgentList">
+                <tr>
+                  <td colspan="15" class="agent-header-row">
+                    <strong>{{detail._Agent}}</strong>
+                    <small class="ml-2" *ngIf="detail.PlayerList && detail.PlayerList.length > 0">({{detail.PlayerList.length}} players)</small>
+                  </td>
+                </tr>
+
+                <tr *ngIf="!detail.PlayerList || detail.PlayerList.length === 0">
+                  <td colspan="15" class="text-center py-4">
+                    <div *ngIf="totalPages > 1" class="alert alert-info mb-0">
+                      <i class="fas fa-info-circle"></i>
+                      No players on this page. Use pagination controls below.
+                      <br>
+                      <small>Page {{currentPage + 1}} of {{totalPages}}</small>
+                    </div>
+                    <div *ngIf="totalPages <= 1" class="text-muted">
+                      <i class="fas fa-info-circle"></i>
+                      No player data available for this period.
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngFor="let player of detail.PlayerList; trackBy: trackByPlayer">
                 <td class="frozen-column"> <a [routerLink]="['/mainbk/playerdetails']" [queryParams]="{idplayer: player._IdPlayer, player: player._Player}">{{player._Player}} / {{player._Password}}</a></td>
                 <td class="text-right">
                   <span [ngClass]="calculateClasses(player._BalFwd)">{{player._BalFwd | number: '1.2-2'}}</span>
@@ -156,6 +181,54 @@
             </ng-container>
             </tbody>
           </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-container" *ngIf="totalPages > 1">
+          <div class="pagination-info">
+            <span>Page {{currentPage + 1}} of {{totalPages}}</span>
+            <span class="mx-2">|</span>
+            <span>{{rowsPerPage}} rows per page</span>
+          </div>
+          
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              <!-- First Page -->
+              <li class="page-item" [class.disabled]="!hasPreviousPage">
+                <button class="page-link" (click)="goToFirstPage()" [disabled]="!hasPreviousPage">
+                  <i class="fas fa-angle-double-left"></i>
+                </button>
+              </li>
+              
+              <!-- Previous Page -->
+              <li class="page-item" [class.disabled]="!hasPreviousPage">
+                <button class="page-link" (click)="goToPreviousPage()" [disabled]="!hasPreviousPage">
+                  <i class="fas fa-angle-left"></i>
+                </button>
+              </li>
+              
+              <!-- Page Numbers -->
+              <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="page === currentPage">
+                <button class="page-link" (click)="loadPage(page)">
+                  {{page + 1}}
+                </button>
+              </li>
+              
+              <!-- Next Page -->
+              <li class="page-item" [class.disabled]="!hasNextPage">
+                <button class="page-link" (click)="goToNextPage()" [disabled]="!hasNextPage">
+                  <i class="fas fa-angle-right"></i>
+                </button>
+              </li>
+              
+              <!-- Last Page -->
+              <li class="page-item" [class.disabled]="!hasNextPage">
+                <button class="page-link" (click)="goToLastPage()" [disabled]="!hasNextPage">
+                  <i class="fas fa-angle-double-right"></i>
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>

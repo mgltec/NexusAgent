@@ -59,21 +59,32 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   public basicData: any;
   public basicOptions: any = {
     responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+    },
     scales: {
-      yAxes: [
-        {
-          gridLines: {
-            borderDash: [5, 5], // This will create a 5px dash followed by a 5px gap
-          },
+      y: {
+        beginAtZero: true,
+        grid: {
+          borderDash: [5, 5],
+          color: 'rgba(0, 0, 0, 0.1)',
         },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            borderDash: [5, 5],
-          },
+        ticks: {
+          callback: function(value: any) {
+            return '$' + value.toLocaleString();
+          }
+        }
+      },
+      x: {
+        grid: {
+          borderDash: [5, 5],
+          color: 'rgba(0, 0, 0, 0.1)',
         },
-      ],
+      },
     },
   };
   public chartData: any;
@@ -120,30 +131,10 @@ export class PrincipalComponent implements OnInit, OnDestroy {
           this._currentUser = JSON.parse(
             localStorage.getItem("agentInfo") || "{}"
           );
-          this.GetAgentRights();
-          this.GetPlayerLossAndActivePlayerAdvanceThisWeek();
-          this.GetPlayerLossAndActivePlayerLastWeek();
-          this.GetWonLossByBusinessUnit();
-          //  this.GetPlayerActivity();**
-          this.GetPlayerTopWinLoss();
-          this.GetAgentList();
-          this.GetPlayerList2();
-          this.GetDataForChart();
-          this.GetAgentDistribution();
-          this.GetAgentBalance();
+          this.loadDashboardData();
         }
       } else {
-        this.GetAgentRights();
-        this.GetPlayerLossAndActivePlayerAdvanceThisWeek();
-        this.GetPlayerLossAndActivePlayerLastWeek();
-        this.GetWonLossByBusinessUnit();
-        // this.GetPlayerActivity();**
-        this.GetPlayerTopWinLoss();
-        this.GetAgentList();
-        this.GetPlayerList2();
-        this.GetDataForChart();
-        this.GetAgentDistribution();
-        this.GetAgentBalance();
+        this.loadDashboardData();
       }
     }); //end dataservice call
 
@@ -152,6 +143,45 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     ).subscribe((data) => {
       this.display = data;
     }); //end dataservice call
+  }
+
+  /**
+   * Optimized dashboard data loading
+   * Priority 1 (Critical): Data displayed immediately to user
+   * Priority 2 (Important): Data shown in main cards
+   * Priority 3 (Nice-to-have): Additional features/lists
+   */
+  private loadDashboardData(): void {
+    // Priority 1: Critical data - Load immediately and in parallel
+    this.loadCriticalData();
+
+    // Priority 2: Important data - Load after a short delay
+    setTimeout(() => this.loadImportantData(), 100);
+
+    // Priority 3: Nice-to-have data - Load last
+    setTimeout(() => this.loadAdditionalData(), 500);
+  }
+
+  private loadCriticalData(): void {
+    // Most important data that user sees first
+    this.GetAgentRights();
+    this.GetPlayerLossAndActivePlayerAdvanceThisWeek();
+    this.GetWonLossByBusinessUnit();
+  }
+
+  private loadImportantData(): void {
+    // Secondary data for cards and charts
+    this.GetPlayerTopWinLoss();
+    this.GetDataForChart();
+    this.GetAgentBalance();
+  }
+
+  private loadAdditionalData(): void {
+    // Additional features - can load last
+    this.GetPlayerLossAndActivePlayerLastWeek();
+    this.GetAgentList();
+    this.GetPlayerList2();
+    // GetAgentDistribution is commented out, so skip it
   }
 
   // GetPlayerLossAndActivePlayerThisWeek() {
@@ -200,16 +230,16 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this._reportService
       .GetDashboardPlayerAdvanceData(t)
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(
-        (data) => {
+      .subscribe({
+        next: (data) => {
           this._playerDataThisWeek = data;
-          //console.log(this._playerDataThisWeek);
           this._loadingPlayerDataThisWeek = false;
         },
-        (error) => {
+        error: (error) => {
+          console.error('Error loading player data this week:', error);
           this._loadingPlayerDataThisWeek = false;
         }
-      );
+      });
   }
 
   GetPlayerLossAndActivePlayerLastWeek() {
@@ -234,69 +264,73 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this._reportService
       .GetDataForChart(this._currentUser)
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(
-        (data) => {
-          this.chartData = data[0];
+      .subscribe({
+        next: (data) => {
+          if (data && data.length > 0) {
+            this.chartData = data[0];
 
-          let labels = [
-            this.chartData.day1,
-            this.chartData.day2,
-            this.chartData.day3,
-            this.chartData.day4,
-            this.chartData.day5,
-            this.chartData.day6,
-            this.chartData.day7,
-          ];
+            let labels = [
+              this.chartData.day1,
+              this.chartData.day2,
+              this.chartData.day3,
+              this.chartData.day4,
+              this.chartData.day5,
+              this.chartData.day6,
+              this.chartData.day7,
+            ];
 
-          this.basicData = {
-            labels: labels.map((label) =>
-              this.datePipe.transform(label, "dd MMM")
-            ),
-            datasets: [
-              {
-                label: "Sports",
-                backgroundColor: "#D95351",
-                data: [
-                  this.chartData.Day1Sports,
-                  this.chartData.Day2Sports,
-                  this.chartData.Day3Sports,
-                  this.chartData.Day4Sports,
-                  this.chartData.Day5Sports,
-                  this.chartData.Day6Sports,
-                  this.chartData.Day7Sports,
-                ],
-              },
-              {
-                label: "Casino",
-                backgroundColor: "#337ab7",
-                data: [
-                  this.chartData.Day1Casino,
-                  this.chartData.Day2Casino,
-                  this.chartData.Day3Casino,
-                  this.chartData.Day4Casino,
-                  this.chartData.Day5Casino,
-                  this.chartData.Day6Casino,
-                  this.chartData.Day7Casino,
-                ],
-              },
-              {
-                label: "Racing",
-                backgroundColor: "#5cb85c",
-                data: [
-                  this.chartData.Day1Horses,
-                  this.chartData.Day2Horses,
-                  this.chartData.Day3Horses,
-                  this.chartData.Day4Horses,
-                  this.chartData.Day5Horses,
-                  this.chartData.Day6Horses,
-                  this.chartData.Day7Horses,
-                ],
-              },
-            ],
-          };
+            this.basicData = {
+              labels: labels.map((label) =>
+                this.datePipe.transform(label, "dd MMM")
+              ),
+              datasets: [
+                {
+                  label: "Sports",
+                  backgroundColor: "#D95351",
+                  data: [
+                    this.chartData.Day1Sports,
+                    this.chartData.Day2Sports,
+                    this.chartData.Day3Sports,
+                    this.chartData.Day4Sports,
+                    this.chartData.Day5Sports,
+                    this.chartData.Day6Sports,
+                    this.chartData.Day7Sports,
+                  ],
+                },
+                {
+                  label: "Casino",
+                  backgroundColor: "#337ab7",
+                  data: [
+                    this.chartData.Day1Casino,
+                    this.chartData.Day2Casino,
+                    this.chartData.Day3Casino,
+                    this.chartData.Day4Casino,
+                    this.chartData.Day5Casino,
+                    this.chartData.Day6Casino,
+                    this.chartData.Day7Casino,
+                  ],
+                },
+                {
+                  label: "Racing",
+                  backgroundColor: "#5cb85c",
+                  data: [
+                    this.chartData.Day1Horses,
+                    this.chartData.Day2Horses,
+                    this.chartData.Day3Horses,
+                    this.chartData.Day4Horses,
+                    this.chartData.Day5Horses,
+                    this.chartData.Day6Horses,
+                    this.chartData.Day7Horses,
+                  ],
+                },
+              ],
+            };
+          }
         },
-        (error) => {}
-      );
+        error: (error) => {
+          console.error('Error loading chart data:', error);
+        }
+      });
   }
 
   GetWonLossByBusinessUnit() {
@@ -317,15 +351,16 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this._reportService
       .GetWonLossByBusinessUnit(t)
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(
-        (data) => {
+      .subscribe({
+        next: (data) => {
           this._wonLossReport = data;
           this._loadingWonLossByUnit = false;
         },
-        (error) => {
+        error: (error) => {
+          console.error('Error loading WonLoss by Business Unit:', error);
           this._loadingWonLossByUnit = false;
         }
-      );
+      });
   }
 
   GetPlayerActivity() {
@@ -371,15 +406,16 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this._reportService
       .GetTopPlayerListWinLos(t)
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(
-        (data) => {
+      .subscribe({
+        next: (data) => {
           this._topPlayerList = data;
           this._loadingTopPlayer = false;
         },
-        (error) => {
+        error: (error) => {
+          console.error('Error loading top player list:', error);
           this._loadingTopPlayer = false;
         }
-      );
+      });
   }
 
   hideFilters() {

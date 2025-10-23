@@ -206,9 +206,22 @@ export class AgentWeeklyBalanceNivelComponent implements OnInit {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(
         (data) => {
-          this._dataReportWeeklyBalance = data;
+          console.log('========== GetWeeklyBalanceStandarHistoryLevelZero Response (AgentWeeklyBalanceNivel) ==========');
+          console.log('Full Response:', data);
+          console.log('Response Type:', typeof data);
+          console.log('Response Keys:', data ? Object.keys(data) : 'No keys');
+          console.log('AgentList:', data?.AgentList);
+          console.log('AgentList Length:', data?.AgentList?.length);
+          console.log('First Agent:', data?.AgentList?.[0]);
+          console.log('JSON Stringified:', JSON.stringify(data, null, 2));
+          console.log('=======================================================================');
+          
+          // CRITICAL: Assign directly without using constructor to avoid data loss
+          this._dataReportWeeklyBalance = data as ReportWeeklyBalance;
           //this.dtTrigger.next();
-          console.log(this._dataReportWeeklyBalance);
+          console.log('After assignment:');
+          console.log('  _dataReportWeeklyBalance:', this._dataReportWeeklyBalance);
+          console.log('  AgentList Length:', this._dataReportWeeklyBalance.AgentList?.length);
 
           this._dataReportWeeklyBalance.AgentList.forEach(agent => {
 
@@ -229,7 +242,15 @@ export class AgentWeeklyBalanceNivelComponent implements OnInit {
 
           this._loadingReport = false;
         },
-        (error) => { this._loadingReport = false; }
+        (error) => {
+          console.error('========== Error in GetWeeklyBalanceStandarHistoryLevelZero (Nivel) ==========');
+          console.error('Error:', error);
+          console.error('Error Message:', error?.message);
+          console.error('Error Status:', error?.status);
+          console.error('Error Details:', JSON.stringify(error, null, 2));
+          console.error('=======================================================================');
+          this._loadingReport = false;
+        }
       );
   } //end submit form
 

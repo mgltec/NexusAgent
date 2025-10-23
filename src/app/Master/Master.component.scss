@@ -76,8 +76,9 @@
 }
 
 .ReportTableHeader {
-  background-color: #eaeaea !important;
+  background-color: var(--bg-secondary) !important;
   font-weight: 700;
+  color: var(--text-primary) !important;
 }
 
 /* Remove default bullets */
@@ -594,7 +595,7 @@ ul,
 
 @media (max-width: 1024px) {
   .theme-toggle-item {
-    background-color: #fff;
+    background-color: var(--card-bg);
     border-radius: 14px;
     width: 100%;
     display: flex;

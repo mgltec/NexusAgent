@@ -179,6 +179,17 @@ body {
     &.table-striped tbody tr:nth-of-type(even) {
       background-color: var(--bg-secondary) !important;
     }
+
+    // Ensure thead-dark and table-dark work in dark theme
+    &.table-dark,
+    .thead-dark,
+    thead.table-dark {
+      th {
+        background-color: var(--bg-secondary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-primary) !important;
+      }
+    }
   }
   
   .btn-light {
@@ -331,6 +342,146 @@ body {
   // Chart container
   .p-chart {
     background-color: transparent !important;
+  }
+
+  // PrimeNG table styles for dark theme
+  .p-datatable {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+
+    .p-datatable-header,
+    .p-datatable-footer {
+      background-color: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-primary) !important;
+    }
+
+    .p-datatable-thead > tr > th {
+      background-color: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-primary) !important;
+    }
+
+    .p-datatable-tbody > tr {
+      background-color: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+
+      &:hover {
+        background-color: var(--card-hover) !important;
+      }
+
+      > td {
+        background-color: transparent !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-primary) !important;
+      }
+    }
+
+    .p-datatable-tfoot > tr > td {
+      background-color: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-primary) !important;
+    }
+  }
+
+  // Sidebar styles
+  .p-sidebar {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+
+    .p-sidebar-header {
+      background-color: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+    }
+  }
+
+  // PrimeNG Dialog styles
+  .p-dialog {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+
+    .p-dialog-header {
+      background-color: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+      border-bottom: 1px solid var(--border-primary) !important;
+    }
+
+    .p-dialog-content {
+      background-color: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+    }
+
+    .p-dialog-footer {
+      background-color: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+      border-top: 1px solid var(--border-primary) !important;
+    }
+  }
+
+  // Custom select and form controls
+  .custom-select {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-primary) !important;
+
+    option {
+      background-color: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
+    }
+  }
+
+  .form-select {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-primary) !important;
+
+    option {
+      background-color: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
+    }
+  }
+
+  // Labels and form elements
+  label {
+    color: var(--text-primary) !important;
+  }
+
+  h1, h2, h4, h5 {
+    color: var(--text-primary) !important;
+  }
+
+  p, span, div {
+    &:not(.btn):not(.badge):not([class*="bg-"]):not([class*="text-"]) {
+      color: inherit;
+    }
+  }
+
+  hr {
+    border-color: var(--border-primary) !important;
+    opacity: 0.5;
+  }
+
+  // PrimeNG accordion
+  .p-accordion {
+    .p-accordion-header {
+      background-color: var(--card-bg) !important;
+      
+      .p-accordion-header-link {
+        background-color: var(--card-bg) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--border-primary) !important;
+
+        &:hover {
+          background-color: var(--card-hover) !important;
+        }
+      }
+    }
+
+    .p-accordion-content {
+      background-color: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-primary) !important;
+    }
   }
 }
 
@@ -512,9 +663,9 @@ body {
 }
 
 h3, h6 {
-  background: white;
+  background: var(--card-bg) !important;
   margin: 0;
-  color: #3065fb;
+  color: var(--color-primary) !important;
   font-weight: 400;
   font-size: 20px;
   padding: 0.75rem 1.25rem;
@@ -545,7 +696,7 @@ th.frozen-column::after {
   bottom: 0;
   right: -1px;
   width: 1px;
-  background-color: #f0f0f0;
+  background-color: var(--border-primary);
   margin: 0 !important;
 }
 
@@ -620,11 +771,11 @@ th.frozen-column::after {
     flex-direction: column;
     font-weight: 400;
     font-size: 16px;
-    background-color: white;
-    color: #3065fb;
+    background-color: var(--card-bg);
+    color: var(--color-primary);
     display: flex;
 
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-primary);
 
     .card-row {
       width: 100%;
@@ -657,10 +808,10 @@ th.frozen-column::after {
       flex-direction: column;
       font-weight: 400;
       font-size: 16px;
-      background-color: white;
-      color: #3065fb;
+      background-color: var(--card-bg);
+      color: var(--color-primary);
       display: flex;
-      border-top: 1px solid #f0f0f0;
+      border-top: 1px solid var(--border-primary);
       margin: 0;
     }
 
@@ -672,7 +823,7 @@ th.frozen-column::after {
       width: 100% !important;
 
       tr {
-        background-color: white !important;
+        background-color: var(--card-bg) !important;
         border: none;
       }
 
@@ -704,8 +855,8 @@ th.frozen-column::after {
             text-align: center;
             padding: 8px 16px;
             font-weight: 400;
-            color: #6a6b7d;
-            background-color: #f9f9f9;
+            color: var(--text-secondary);
+            background-color: var(--bg-secondary);
             border: none;
           }
         }
@@ -716,11 +867,11 @@ th.frozen-column::after {
           td {
             white-space: nowrap;
             padding: 16px;
-            color: #6a6b7d;
+            color: var(--text-secondary);
             font-weight: 600;
-            background-color: #f9f9f9;
+            background-color: var(--bg-secondary);
             border: none;
-            border-top: 1px solid #f0f0f0;
+            border-top: 1px solid var(--border-primary);
 
             &.NumPositive {
               color: rgb(217, 83, 79) !important;
@@ -735,10 +886,10 @@ th.frozen-column::after {
 
       tbody {
         .child {
-          border-top: 1px solid #f0f0f0;
-          border-bottom: 1px solid #f0f0f0;
+          border-top: 1px solid var(--border-primary);
+          border-bottom: 1px solid var(--border-primary);
           padding: 8px 10px;
-          background-color: #f9f9f9;
+          background-color: var(--bg-secondary);
 
           .dtr-details {
             width: 100%;
@@ -785,72 +936,72 @@ th.frozen-column::after {
 
           &:hover {
             // position: relative;
-            background-color: rgb(242 242 242) !important;
+            background-color: var(--card-hover) !important;
             box-shadow: 0 0px 8px 2px rgba(154, 156, 161, 0.15);
 
             &.child-row-1 td {
-              background-color: rgb(234 234 234) !important;
+              background-color: var(--bg-tertiary) !important;
             }
             &.child-row-2 td {
-              background-color:rgb(226 226 226) !important;
+              background-color: var(--bg-tertiary) !important;
             }
             &.child-row-3 td {
-              background-color: rgb(218 218 218) !important;
+              background-color: var(--bg-tertiary) !important;
             }
             &.child-row-4 td {
-              background-color: rgb(210 210 210) !important;
+              background-color: var(--bg-tertiary) !important;
             }
             &.child-row-5 td {
-              background-color: rgb(202 202 202) !important;
+              background-color: var(--bg-tertiary) !important;
             }
           }
 
           &.child-row-1 {
             td {
-              background-color: rgb(250, 250, 250) !important;
+              background-color: var(--bg-secondary) !important;
 
               &:hover {
-                background-color: rgb(234 234 234) !important;
+                background-color: var(--bg-tertiary) !important;
               }
 
               &::after {
-                background-color: rgb(242 242 242) !important;
+                background-color: var(--card-hover) !important;
               }
             }
           }
           &.child-row-2 {
             td {
-              background-color:rgb(242 242 242) !important;
+              background-color: var(--bg-secondary) !important;
 
               &::after {
-                background-color: rgb(234 234 234) !important;
+                background-color: var(--bg-tertiary) !important;
               }
             }
           }
           &.child-row-3 {
             td {
-              background-color: rgb(234 234 234) !important;
+              background-color: var(--bg-secondary) !important;
 
               &::after {
-                background-color: rgb(226 226 226) !important;
+                background-color: var(--bg-tertiary) !important;
               }
             }
           }
           &.child-row-4 {
             td {
-              background-color: rgb(226 226 226) !important;
+              background-color: var(--bg-secondary) !important;
 
               &::after {
-                background-color: rgb(218 218 218) !important;
+                background-color: var(--bg-tertiary) !important;
               }
             }
           }
           &.child-row-5 {
             td {
-              background-color: rgb(218 218 218) !important;
+              background-color: var(--bg-secondary) !important;
 
               &::after {
-                background-color: rgb(210 210 210) !important;
+                background-color: var(--bg-tertiary) !important;
               }
             }
           }
@@ -860,7 +1011,7 @@ th.frozen-column::after {
             vertical-align: middle;
             padding: 16px;
             font-weight: 600;
-            background-color: white;
+            background-color: var(--card-bg);
             border: none;
 
             &.action-cell button {
@@ -938,10 +1089,11 @@ body {
 }
 
 .p-accordion-header-link:hover {
-  background-color: #F0F0F0 !important;
+  background-color: var(--card-hover) !important;
 }
 .p-accordion-header-link {
-  background-color: white !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
   border: none !important;
   border-radius: 0.45rem;
   border-radius: 4px !important;
@@ -949,11 +1101,12 @@ body {
 }
 
 .p-accordion-tab-active .p-accordion-header {
-  border-bottom: 1px solid #F0F0F0 !important;
+  border-bottom: 1px solid var(--border-primary) !important;
 }
 
 .p-accordion-content {
-  background-color: white !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
   border: none !important;
   border-bottom-left-radius: 0.45rem;
   border-bottom-right-radius: 0.45rem;
@@ -976,36 +1129,38 @@ body {
 }
 
 .dataTables_wrapper {
-  background-color: #ffffff !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
 }
 
 @media (max-width: 620px) {
   .dt-buttons {
-    border-bottom: 1px solid #F0F0F0 !important;
+    border-bottom: 1px solid var(--border-primary) !important;
   }
   
 }
 
 .dt-buttons {
   button:first-of-type {
-    border-left: 1px solid #F0F0F0 !important;
+    border-left: 1px solid var(--border-primary) !important;
   }
   button {
-    color: black !important;
+    color: var(--text-primary) !important;
 
     border: 0px !important;
-    border-right: 1px solid #F0F0F0 !important;
+    border-right: 1px solid var(--border-primary) !important;
 
     background: initial !important;
     background-image: none !important;
-    background-color: white !important;
+    background-color: var(--card-bg) !important;
     width: 45px !important;
     height: 45px !important;
     font-size: 14px !important;
     margin: 0 !important;
 
     &:hover {
-        background-color: #F0F0F0 !important;
+        background-color: var(--card-hover) !important;
+        color: var(--text-primary) !important;
     }
   }
 }

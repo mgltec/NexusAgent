@@ -1,20 +1,20 @@
 .NumPositive{
-    color: green;
+    color: var(--color-success);
     text-align: right;
 }
 
 .NumNegative{
-    color: red;
+    color: var(--color-danger);
     text-align: right;
 }
 
 .NumZero{
-    color: black;
+    color: var(--text-primary);
     text-align: right;
 }
 
 .link{
-  color:#0645AD;
+  color: var(--color-info);
   cursor: pointer;
 }
 

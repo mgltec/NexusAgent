@@ -1,6 +1,6 @@
 .hasvalue{
-    color:blue;
-    background-color: #F5F5F5;
+    color: var(--color-info);
+    background-color: var(--bg-secondary);
     cursor: pointer;
 }
 
@@ -69,8 +69,8 @@
   }
 
   thead{
-    background-color: #003A74FB;
-    color: #fff;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
   }
   
   .total-row td {

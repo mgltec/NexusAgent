@@ -202,16 +202,46 @@ export class ReportWeeklyBalance {
     initial = initial || {};
     this.Master = initial.Master;
     this.Agent = initial.Agent;
+    this.PaymentRight = initial.PaymentRight;
     this.StartDate = initial.StartDate;
     this.EndDate = initial.EndDate;
-    this.AgentList = initial.agentList;
-
+    this.HeaderDay1 = initial.HeaderDay1;
+    this.HeaderDay2 = initial.HeaderDay2;
+    this.HeaderDay3 = initial.HeaderDay3;
+    this.HeaderDay4 = initial.HeaderDay4;
+    this.HeaderDay5 = initial.HeaderDay5;
+    this.HeaderDay6 = initial.HeaderDay6;
+    this.HeaderDay7 = initial.HeaderDay7;
+    this.AgentList = initial.AgentList || []; // ← FIX: Era 'agentList' (minúscula)
+    this.DisplayHistoryRight = initial.DisplayHistoryRight;
+    this.TransactionType = initial.TransactionType || [];
+    this.CurrencyCombo = initial.CurrencyCombo || [];
+    this._bErrorCode = initial._bErrorCode;
+    this._sErrorMsg = initial._sErrorMsg;
+    this._sErrorMsgKey = initial._sErrorMsgKey;
+    this._sErrorMsgParams = initial._sErrorMsgParams;
   }
+  
   public Master: boolean;
   public Agent: string;
+  public PaymentRight: boolean;
   public StartDate: string;
   public EndDate: string;
+  public HeaderDay1: string;
+  public HeaderDay2: string;
+  public HeaderDay3: string;
+  public HeaderDay4: string;
+  public HeaderDay5: string;
+  public HeaderDay6: string;
+  public HeaderDay7: string;
   public AgentList: ReportWeeklyBalanceAgent[] = [];
+  public DisplayHistoryRight: boolean;
+  public TransactionType: any[] = [];
+  public CurrencyCombo: any[] = [];
+  public _bErrorCode: any;
+  public _sErrorMsg: string;
+  public _sErrorMsgKey: string;
+  public _sErrorMsgParams: string;
 }
 
 export class ReportWeeklyBalanceAgent {
@@ -237,6 +267,11 @@ export class ReportWeeklyBalanceAgent {
     this._TotalAvail = initial._TotalAvail;
     this._IdAgent = initial._IdAgent;
     this._Expanded = initial._Expanded;
+    this.CurrentPage = initial.CurrentPage || 0;
+    this.TotalPage = initial.TotalPage || 0;
+    this.RowPerPage = initial.RowPerPage || 15;
+    this.PreviusPage = initial.PreviusPage || 0;
+    this.NextPage = initial.NextPage || 0;
   }
   public _Agent: string;
   public _Distributor: boolean;
@@ -258,6 +293,13 @@ export class ReportWeeklyBalanceAgent {
   public _IdAgent: string;
   public _Expanded: boolean = false;
   public PlayerList: ReportWeeklyBalancePlayer[] = [];
+  
+  // Pagination properties
+  public CurrentPage: number;
+  public TotalPage: number;
+  public RowPerPage: number;
+  public PreviusPage: number;
+  public NextPage: number;
 }
 
 
@@ -328,6 +370,7 @@ export class RequestAgentWeeklyBalance {
     this.TransactionType = initial.TransactionType;
     this.AgentDisplayHistory = initial.AgentDisplayHistory;
     this.IdCurrency = initial.IdCurrency;
+    this.Page = initial.Page || 0;
 
   }
   public StartDate: string;
@@ -338,6 +381,7 @@ export class RequestAgentWeeklyBalance {
   public TransactionType: number;
   public AgentDisplayHistory: boolean;
   public IdCurrency: number;
+  public Page: number;
 
 }
 

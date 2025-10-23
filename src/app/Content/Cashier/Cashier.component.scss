@@ -1,18 +1,36 @@
 .tabs-container {
-    @apply flex md:flex-row gap-4 bg-white items-center py-2 px-14 -mx-6 flex-col;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--card-bg);
+    align-items: center;
+    padding: 0.5rem 3.5rem;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
   
     .tab {
-      @apply p-2 rounded-md text-black w-full md:w-auto select-none;
-      color: #042a51 !important;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      color: var(--text-primary) !important;
+      width: 100%;
+      user-select: none;
+  
+      @media (min-width: 768px) {
+        width: auto;
+      }
   
       &:hover {
         cursor: pointer;
-        background: rgb(236 239 246 / 1);
+        background: var(--bg-secondary);
       }
     }
   
     .active-tab {
-      background: rgb(236 239 246 / 1);
+      background: var(--bg-secondary);
     }
   }
   
@@ -21,14 +39,14 @@
   .tab-cont{
     display: flex;
     list-style: none;
-    // flex-direction: row;
     gap: 20px;
-    background-color: white;
+    background-color: var(--card-bg);
     padding: 10px 20px;
     border-radius: 5px;
 
     li{
         padding:10px 20px;
         border-radius: 5px;
+        color: var(--text-primary);
     }
   }

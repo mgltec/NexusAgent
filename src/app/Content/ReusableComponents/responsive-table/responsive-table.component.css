@@ -1,0 +1,8 @@
+.totals-row {
+  background-color: var(--bg-secondary) !important;
+  font-weight: bold;
+}
+
+.dark-theme .totals-row {
+  background-color: var(--bg-tertiary) !important;
+}

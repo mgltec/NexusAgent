@@ -26,7 +26,7 @@
         </tr>
       </tbody>
       <tfoot *ngIf="totalsData && hasTotals">
-        <tr style="background-color: lightyellow; font-weight: bold;">
+        <tr class="totals-row">
             <td *ngFor="let column of columns" [ngClass]="{'frozen-column': column.frozen}" [class]="getTotalsClasses(column) ?? ''">{{hasTotal(column) ? getTotalsPipe(column) : ""}}</td>
         </tr>
     </table>
