@@ -1,5 +1,5 @@
 import { LandscapeNoticeComponent } from './Content/ReusableComponents/LandscapeNotice/landscape-notice.component';
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -205,6 +205,11 @@ import { ManageProfileLimitesComponent } from './ClassicView/Features/ManageProf
         NgxMaskPipe
         ],
     providers: [
+        // Angular 22 bootstraps NgModule apps ZONELESS by default; this legacy
+        // app mutates plain fields in HTTP callbacks everywhere, so it needs
+        // zone-based change detection or views (loading flags, tables) never
+        // refresh when responses arrive.
+        provideZoneChangeDetection({ eventCoalescing: true }),
         provideNgxMask(),
         MessageService,
         NgbModal,
