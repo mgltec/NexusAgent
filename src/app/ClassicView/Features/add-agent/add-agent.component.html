@@ -9,13 +9,13 @@
         <h4>Agent Login</h4>
         <div class="classic-add-player-group-input">
           <label for="username">*Master Agent:</label>
-          <p-dropdown 
+          <p-select 
             [options]="agentList" 
             optionLabel="Agent" 
             placeholder="Choose one"
             (onChange)="onAgentChange($event.value)"
             >
-          </p-dropdown>
+          </p-select>
           <!-- Mensaje de error si el campo es requerido y está vacío -->
           <div *ngIf="agentForm.get('masterAgent')?.invalid && agentForm.get('masterAgent')?.touched">
             <small>* This field is required.</small>

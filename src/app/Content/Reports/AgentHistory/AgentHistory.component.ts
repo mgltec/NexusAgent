@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
@@ -18,6 +18,7 @@ import { transformDate } from 'src/app/Utils/date';
 import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/responsive-table.utils';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentHistory',
   templateUrl: './AgentHistory.component.html',
   styleUrls: ['./AgentHistory.component.scss']

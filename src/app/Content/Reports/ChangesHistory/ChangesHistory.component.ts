@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 import { AgentDto, WeekRangeDto, AgentListModel, RequestPlayerListModel,AgentSessionDto, PlayerChangesHistoryRequest } from 'src/app/Models/models';
@@ -7,6 +7,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-ChangesHistory',
   templateUrl: './ChangesHistory.component.html',
   styleUrls: ['./ChangesHistory.component.scss']

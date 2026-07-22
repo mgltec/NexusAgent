@@ -1,6 +1,6 @@
 
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
@@ -15,6 +15,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-TelegramBetAlert',
   templateUrl: './TelegramBetAlert.component.html',
   styleUrls: ['./TelegramBetAlert.component.css']

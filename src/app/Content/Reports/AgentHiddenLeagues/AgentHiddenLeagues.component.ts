@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { AgentListModel, AgentSessionDto, HiddenLeagueRequestDTO, HiddenLeagueResponseDTO, HiddenLeaguesInsertDto } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentHiddenLeagues',
   templateUrl: './AgentHiddenLeagues.component.html',
   styleUrls: ['./AgentHiddenLeagues.component.scss']

@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
+import { MessageService } from 'src/app/ui/prime-shim';
+import { TableComponent as Table } from 'src/app/ui/table.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentDataDto, AgentDaySheetNewAgentDto, AgentListModel, AgentSessionDto, DaySheetForNewAgentRequestDto, GetPlayerHistoryRequesDto, PlayerHistoryByDayDto } from 'src/app/Models/models';
@@ -10,6 +10,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-WeeklyDaySheetV3',
   templateUrl: './WeeklyDaySheetV3.component.html',
   animations: [

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AddAgentDto, AgentSessionDto } from 'src/app/Models/models';
@@ -8,6 +8,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-add-agent',
   templateUrl: './add-agent.component.html',
   styleUrls: ['./add-agent.component.scss']

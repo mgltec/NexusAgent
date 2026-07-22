@@ -2,12 +2,12 @@
   <div class="flex flex-col p-drop mb-4">
     <label>Coin:</label>
     <!-- <app-bs-dropdown class="flex mb-4" [items]="methods" key="Label" value="Name" [selected]="method" (selectItem)="selectedMethod($event)"></app-bs-dropdown> -->
-    <p-dropdown 
+    <p-select 
     [options]="methods" 
     [(ngModel)]="method" 
     optionLabel="Label" 
     placeholder="Select" 
-    [style]="{'width': '100%'}">></p-dropdown>
+    [style]="{'width': '100%'}">></p-select>
   </div>
   <div>
     <label>Amount in USD:</label>

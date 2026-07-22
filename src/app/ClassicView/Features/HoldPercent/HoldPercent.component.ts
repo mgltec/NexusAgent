@@ -1,5 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IResponsiveTableColumn } from 'src/app/Content/ReusableComponents/responsive-table/responsive-table.types';
@@ -15,6 +15,7 @@ import { transformNumber } from 'src/app/Utils/number';
 
 
 @Component({
+  standalone: false,
   selector: 'app-HoldPercent',
   templateUrl: './HoldPercent.component.html',
   styleUrls: ['./HoldPercent.component.css']

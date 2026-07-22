@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
@@ -17,6 +17,7 @@ import { transformNumber } from 'src/app/Utils/number';
 import { NUMERIC_COLUMN, calculateClasses } from '../../ReusableComponents/responsive-table/responsive-table.utils';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentCommission',
   templateUrl: './AgentCommission.component.html',
   styleUrls: ['./AgentCommission.component.scss']

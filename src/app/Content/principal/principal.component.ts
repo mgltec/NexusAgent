@@ -2,7 +2,7 @@ import { DatePipe } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { MessageService } from "primeng/api";
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import {
@@ -26,6 +26,7 @@ import { DataService } from "src/app/Services/data.service";
 import { ReportsService } from "src/app/Services/reports.service";
 
 @Component({
+  standalone: false,
   selector: "app-principal",
   templateUrl: "./principal.component.html",
   styleUrls: ["./principal.component.scss"],

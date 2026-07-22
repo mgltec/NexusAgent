@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
@@ -13,6 +13,7 @@ import { IResponsiveTableColumn } from '../../ReusableComponents/responsive-tabl
 import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/responsive-table.utils';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentWeeklyBalanceClassic',
   templateUrl: './AgentWeeklyBalanceClassic.component.html',
   styleUrls: ['./AgentWeeklyBalanceClassic.component.css']

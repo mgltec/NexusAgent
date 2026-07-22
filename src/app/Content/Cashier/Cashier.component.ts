@@ -8,6 +8,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-cashier',
   templateUrl: './Cashier.component.html',
   styleUrls: ['./Cashier.component.scss'],

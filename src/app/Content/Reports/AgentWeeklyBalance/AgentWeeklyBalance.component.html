@@ -3,7 +3,7 @@
 
 
 <p-accordion [style]="{'margin-bottom': '10px;'}">
-  <p-accordionTab header="Filters">
+  <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
     <div class="row mb-2 mt-2">
       <div class="col">
         <button onclick="window.print();" class="btn btn-light btn-sm "><i class="fa fa-solid fa-print"></i></button>
@@ -13,7 +13,7 @@
   
     <div class="filter-items">
       <div class="form-group">
-        <p-dropdown styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true"
+        <p-select styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true"
           filterBy="value._agent" [showClear]="true" placeholder="Select an Agent" (onChange)="OnChangeAgent();">
           <ng-template pTemplate="selectedItem">
             <div *ngIf="this.agentSelected._agent">
@@ -25,7 +25,7 @@
               <div>{{Agente.value._agent}}</div>
             </div>
           </ng-template>
-        </p-dropdown>
+        </p-select>
       </div>
     
       <div class="form-group">
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-  </p-accordionTab>
+  </p-accordion-content></p-accordion-panel>
 </p-accordion>
 
 
@@ -279,7 +279,7 @@
 
 
 
-<!-- <p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+<!-- <p-drawer [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
   <h5>Filters</h5>
   <hr>
   <div class="row mb-2 mt-2">
@@ -290,7 +290,7 @@
   </div>
 
   <div class="form-group">
-    <p-dropdown styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true"
+    <p-select styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true"
       filterBy="value._agent" [showClear]="true" placeholder="Select an Agent" (onChange)="OnChangeAgent();">
       <ng-template pTemplate="selectedItem">
         <div *ngIf="this.agentSelected._agent">
@@ -302,7 +302,7 @@
           <div>{{Agente.value._agent}}</div>
         </div>
       </ng-template>
-    </p-dropdown>
+    </p-select>
   </div>
 
   <div class="form-group">
@@ -329,7 +329,7 @@
   </div>
 
 
-</p-sidebar> -->
+</p-drawer> -->
 
 <!-- <button type="text" (click)="display = true"  label="Show">test</button> -->
 

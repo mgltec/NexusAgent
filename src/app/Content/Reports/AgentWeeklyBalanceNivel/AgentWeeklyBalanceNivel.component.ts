@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
+import { MessageService } from 'src/app/ui/prime-shim';
+import { TableComponent as Table } from 'src/app/ui/table.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentDataDto, AgentListModel, AgentSessionDto } from 'src/app/Models/models';
@@ -10,6 +10,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentWeeklyBalanceNivel',
   templateUrl: './AgentWeeklyBalanceNivel.component.html',
   styleUrls: ['./AgentWeeklyBalanceNivel.component.css']

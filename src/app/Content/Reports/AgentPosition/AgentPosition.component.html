@@ -214,7 +214,7 @@
 
 <!--******************** this sidebar shows report's filters ****************** -->
 
-<p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+<p-drawer [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
   <h5>Filters</h5>
   <hr>
   <div class="row mb-2 mt-2">
@@ -227,7 +227,7 @@
   <div class="form-group">
 
     <div class="form-group">
-      <p-dropdown styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true"
+      <p-select styleClass="custom-select" [options]="agentList" [(ngModel)]="agentSelected" optionLabel="_agent" [filter]="true"
         filterBy="value._agent" [showClear]="true" placeholder="Select an Agent" (onChange)="OnChangeAgent();">
         <ng-template pTemplate="selectedItem">
           <div *ngIf="this.agentSelected._agent">
@@ -239,7 +239,7 @@
             <div>{{Agente.value._agent}}</div>
           </div>
         </ng-template>
-      </p-dropdown>
+      </p-select>
     </div>
 
     <div class="form-group">
@@ -290,7 +290,7 @@
       <label class="form-check-label" for="chkFutures">Show with Futures</label>
     </div>
   </div>
-</p-sidebar>
+</p-drawer>
 
 <!--************** this dialog show agent position details ****************** -->
 

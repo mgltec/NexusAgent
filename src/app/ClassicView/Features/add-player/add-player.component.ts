@@ -5,9 +5,10 @@ import { AgentSessionDto, AgentPlayerTreeResponseDto, PlayerClassicCloneRequest 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DataService } from 'src/app/Services/data.service';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 
 @Component({
+  standalone: false,
   selector: 'app-add-player',
   templateUrl: './add-player.component.html',
   styleUrls: ['./add-player.component.scss']

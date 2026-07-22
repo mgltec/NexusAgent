@@ -1,0 +1,8 @@
+Ocupo lo siguiente:
+
+1) actualizar este proyecto a la version mas reciente de angular
+2) que use el webapi en C:\Code\ApiWager2026
+3) crea los nuevos controller como Agent, AgentReports, AgentTools dependiendo de lo que ocupa la aplicacion
+4) En el api usa los archivos legacy de C:\Code\ApiWager2026\DgsRemotingFiles para obtener la logica necesaria de los tools, reports, etc necesario
+5) Haz un cambio completo de los estilos basado en (C:\Code\DgsClient2027) pero con la parte responsive como algo de prioridad alta  
+

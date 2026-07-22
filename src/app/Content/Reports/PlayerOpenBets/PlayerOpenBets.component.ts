@@ -1,7 +1,7 @@
 import { OpenBetWagerDetails } from './../../../Models/models';
 import { formatDate } from '@angular/common';
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
@@ -23,6 +23,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
 import { transformDate } from 'src/app/Utils/date';
 
 @Component({
+  standalone: false,
   selector: 'app-PlayerOpenBets',
   templateUrl: './PlayerOpenBets.component.html',
   styleUrls: ['./PlayerOpenBets.component.scss']

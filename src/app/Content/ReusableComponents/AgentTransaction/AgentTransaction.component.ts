@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentSessionDto, AgentInformationRequest, InsertAgentTransactionRequest} from 'src/app/Models/models';
@@ -8,6 +8,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentTransaction',
   templateUrl: './AgentTransaction.component.html',
   styleUrls: ['./AgentTransaction.component.css']

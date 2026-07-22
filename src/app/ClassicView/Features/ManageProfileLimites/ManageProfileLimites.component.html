@@ -5,26 +5,26 @@
 <div class="flex container-profile-limits container-grid-repeat gap-6 mb-4">
   <div class="flex flex-col gap-1 container-profile-limits-div">
     <p class="font-semibold m-0 text-base">Agent:</p>
-    <p-dropdown 
+    <p-select 
     [options]="agentList" 
     [(ngModel)]="agentSelected" 
     optionLabel="Agent" 
     placeholder="Choose one"
     (onChange)="GetPlayerList()"
     >
-  </p-dropdown>
+  </p-select>
   </div>
 
   <div class="flex flex-col gap-1 container-profile-limits-div" *ngIf="agentSelected">
     <p class="font-semibold m-0 text-base">Player:</p>
-    <p-dropdown 
+    <p-select 
       [options]="playerList" 
       [(ngModel)]="playerSelected" 
       optionLabel="Player" 
       placeholder="Choose one"
       (onChange)="GetPlayerInfo()"
       >
-    </p-dropdown>
+    </p-select>
   </div>
   <div class="flex flex-col gap-1 container-profile-limits-div" *ngIf="playerSelected">
     <p class="font-semibold m-0 text-base">Current Profile Limits:</p>
@@ -33,14 +33,14 @@
 
   <div class="flex flex-col gap-1 container-profile-limits-div" *ngIf="playerSelected">
     <p class="font-semibold m-0 text-base">Sports:</p>
-    <p-dropdown 
+    <p-select 
       [options]="sports" 
       [(ngModel)]="sportSelected" 
       optionLabel="SportName" 
       placeholder="Choose one"
       (onChange)="GetPlayerProfileLimits()"
       >
-    </p-dropdown>
+    </p-select>
   </div>
 
   <div class="flex flex-col gap-1 container-profile-limits-div" *ngIf="playerSelected">
@@ -75,14 +75,14 @@
 <div class="flex container-profile-limits gap-4 items-center pb-3 mb-3 border-b border-gray-200" *ngIf="selectedLimit2 !== null">
   <div class="flex flex-col gap-1 container-profile-limits-group">
     <p class="font-semibold m-0 text-base">Change Profile Limits:</p>
-    <p-dropdown 
+    <p-select 
       [options]="profileLimits" 
       [(ngModel)]="profileLimitSelected" 
       optionLabel="ProfileName" 
       placeholder="Choose one"
       class="w-full"
       >
-    </p-dropdown>
+    </p-select>
     <p class="m-0 text-sm font-semibold">If limits are gray out, click the buttons</p>
   </div>
   <button class="btn-classic1" (click)="ChangeProfilePlayer()">Add Player</button>

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentListModel, AgentDistributionRequest, AgentSessionDto,RequestPlayerListModel,WeekRangeDto } from 'src/app/Models/models';
@@ -11,6 +11,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
 
 
 @Component({
+  standalone: false,
   selector: 'app-AgentSettledFigure',
   templateUrl: './AgentSettledFigure.component.html',
   styleUrls: ['./AgentSettledFigure.component.scss']

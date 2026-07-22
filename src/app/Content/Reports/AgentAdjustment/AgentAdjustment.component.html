@@ -7,7 +7,7 @@
 </h6>
 <div>
   <p-accordion [style]="{ 'margin-bottom': '10px;' }">
-    <p-accordionTab header="Filters">
+    <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
       <h5>Filters</h5>
       <hr />
       <div class="filter-items">
@@ -52,7 +52,7 @@
           Submit
         </button>
       </div>
-    </p-accordionTab>
+    </p-accordion-content></p-accordion-panel>
   </p-accordion>
 </div>
 <div *ngFor="let rep of reportData; let i = index">
@@ -61,7 +61,7 @@
   <app-responsive-table [data]="rep.Players" [totalsData]="rep" [columns]="columns"></app-responsive-table>
 </div>
 
-<p-sidebar
+<p-drawer
   [(visible)]="display"
   styleClass="p-sidebar-md"
   (onHide)="hideFilters()"
@@ -109,7 +109,7 @@
   >
     Submit
   </button>
-</p-sidebar>
+</p-drawer>
 
 <!-- ******************** Loading div ********************* -->
 <div class="my-container">

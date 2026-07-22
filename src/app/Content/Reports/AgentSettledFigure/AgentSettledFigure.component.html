@@ -1,7 +1,7 @@
 <h6><span>Agent Settled Figures for agent: {{_currentUser.AgentSelected}} from: {{_dateRange.Start | date}} to: {{_dateRange.End | date}}</span></h6>
 
 <p-accordion [style]="{'margin-bottom': '10px;'}">
-  <p-accordionTab header="Filters">
+  <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
     <h5>Filters</h5>
     <hr>
     <div class="filter-items">
@@ -12,7 +12,7 @@
       </div>
       <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
     </div>
-  </p-accordionTab>
+  </p-accordion-content></p-accordion-panel>
 </p-accordion>
 
 <div *ngFor="let rep of reportData; let i = index">

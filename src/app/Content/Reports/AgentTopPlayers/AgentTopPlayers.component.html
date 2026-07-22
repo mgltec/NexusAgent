@@ -2,7 +2,7 @@
 <div>
 
   <p-accordion [style]="{'margin-bottom': '10px;'}">
-    <p-accordionTab header="Filters">
+    <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
       <h5>Filters</h5>
       <hr>
       <div class="form-group mb-3">
@@ -14,7 +14,7 @@
         <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateEndSelected">
       </div>
       <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
-    </p-accordionTab>
+    </p-accordion-content></p-accordion-panel>
   </p-accordion>
 
   <hr />

@@ -1,5 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
@@ -17,6 +17,7 @@ import { IResponsiveTableColumn } from '../../ReusableComponents/responsive-tabl
 import { transformDate } from 'src/app/Utils/date';
 
 @Component({
+  standalone: false,
   selector: 'app-PlayerHistoryDefault',
   templateUrl: './PlayerHistoryDefault.component.html',
   styleUrls: ['./PlayerHistoryDefault.component.scss']

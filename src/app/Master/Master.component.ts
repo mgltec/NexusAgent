@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { MessageService } from "primeng/api";
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { AdjustmentHistoryComponent } from "../Content/Reports/AdjustmentHistory/AdjustmentHistory.component";
@@ -39,6 +39,7 @@ import { ThemeService, Theme } from "../Services/theme.service";
 import Swal from 'sweetalert2'
 
 @Component({
+  standalone: false,
   selector: "app-Master",
   templateUrl: "./Master.component.html",
   styleUrls: ["./Master.component.scss"],

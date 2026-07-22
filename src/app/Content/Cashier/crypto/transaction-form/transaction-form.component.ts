@@ -5,6 +5,7 @@ import { CashierService } from 'src/app/Services/Cashier.service';
 import { DataService } from 'src/app/Services/data.service';
 
 @Component({
+  standalone: false,
   selector: 'app-transaction-form',
   templateUrl: './transaction-form.component.html',
   styleUrls: ['./transaction-form.component.scss'],

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentSessionDto, WeekRangeDto } from 'src/app/Models/models';
@@ -11,6 +11,7 @@ import { IResponsiveTableColumn } from '../../ReusableComponents/responsive-tabl
 import { transformNumber } from 'src/app/Utils/number';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentCashFlow',
   templateUrl: './AgentCashFlow.component.html',
   styleUrls: ['./AgentCashFlow.component.css']

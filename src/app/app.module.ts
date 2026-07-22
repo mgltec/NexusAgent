@@ -7,30 +7,21 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Login/Login.component';
 import { MasterComponent } from './Master/Master.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
-import {MenubarModule} from 'primeng/menubar'
-import { MessageService } from 'primeng/api';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { AuthInterceptor } from './Services/auth.interceptor';
+import { UiModule } from './ui/ui.module';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { CommonModule } from '@angular/common';
 import { AgentPositionComponent } from './Content/Reports/AgentPosition/AgentPosition.component';
 import { AgentDistributionComponent } from './Content/Reports/AgentDistribution/AgentDistribution.component';
 import { AgentCustomerPerformanceComponent } from './Content/Reports/AgentCustomerPerformance/AgentCustomerPerformance.component';
-import { SidebarModule } from 'primeng/sidebar';
-import { TreeModule } from 'primeng/tree';
 import { NgxLoadingModule } from 'ngx-loading';
-import { DropdownModule } from 'primeng/dropdown';
-import {ButtonModule} from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
 import { AgentWagersComponent } from './Content/Reports/AgentWagers/AgentWagers.component';
 import { AgentWagersTickerComponent } from './Content/Reports/AgentWagersTicker/AgentWagersTicker.component';
 import { NgbCollapseModule, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgentWeeklyBalanceByPlayerComponent } from './Content/Reports/AgentWeeklyBalanceByPlayer/AgentWeeklyBalanceByPlayer.component';
 import { AgentWeeklyBalanceComponent } from './Content/Reports/AgentWeeklyBalance/AgentWeeklyBalance.component';
 import { PrincipalComponent } from './Content/principal/principal.component';
-import {AutoCompleteModule} from 'primeng/autocomplete';
-import {ChartModule} from 'primeng/chart';
-import {AccordionModule} from 'primeng/accordion';
 
 import { DataTablesModule } from "angular-datatables";
 import { SummaryComponent } from './Content/Reports/Summary/Summary.component';
@@ -205,25 +196,22 @@ import { ManageProfileLimitesComponent } from './ClassicView/Features/ManageProf
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        ToastModule,
         CommonModule,
-        TableModule,
-        SidebarModule,
-        TreeModule,
+        UiModule,
         NgxLoadingModule,
-        DropdownModule,
-        DialogModule,
         NgbModule,
         NgbCollapseModule,
         DataTablesModule,
-        ButtonModule,
-        AutoCompleteModule,
-        ChartModule,
-        AccordionModule,
-        MenubarModule,
         LandscapeNoticeModule,
         NgxMaskDirective,
         NgxMaskPipe
-        ], 
-    providers: [provideNgxMask(),MessageService, NgbModal, AuthGuard, provideHttpClient(withInterceptorsFromDi())] })
+        ],
+    providers: [
+        provideNgxMask(),
+        MessageService,
+        NgbModal,
+        AuthGuard,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

@@ -6,6 +6,7 @@ import { CashierService } from 'src/app/Services/Cashier.service';
 import { DataService } from 'src/app/Services/data.service';
 
 @Component({
+  standalone: false,
   selector: 'app-crypto',
   templateUrl: './crypto.component.html',
   styleUrls: ['./crypto.component.css'],

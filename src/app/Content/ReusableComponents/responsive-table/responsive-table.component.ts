@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { IResponsiveTableColumn } from './responsive-table.types';
 
 @Component({
+  standalone: false,
   selector: 'app-responsive-table',
   templateUrl: './responsive-table.component.html',
   styleUrls: ['./responsive-table.component.css'],

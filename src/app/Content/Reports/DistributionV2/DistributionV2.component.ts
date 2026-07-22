@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentListModel, AgentSessionDto } from 'src/app/Models/models';
@@ -9,6 +9,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
 import * as FileSaver from 'file-saver';
 
 @Component({
+  standalone: false,
   selector: 'app-DistributionV2',
   templateUrl: './DistributionV2.component.html',
   styleUrls: ['./DistributionV2.component.css']

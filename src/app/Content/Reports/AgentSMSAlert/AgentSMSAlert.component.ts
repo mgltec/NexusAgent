@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SMSBetAlertRequest, AgentListModel,AgentSessionDto, RequestPlayerListModel, InsertSMSAgentAlertRequest } from 'src/app/Models/models';
@@ -9,6 +9,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
 import { ThisReceiver } from '@angular/compiler';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentSMSAlert',
   templateUrl: './AgentSMSAlert.component.html',
   styleUrls: ['./AgentSMSAlert.component.css']

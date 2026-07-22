@@ -8,6 +8,7 @@ import { DataService } from 'src/app/Services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-zelle',
   templateUrl: './zelle.component.html',
   styleUrls: ['./zelle.component.css'],

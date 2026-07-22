@@ -1,6 +1,4 @@
 @import "bootstrap/scss/bootstrap";
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
 
 @layer tailwind-base, primeng, tailwind-utilities;
 @layer tailwind-base {
@@ -56,6 +54,24 @@
   --navbar-bg: #ffffff;
   --navbar-text: #042a51;
   --dropdown-bg: #ffffff;
+
+  /* ---- DGS design tokens (from DgsClient2027) ---- */
+  --dgs-navy: #0d1b2a;
+  --dgs-navy-2: #16283c;
+  --dgs-navy-3: #1f3550;
+  --dgs-accent: #2f80ed;
+  --dgs-accent-2: #56ccf2;
+  --dgs-accent-soft: #eaf2fe;
+  --dgs-green: #27ae60;
+  --dgs-red: #eb5757;
+  --dgs-amber: #f2c94c;
+  --dgs-surface: #ffffff;
+  --dgs-surface-2: #f8fafc;
+  --dgs-border: #e3e8ef;
+  --dgs-text: #17222e;
+  --dgs-text-muted: #6b7a8c;
+  --dgs-radius: 10px;
+  --dgs-shadow: 0 1px 2px rgba(13, 27, 42, .06), 0 4px 16px rgba(13, 27, 42, .06);
 }
 
 /* Dark Theme */
@@ -97,15 +113,34 @@
   --navbar-bg: #1F2937;
   --navbar-text: #F9FAFB;
   --dropdown-bg: #374151;
+
+  /* ---- DGS design tokens (dark) ---- */
+  --dgs-navy: #0b1521;
+  --dgs-navy-2: #16283c;
+  --dgs-navy-3: #1f3550;
+  --dgs-accent: #2f80ed;
+  --dgs-accent-2: #56ccf2;
+  --dgs-accent-soft: rgba(47, 128, 237, .2);
+  --dgs-green: #27ae60;
+  --dgs-red: #eb5757;
+  --dgs-amber: #f2c94c;
+  --dgs-surface: #16222f;
+  --dgs-surface-2: #1c2a3a;
+  --dgs-border: #26364a;
+  --dgs-text: #e7edf4;
+  --dgs-text-muted: #93a3b5;
+  --dgs-radius: 10px;
+  --dgs-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px rgba(0, 0, 0, .35);
 }
 
 /* Apply theme to body and key elements */
 body {
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.75rem !important;
-  line-height: 1rem;
+  font-family: "Inter", "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.35;
   color: var(--text-primary);
   background-color: var(--bg-body);
+  -webkit-font-smoothing: antialiased;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -1320,4 +1355,216 @@ body {
   .classic-container-row{
     justify-content: center;
   }
+}
+/* ============================================================
+   DGS RESPONSIVE LAYER  (added in Angular 22 modernization)
+   Mobile-first rules layered on top of the existing desktop
+   styles. Breakpoints follow Bootstrap 5 (sm576 md768 lg992).
+   ============================================================ */
+
+/* Reusable DGS surface components (Bootstrap-var aware) */
+.dgs-card {
+  background: var(--dgs-surface);
+  border: 1px solid var(--dgs-border);
+  border-radius: var(--dgs-radius);
+  box-shadow: var(--dgs-shadow);
+}
+.dgs-card-header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .8rem 1rem;
+  border-bottom: 1px solid var(--dgs-border);
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--dgs-text-muted);
+}
+.btn-dgs {
+  --bs-btn-bg: var(--dgs-accent);
+  --bs-btn-border-color: var(--dgs-accent);
+  --bs-btn-hover-bg: #1e6fe0;
+  --bs-btn-hover-border-color: #1e6fe0;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: #1a63c9;
+}
+.btn-dgs-dark {
+  --bs-btn-bg: var(--dgs-navy-2);
+  --bs-btn-border-color: var(--dgs-navy-2);
+  --bs-btn-hover-bg: var(--dgs-navy-3);
+  --bs-btn-hover-border-color: var(--dgs-navy-3);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+}
+.text-money { font-variant-numeric: tabular-nums; font-weight: 600; }
+.text-pos { color: var(--dgs-green); }
+.text-neg { color: var(--dgs-red); }
+
+/* ---- Global responsive behaviour ---------------------------------- */
+
+/* Any wide table scrolls horizontally inside its own box instead of
+   pushing the page. Applies to native, DataTables and PrimeNG tables. */
+.table-responsive,
+.dataTables_wrapper,
+.p-datatable-wrapper,
+.card-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 991.98px) {
+  /* The whole app frame must never scroll horizontally */
+  html, body { overflow-x: hidden; max-width: 100%; }
+
+  /* Dense report tables become readable-but-scrollable on phones */
+  table { font-size: .78rem; }
+
+  /* Report content padding shrinks on small screens */
+  .content, .report-container, .container, .container-fluid {
+    padding-left: .6rem !important;
+    padding-right: .6rem !important;
+  }
+
+  /* PrimeNG dialogs go (almost) full-screen on phones */
+  .p-dialog {
+    width: 96vw !important;
+    max-width: 96vw !important;
+    margin: 0 auto;
+  }
+  .p-dialog .p-dialog-content { max-height: 70vh; }
+
+  /* PrimeNG drawer (ex-sidebar) full width on phones */
+  .p-drawer-left, .p-drawer-right { width: 88vw !important; max-width: 340px; }
+
+  /* Filter accordions and selects stack full width */
+  .p-select, .p-datepicker, .p-autocomplete { width: 100% !important; }
+}
+
+@media (max-width: 575.98px) {
+  body { font-size: .82rem; }
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1.2rem; }
+  .btn { padding: .4rem .6rem; }
+}
+
+/* Honour safe-area on notched phones (viewport-fit=cover) */
+@supports (padding: max(0px)) {
+  .navbar { padding-left: max(.5rem, env(safe-area-inset-left)); padding-right: max(.5rem, env(safe-area-inset-right)); }
+}
+
+/* ============================================================
+   In-house UI kit styles (replaces PrimeNG). Selectors mirror
+   the former p-* components; styled with DGS tokens + Bootstrap.
+   ============================================================ */
+
+/* Dialog (p-dialog) */
+.ui-dialog-mask {
+  position: fixed; inset: 0; z-index: 1060;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.ui-dialog-modal { background: rgba(13, 27, 42, .55); backdrop-filter: blur(2px); }
+.ui-dialog {
+  background: var(--dgs-surface); color: var(--dgs-text);
+  border: 1px solid var(--dgs-border); border-radius: var(--dgs-radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+  max-width: 96vw; max-height: 92vh; display: flex; flex-direction: column;
+  min-width: 320px;
+}
+.ui-dialog-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .8rem 1rem; border-bottom: 1px solid var(--dgs-border); font-weight: 700;
+}
+.ui-dialog-title { font-size: .95rem; }
+.ui-dialog-close, .ui-drawer-close {
+  border: none; background: transparent; color: var(--dgs-text-muted);
+  font-size: 1rem; cursor: pointer; line-height: 1;
+}
+.ui-dialog-close:hover, .ui-drawer-close:hover { color: var(--dgs-red); }
+.ui-dialog-content { padding: 1rem; overflow: auto; }
+.ui-dialog-footer { padding: .7rem 1rem; border-top: 1px solid var(--dgs-border); text-align: right; }
+
+/* Drawer (p-drawer) */
+.ui-drawer-mask { position: fixed; inset: 0; background: rgba(13, 27, 42, .5); z-index: 1055; }
+.ui-drawer {
+  position: fixed; top: 0; height: 100dvh; width: 340px; max-width: 90vw; z-index: 1056;
+  background: var(--dgs-surface); color: var(--dgs-text);
+  box-shadow: var(--dgs-shadow); transition: transform .25s ease;
+  display: flex; flex-direction: column;
+}
+.ui-drawer-left { left: 0; transform: translateX(-100%); }
+.ui-drawer-right { right: 0; transform: translateX(100%); }
+.ui-drawer-left.ui-drawer-visible, .ui-drawer-right.ui-drawer-visible { transform: translateX(0); }
+.ui-drawer-header { display: flex; justify-content: flex-end; padding: .6rem .8rem; }
+.ui-drawer-content { padding: 0 1rem 1rem; overflow-y: auto; flex: 1; }
+
+/* Select (p-select) */
+.ui-select { position: relative; display: inline-block; width: 100%; min-width: 140px; }
+.ui-select-label {
+  width: 100%; display: flex; align-items: center; gap: .4rem;
+  background: var(--dgs-surface); color: var(--dgs-text);
+  border: 1px solid var(--dgs-border); border-radius: 8px;
+  padding: .38rem .6rem; font-size: .82rem; cursor: pointer; text-align: left;
+}
+.ui-select-value { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-select-placeholder { flex: 1; color: var(--dgs-text-muted); }
+.ui-select-arrow { font-size: .7rem; color: var(--dgs-text-muted); margin-left: auto; }
+.ui-select-clear { font-size: .75rem; color: var(--dgs-text-muted); }
+.ui-select-clear:hover { color: var(--dgs-red); }
+.ui-select-panel {
+  position: absolute; top: calc(100% + 2px); left: 0; right: 0; z-index: 1050;
+  background: var(--dgs-surface); border: 1px solid var(--dgs-border);
+  border-radius: 8px; box-shadow: var(--dgs-shadow); max-height: 260px; overflow-y: auto;
+}
+.ui-select-filter { padding: .4rem; position: sticky; top: 0; background: var(--dgs-surface); }
+.ui-select-items { list-style: none; margin: 0; padding: .2rem; }
+.ui-select-item { padding: .35rem .5rem; border-radius: 6px; cursor: pointer; font-size: .82rem; }
+.ui-select-item:hover { background: var(--dgs-accent-soft); }
+.ui-select-item-selected { background: var(--dgs-accent-soft); font-weight: 600; }
+.ui-select-empty { padding: .5rem; color: var(--dgs-text-muted); font-size: .8rem; }
+
+/* Accordion (p-accordion*) */
+.ui-accordion { margin-bottom: 10px; }
+.ui-accordion-panel {
+  border: 1px solid var(--dgs-border); border-radius: var(--dgs-radius);
+  overflow: hidden; background: var(--dgs-surface);
+}
+.ui-accordion-header {
+  width: 100%; display: flex; align-items: center; gap: .5rem;
+  background: var(--dgs-surface-2); color: var(--dgs-text);
+  border: none; padding: .6rem .9rem; font-weight: 600; cursor: pointer; text-align: left;
+}
+.ui-accordion-header i { font-size: .7rem; color: var(--dgs-text-muted); }
+.ui-accordion-content { padding: .9rem; }
+
+/* Table (p-table) */
+.ui-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ui-table-caption { padding: .5rem 0; }
+.ui-datatable thead th {
+  background: var(--dgs-surface-2); color: var(--dgs-text-muted);
+  text-transform: uppercase; font-size: .72rem; letter-spacing: .04em;
+  position: sticky; top: 0; z-index: 1;
+}
+.ui-sort-icon { font-size: .7rem; margin-left: .25rem; color: var(--dgs-text-muted); }
+
+/* Autocomplete (p-autocomplete) */
+.ui-autocomplete { position: relative; }
+.ui-autocomplete-panel {
+  position: absolute; top: calc(100% + 2px); left: 0; right: 0; z-index: 1050;
+  list-style: none; margin: 0; padding: .2rem;
+  background: var(--dgs-surface); border: 1px solid var(--dgs-border);
+  border-radius: 8px; box-shadow: var(--dgs-shadow); max-height: 240px; overflow-y: auto;
+}
+.ui-autocomplete-item { padding: .35rem .5rem; border-radius: 6px; cursor: pointer; font-size: .82rem; }
+.ui-autocomplete-item:hover { background: var(--dgs-accent-soft); }
+
+/* Chart (p-chart) */
+.ui-chart { position: relative; width: 100%; }
+
+/* Mobile: dialog / drawer go full-bleed */
+@media (max-width: 575.98px) {
+  .ui-dialog { min-width: 0; width: 96vw; }
+  .ui-drawer { width: 88vw; }
 }

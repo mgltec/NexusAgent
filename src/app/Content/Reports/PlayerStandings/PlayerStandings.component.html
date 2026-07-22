@@ -2,7 +2,7 @@
   {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}} to {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}} </span></h6>
 
 <p-accordion [style]="{'margin-bottom': '10px;'}">
-  <p-accordionTab header="Filters">
+  <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
     <div class="filter-items">
       <div class="form-group">
         <label for="txtagent">Week:</label>
@@ -22,7 +22,7 @@
       </div> -->
       <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
     </div>
-  </p-accordionTab>
+  </p-accordion-content></p-accordion-panel>
 </p-accordion>
 
 <div class="row">

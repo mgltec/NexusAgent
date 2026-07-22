@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 import { AgentDto, WeekRangeDto, AgentListModel, RequestPlayerListModel,AgentSessionDto, PlayerLinesRequest } from 'src/app/Models/models';
@@ -8,6 +8,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
 
 
 @Component({
+  standalone: false,
   selector: 'app-PlayerLines',
   templateUrl: './PlayerLines.component.html',
   styleUrls: ['./PlayerLines.component.scss']

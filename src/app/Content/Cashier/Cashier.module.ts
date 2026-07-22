@@ -9,14 +9,14 @@ import { CryptoComponent } from './crypto/crypto.component';
 import { InvoiceComponent } from './crypto/invoice/invoice.component';
 import { TransactionFormComponent } from './crypto/transaction-form/transaction-form.component';
 import { TransactionsComponent } from './crypto/transactions/transactions.component';
-import { DropdownModule } from 'primeng/dropdown';
+import { UiModule } from '../../ui/ui.module';
 import { LandscapeNoticeModule } from '../ReusableComponents/LandscapeNotice/landscape-notice.module';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, DropdownModule, LandscapeNoticeModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, UiModule, LandscapeNoticeModule, NgxMaskDirective, NgxMaskPipe],
   declarations: [CashierComponent, AchComponent, ZelleComponent, CreditCardComponent, CryptoComponent, InvoiceComponent, TransactionFormComponent, TransactionsComponent],
-  exports: [AchComponent, ZelleComponent, CreditCardComponent, CryptoComponent, InvoiceComponent, TransactionFormComponent, TransactionsComponent, DropdownModule],
+  exports: [AchComponent, ZelleComponent, CreditCardComponent, CryptoComponent, InvoiceComponent, TransactionFormComponent, TransactionsComponent, UiModule],
   providers: [provideNgxMask()],
 })
 export class CashierModule {}

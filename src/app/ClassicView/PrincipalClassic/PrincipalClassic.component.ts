@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentInfoDto, AgentRightDTO, AgentSessionDto, Node } from 'src/app/Models/models';
@@ -10,6 +10,7 @@ import { PhoneDirectoryService } from 'src/app/Services/phoneDirectory.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-PrincipalClassic',
   templateUrl: './PrincipalClassic.component.html',
   styleUrls: ['./PrincipalClassic.component.scss']

@@ -1,6 +1,6 @@
 <h6><span>Hold Percent from: {{_dateRange.Start | date}} to: {{_dateRange.End | date}}</span></h6>
 <p-accordion [style]="{'margin-bottom': '10px;'}">
-  <p-accordionTab header="Filters">
+  <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
     <h5 class="card-title">Filters</h5>
     <hr>
     <div class="filter-items">
@@ -17,7 +17,7 @@
     <button type="button" class="btn btn-primary btn-block mb-3 classic-player-activity-button" (click)="GetReport()">Submit</button>  
   </div>
 
-  </p-accordionTab>
+  </p-accordion-content></p-accordion-panel>
 </p-accordion>
 
 <div>

@@ -740,3 +740,81 @@ ul,
     background-color: var(--card-bg);
   }
 }
+/* ============================================================
+   DGS navy topbar restyle (Angular 22 modernization)
+   Applied on top of the existing navbar rules. Navy gradient
+   header with light text + accent active state, sticky, and
+   responsive down to phones.
+   ============================================================ */
+.navbar.navbar-themed {
+  background: linear-gradient(90deg, var(--dgs-navy), var(--dgs-navy-2)) !important;
+  border-bottom: 1px solid var(--dgs-navy-3) !important;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  min-height: 56px;
+  box-shadow: var(--dgs-shadow);
+
+  .nav-link,
+  .btn-navb,
+  .navbar-nav .nav-link {
+    color: #eaf1f9 !important;
+    font-weight: 500;
+
+    &:hover {
+      color: #fff !important;
+    }
+  }
+
+  .btn-navb {
+    border-radius: 8px;
+    transition: background .15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, .1) !important;
+    }
+  }
+
+  .nav-item.active > .nav-link,
+  .nav-link.active {
+    color: #fff !important;
+    background: rgba(47, 128, 237, .35);
+    border-radius: 8px;
+  }
+
+  // Toggler icon always light on navy
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  }
+
+  .theme-toggle-btn {
+    color: #eaf1f9;
+  }
+}
+
+// Agent-tree drawer surface uses DGS tokens
+.p-drawer {
+  background: var(--dgs-surface);
+  color: var(--dgs-text);
+}
+
+/* Responsive: on phones the top nav collapses (Bootstrap navbar-expand-lg
+   already toggles), tighten spacing and let the collapsed menu scroll. */
+@media (max-width: 991.98px) {
+  .navbar.navbar-themed {
+    padding: .35rem .75rem;
+
+    .navbar-collapse {
+      max-height: calc(100dvh - 56px);
+      overflow-y: auto;
+    }
+
+    .navbar-nav.main-nav {
+      gap: .25rem;
+    }
+
+    .col {
+      width: 100%;
+    }
+  }
+}

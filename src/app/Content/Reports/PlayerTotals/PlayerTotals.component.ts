@@ -1,5 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
@@ -18,6 +18,7 @@ import { transformNumber } from 'src/app/Utils/number';
 import { transformDate } from 'src/app/Utils/date';
 
 @Component({
+  standalone: false,
   selector: 'app-PlayerTotals',
   templateUrl: './PlayerTotals.component.html',
   styleUrls: ['./PlayerTotals.component.scss']

@@ -10,8 +10,8 @@
         <div class="fa-3x" *ngIf="_loadingAgentList">
           <i class="fas fa-spinner fa-spin"></i>
         </div>
-        <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
-        </p-dropdown>
+        <p-select *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+        </p-select>
       </div>
       <div class="classic-player-payments-adjustment-group-item">
         <p>Select player:</p>
@@ -19,8 +19,8 @@
           <i class="fas fa-spinner fa-spin"></i>
         </div>
     
-        <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player" (onChange)="OpenDivPlayerTransaction()">
-        </p-dropdown>
+        <p-select *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player" (onChange)="OpenDivPlayerTransaction()">
+        </p-select>
       </div>
       <!-- <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
       <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button> -->

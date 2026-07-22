@@ -12,7 +12,7 @@
         <div class="card-row">
           <div class="filter-controls">
             <div class="dropdown-container">
-              <p-dropdown styleClass="custom-select" [options]="agentList"[(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" (onChange)="GetAgentList()" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+              <p-select styleClass="custom-select" [options]="agentList"[(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" (onChange)="GetAgentList()" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
                 <ng-template pTemplate="selectedItem">
                   <div *ngIf="this.AgentSelected._agent">
                     <div>{{AgentSelected._agent}}</div>
@@ -23,10 +23,10 @@
                     <div>{{play.value._agent}}</div>
                   </div>
                 </ng-template>
-              </p-dropdown>
+              </p-select>
             </div>
             <div class="dropdown-container">
-              <p-dropdown styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
+              <p-select styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
                 <ng-template pTemplate="selectedItem">
                   <div *ngIf="this.playerSelected.Player">
                     <div>{{playerSelected.Player}}</div>
@@ -37,7 +37,7 @@
                     <div>{{play.value.Player}}</div>
                   </div>
                 </ng-template>
-              </p-dropdown>
+              </p-select>
             </div>
             <div class="input-container">
               <input type="text" class="form-control" id="txtPhone" placeholder="Phone Number" [(ngModel)]="_phoneNumber">

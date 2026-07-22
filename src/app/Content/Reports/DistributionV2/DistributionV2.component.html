@@ -268,7 +268,7 @@
   </div>
 </div>
 
-<p-sidebar
+<p-drawer
   [(visible)]="display"
   styleClass="p-sidebar-md"
   (onHide)="hideFilters()"
@@ -289,7 +289,7 @@
   </div>
 
   <div class="form-group">
-    <p-dropdown
+    <p-select
       styleClass="custom-select"
       [options]="agentList"
       [(ngModel)]="agentSelected"
@@ -310,7 +310,7 @@
           <div>{{ Agente.value._agent }}</div>
         </div>
       </ng-template>
-    </p-dropdown>
+    </p-select>
   </div>
 
   <div class="form-group">
@@ -329,7 +329,7 @@
       </option>
     </select>
   </div>
-</p-sidebar>
+</p-drawer>
 
 <!-- ******************** Loading div ********************* -->
 <div class="my-container">

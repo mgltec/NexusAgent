@@ -10,15 +10,15 @@
         <div class="classic-add-player-group-input">
           <label for="">Player to clone</label>
 
-          <p-dropdown class="" [options]="playerList" [(ngModel)]="selectedPlayerId" optionLabel="Player"
+          <p-select class="" [options]="playerList" [(ngModel)]="selectedPlayerId" optionLabel="Player"
             placeholder="Choose one">
-          </p-dropdown>
+          </p-select>
         </div>
         <div class="classic-add-player-group-input">
           <label for="">Agent to assign</label>
-          <p-dropdown class="" [options]="agentList" [(ngModel)]="idAgent" optionLabel="Agent"
+          <p-select class="" [options]="agentList" [(ngModel)]="idAgent" optionLabel="Agent"
             placeholder="Choose one">
-          </p-dropdown>
+          </p-select>
         </div>
       </div>
     </div>

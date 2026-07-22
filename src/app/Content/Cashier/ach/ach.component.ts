@@ -8,6 +8,7 @@ import { DataService } from 'src/app/Services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-ach',
   templateUrl: './ach.component.html',
   styleUrls: ['./ach.component.css'],

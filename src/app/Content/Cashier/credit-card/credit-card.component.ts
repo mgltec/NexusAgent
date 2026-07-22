@@ -8,6 +8,7 @@ import { DataService } from 'src/app/Services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-credit-card',
   templateUrl: './credit-card.component.html',
   styleUrls: ['./credit-card.component.css'],

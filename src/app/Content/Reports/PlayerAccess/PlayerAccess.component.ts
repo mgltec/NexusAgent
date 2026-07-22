@@ -1,5 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {AgentDto,
@@ -16,6 +16,7 @@ import { transformDate } from 'src/app/Utils/date';
 import { IResponsiveTableColumn } from '../../ReusableComponents/responsive-table/responsive-table.types';
 
 @Component({
+  standalone: false,
   selector: 'app-PlayerAccess',
   templateUrl: './PlayerAccess.component.html',
   styleUrls: ['./PlayerAccess.component.scss']

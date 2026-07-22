@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { PlayerInfoForEditDto } from "src/app/Models/RpModels";
@@ -9,6 +9,7 @@ import { ReportsService } from "src/app/Services/reports.service";
 import { MasterComponent } from "../../../Master/Master.component";
 
 @Component({
+  standalone: false,
   selector: "app-EditPlayer",
   templateUrl: "./EditPlayer.component.html",
   styleUrls: ["./EditPlayer.component.css"],

@@ -1,6 +1,6 @@
 import { DecimalPipe, formatDate } from '@angular/common';
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {AgentDto,
@@ -15,6 +15,7 @@ import { IResponsiveTableColumn } from '../../ReusableComponents/responsive-tabl
 import { transformNumber } from 'src/app/Utils/number';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentAdjustment',
   templateUrl: './AgentAdjustment.component.html',
   styleUrls: ['./AgentAdjustment.component.css']

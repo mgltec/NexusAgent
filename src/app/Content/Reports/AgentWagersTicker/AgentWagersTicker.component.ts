@@ -4,7 +4,7 @@ import {
   OnInit,
   ɵɵsetComponentScope,
 } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from "rxjs";
 import { delay, takeUntil } from "rxjs/operators";
 import {
@@ -22,6 +22,7 @@ import { DataService } from "src/app/Services/data.service";
 import { ReportsService } from "src/app/Services/reports.service";
 
 @Component({
+  standalone: false,
   selector: "app-AgentWagersTicker",
   templateUrl: "./AgentWagersTicker.component.html",
   styleUrls: ["./AgentWagersTicker.component.scss"],

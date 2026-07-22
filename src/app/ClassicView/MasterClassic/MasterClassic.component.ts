@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentRightDTO, AgentSessionDto, AgentSettingsRequestDto, AgentSettingsResultDTO } from 'src/app/Models/models';
@@ -12,6 +12,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
 import Swal from 'sweetalert2';
 
 @Component({
+  standalone: false,
   selector: 'app-MasterClassic',
   templateUrl: './MasterClassic.component.html',
   styleUrls: ['./MasterClassic.component.scss'],

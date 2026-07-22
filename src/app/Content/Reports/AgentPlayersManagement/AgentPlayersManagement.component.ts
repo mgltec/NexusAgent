@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component,ElementRef,OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
@@ -18,6 +18,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
 
 
 @Component({
+  standalone: false,
   selector: 'app-AgentPlayersManagement',
   templateUrl: './AgentPlayersManagement.component.html',
   styleUrls: ['./AgentPlayersManagement.component.css']

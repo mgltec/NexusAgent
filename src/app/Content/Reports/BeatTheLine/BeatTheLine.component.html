@@ -2,7 +2,7 @@
 <div>
   <div>
     <p-accordion [style]="{'margin-bottom': '10px;'}">
-      <p-accordionTab header="Filters">
+      <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
         <h5>Filters</h5>
         <hr>
         <div class="filter-items">
@@ -17,21 +17,21 @@
               (ngModelChange)="_dateRange.End = $event" aria-describedby="datefrom">
           </div>
           <div class="form-group mb-3">
-            <p-dropdown styleClass="custom-select" [options]="agentList"[(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true"
+            <p-select styleClass="custom-select" [options]="agentList"[(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true"
             (onChange)="GetAgentList()" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
               
-            </p-dropdown>
+            </p-select>
           </div>
           <div class="form-group mb-3">
-            <p-dropdown styleClass="custom-select" [options]="playerList"
+            <p-select styleClass="custom-select" [options]="playerList"
             [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true"
             placeholder="Select a Player">
            
-          </p-dropdown>
+          </p-select>
           </div>
           <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
         </div>
-      </p-accordionTab>
+      </p-accordion-content></p-accordion-panel>
     </p-accordion>
   </div>
 

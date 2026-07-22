@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentListModel, AgentSessionDto, CloneProfileDTO, PlayerInfoRequestDto, PlayerProfileLimitDTO, ProfileLimitsDto, ProfileLimitsResultDto, RequestPlayerListModel, SaveProfileDTO, SportDto } from 'src/app/Models/models';
@@ -7,6 +7,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-ManageProfileLimites',
   templateUrl: './ManageProfileLimites.component.html',
   styleUrls: ['./ManageProfileLimites.component.scss']

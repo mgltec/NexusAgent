@@ -6,7 +6,7 @@
 
 
 <p-accordion [style]="{'margin-bottom': '10px;'}">
-  <p-accordionTab header="Filters">
+  <p-accordion-panel value="0"><p-accordion-header>Filters</p-accordion-header><p-accordion-content>
     <h5 class="card-title">Filters</h5>
     <hr>
     <div class="filter-items">
@@ -29,7 +29,7 @@
       </div>
       <button type="button" class="btn btn-primary btn-block" (click)="GetReport()">Submit</button>
     </div>
-  </p-accordionTab>
+  </p-accordion-content></p-accordion-panel>
 </p-accordion>
 
 <hr>

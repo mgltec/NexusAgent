@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { takeUntil } from 'rxjs/operators';
 import { AgentListModel, AgentSessionDto, RequestAgentPositionDetail, RequestAgentPositionDto, ResultAgentPosition, WeekRangeDto } from 'src/app/Models/models';
 import { AgentPositionDetailsDto, AgentPositionResultV2Dto, RequestAgentPositionV2Dto } from 'src/app/Models/RpModels';
@@ -11,6 +11,7 @@ import { Subject } from 'rxjs';
 
 
 @Component({
+  standalone: false,
   selector: 'app-AgentPosition',
   templateUrl: './AgentPosition.component.html',
   styleUrls: ['./AgentPosition.component.css']

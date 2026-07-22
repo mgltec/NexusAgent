@@ -1,5 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentListModel, RequestPlayerListModel ,AgentWagersRequest,AgentDeleteWagerRequest, AgentLoginDto, AgentSessionDto} from 'src/app/Models/models';
@@ -10,6 +10,7 @@ import { transformDate } from 'src/app/Utils/date';
 
 
 @Component({
+  standalone: false,
   selector: 'app-AgentWagers',
   templateUrl: './AgentWagers.component.html',
   styleUrls: ['./AgentWagers.component.scss']

@@ -21,8 +21,16 @@ export class UsersService {
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     });
     const options = { headers };
-    const apiUrl = environment.webAPI1 + 'AgentExt/AgentLogin';
-    return this.httpClient.post(apiUrl, userInfo, options).pipe(
+    const apiUrl = environment.webAPI1 + 'Agent/Login';
+    // The new WagerApi expects { Agent, Password, Ip, GeoLocation }; the app's
+    // AgentLoginDto uses Username, so map it to the API contract here.
+    const body = {
+      Agent: userInfo.Username,
+      Password: userInfo.Password,
+      Ip: userInfo.Ip,
+      GeoLocation: (userInfo as any).GeoLocation ?? null,
+    };
+    return this.httpClient.post(apiUrl, body, options).pipe(
         map((response: any) => response),
         catchError(this.handleError<AgentDto>('AgentLogin', a))
     );

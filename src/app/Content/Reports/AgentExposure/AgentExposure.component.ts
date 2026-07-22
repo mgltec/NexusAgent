@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentExposureDetailDto, AgentExposureDetailResultDto, AgentListModel, AgentSessionDto, SportDto } from 'src/app/Models/models';
@@ -9,6 +9,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentExposure',
   templateUrl: './AgentExposure.component.html',
   styleUrls: ['./AgentExposure.component.scss']

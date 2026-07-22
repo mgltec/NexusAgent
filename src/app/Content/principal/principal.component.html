@@ -4,7 +4,7 @@
   <div class="row" id="dashControls">
     <div class="col-lg-12">
       <div class="btn-dashboard-setting">
-        <p-autoComplete [(ngModel)]="PlayerSelectedAcomplete" [suggestions]="filteredItems" (completeMethod)="filterItems($event)" field="Player" [dropdown]="true" (onSelect)="SelectedPlayerAutoComplete()" placeholder="Player Search"> </p-autoComplete>
+        <p-autocomplete [(ngModel)]="PlayerSelectedAcomplete" [suggestions]="filteredItems" (completeMethod)="filterItems($event)" field="Player" [dropdown]="true" (onSelect)="SelectedPlayerAutoComplete()" placeholder="Player Search"> </p-autocomplete>
       </div>
       <div class="dashboard-controls">
         <div class="btn-dashboard-setting">
@@ -477,7 +477,7 @@
     </div>
   </div>
 
-  <p-sidebar [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
+  <p-drawer [(visible)]="display" styleClass="p-sidebar-md" (onHide)="hideFilters()">
     <h5>Filters</h5>
     <hr />
     <div class="row mb-2 mt-2">
@@ -509,7 +509,7 @@
     <p class="d-block">Some filters and their options load based on the content of each report.</p>
 
     <p class="d-block">Filters like the Agent, Date and Player remain selected across different reports.</p>
-  </p-sidebar>
+  </p-drawer>
 </div>
 
 <ng-template #content let-modal>
@@ -525,18 +525,18 @@
       <div class="fa-3x" *ngIf="_loadingAgentList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
-      <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+      <p-select *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
         
-      </p-dropdown>
+      </p-select>
 
       <p>Select player:</p>
       <div class="fa-3x" *ngIf="loadingPlayerList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
 
-      <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
+      <p-select *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
        
-      </p-dropdown>
+      </p-select>
     </div>
     <div class="alert alert-primary" role="alert">Note: You will be redirected to the Player Details page after pressing 'Continue'.</div>
   </div>
@@ -565,18 +565,18 @@
       <div class="fa-3x" *ngIf="_loadingAgentList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
-      <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+      <p-select *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
         
-      </p-dropdown>
+      </p-select>
 
       <p>Select player:</p>
       <div class="fa-3x" *ngIf="loadingPlayerList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
 
-      <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
+      <p-select *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
        
-      </p-dropdown>
+      </p-select>
       <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
       <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button>
     </div>
@@ -609,9 +609,9 @@
       <div class="fa-3x" *ngIf="_loadingAgentList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
-      <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+      <p-select *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
         
-      </p-dropdown>
+      </p-select>
       <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
       <button type="button" class="btn btn-outline-primary" (click)="OpenAgentTransForm()">Continue</button>
     </div>
@@ -640,17 +640,17 @@
       <div class="fa-3x" *ngIf="_loadingAgentList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
-      <p-dropdown *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+      <p-select *ngIf="!_loadingAgentList" styleClass="custom-select" [options]="agentList" (onChange)="GetPlayerList()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
         
-      </p-dropdown>
+      </p-select>
 
       <p>Select player:</p>
       <div class="fa-3x" *ngIf="loadingPlayerList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
 
-      <p-dropdown *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
-      </p-dropdown>
+      <p-select *ngIf="!loadingPlayerList" styleClass="custom-select" [options]="playerList" [(ngModel)]="playerSelected" optionLabel="Player" [filter]="true" filterBy="value.Player" [showClear]="true" placeholder="Select a Player">
+      </p-select>
       <div class="alert alert-primary" role="alert">NOTE: Before you continue, please double check you have selected the correct account.</div>
       <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button>
     </div>
@@ -684,9 +684,9 @@
       <div class="fa-3x" *ngIf="_loadingAgentList">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
-      <p-dropdown *ngIf="!_loadingAgentList"  class="" [options]="agentList" (onChange)="OpenAddPlayerForm()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
+      <p-select *ngIf="!_loadingAgentList"  class="" [options]="agentList" (onChange)="OpenAddPlayerForm()" [(ngModel)]="AgentSelected" optionLabel="_agent" [filter]="true" filterBy="value._agent" [showClear]="true" placeholder="Choose agent">
 
-      </p-dropdown>
+      </p-select>
 
       <button type="button" class="btn btn-outline-primary" (click)="OpenDivPlayerTransaction()">Continue</button>
     </div>

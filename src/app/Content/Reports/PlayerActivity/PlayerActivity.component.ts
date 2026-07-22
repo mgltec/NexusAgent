@@ -1,5 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {AgentDto,
@@ -17,6 +17,7 @@ import { transformNumber } from 'src/app/Utils/number';
 
 
 @Component({
+  standalone: false,
   selector: 'app-PlayerActivity',
   templateUrl: './PlayerActivity.component.html',
   styleUrls: ['./PlayerActivity.component.css']

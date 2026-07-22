@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentLoginDto, AgentSessionDto } from '../Models/models';
 import { DataService } from '../Services/data.service';
 import { ReportsService } from '../Services/reports.service';
@@ -11,6 +11,7 @@ import { UsersService } from '../Services/users.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
+  standalone: false,
   selector: 'app-Login',
   templateUrl: './Login.component.html',
   styleUrls: ['./Login.component.css']
@@ -100,7 +101,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       this._userService
         .AgentLogin(login)
-        .pipe(takeUntil(this._unsubscribeAll))
+        .pipe(
+          takeUntil(this._unsubscribeAll),
+          finalize(() => { this._loadingReport = false; })
+        )
         .subscribe(
           (data) => {
 
@@ -108,13 +112,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
             if (data.Agent == null) {
-              this.showMessage("error", "Login Error", data._sErrorMsg);
+              this.showMessage("error", "Login Error", data?._sErrorMsg || (data as any)?.error?.title || "Invalid credentials");
             }
             else {
 
               let objSession: AgentSessionDto = new AgentSessionDto();
 
               objSession.Master = data;
+              // Persist the JWT issued by the new WagerApi for the auth interceptor.
+              // The API returns it as `Jwt` (fallback to `Token` for compatibility).
+              if ((data as any)?.Jwt || (data as any)?.Token) {
+                localStorage.setItem('authToken', (data as any).Jwt ?? (data as any).Token);
+              }
               objSession.AgentSelected = data.Agent;
               objSession.IdAgentSelected = data.IdAgent;
 
@@ -219,6 +228,11 @@ export class LoginComponent implements OnInit, OnDestroy {
               let objSession: AgentSessionDto = new AgentSessionDto();
 
               objSession.Master = data;
+              // Persist the JWT issued by the new WagerApi for the auth interceptor.
+              // The API returns it as `Jwt` (fallback to `Token` for compatibility).
+              if ((data as any)?.Jwt || (data as any)?.Token) {
+                localStorage.setItem('authToken', (data as any).Jwt ?? (data as any).Token);
+              }
               objSession.AgentSelected = data.Agent;
               objSession.IdAgentSelected = data.IdAgent;
 

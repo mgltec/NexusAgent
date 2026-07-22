@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-landscape-notice',
   templateUrl: './landscape-notice.component.html',
   styleUrls: ['./landscape-notice.component.scss'],

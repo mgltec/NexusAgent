@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AgentListModel, AgentDistributionRequest, AgentSessionDto,RequestPlayerListModel,WeekRangeDto } from 'src/app/Models/models';
@@ -8,6 +8,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
 
 
 @Component({
+  standalone: false,
   selector: 'app-AgentWagerListing',
   templateUrl: './AgentWagerListing.component.html',
   styleUrls: ['./AgentWagerListing.component.scss']

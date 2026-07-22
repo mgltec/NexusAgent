@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { GetInitials } from '../Utils/text';
 
 @Pipe({
+  standalone: false,
   name: 'getInitials'
 })
 export class GetInitialsPipe implements PipeTransform {

@@ -3,6 +3,7 @@ import { PlayerTransactionDTO } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 
 @Component({
+  standalone: false,
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.css'],

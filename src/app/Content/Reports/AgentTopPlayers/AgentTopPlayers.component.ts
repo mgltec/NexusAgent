@@ -1,5 +1,5 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PlayerAmountListDto, RequestAgentWeeklyBalance, RequestPlayerActivity } from 'src/app/Models/RpModels';
@@ -13,6 +13,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
 
 @Component({
+  standalone: false,
   selector: 'app-AgentTopPlayers',
   templateUrl: './AgentTopPlayers.component.html',
   styleUrls: ['./AgentTopPlayers.component.css']
