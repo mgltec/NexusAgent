@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentExposureDetailDto, AgentExposureDetailResultDto, AgentListModel, AgentSessionDto, SportDto } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
@@ -146,34 +146,37 @@ export class AgentExposureComponent implements OnInit, OnDestroy {
     this._loadingReport = true;
 
     this._reportService.GetAgentExposure(this._currentUser, this.SportSelected)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
-       
-        this.agentExposureReport = data;
+        try {
+          this.agentExposureReport = data;
 
-        console.log(data);
+          console.log(data);
 
-         this.sumaParlays = 0;
-         this.sumaStraight = 0;
-         this.sumaTeasers = 0;
-         this.sumaReverses = 0;
+          this.sumaParlays = 0;
+          this.sumaStraight = 0;
+          this.sumaTeasers = 0;
+          this.sumaReverses = 0;
 
-        // Check if ListExposure exists and is an array before processing
-        if (this.agentExposureReport?.ListExposure && Array.isArray(this.agentExposureReport.ListExposure)) {
-          this.agentExposureReport.ListExposure.forEach((element:any) => {
-            this.sumaParlays += Number(element._ParlayVSpread) + Number(element._ParlayVTotal) + Number(element._ParlayVMoney) + Number(element._ParlayHSpread) + Number(element._ParlayHTotal) + Number(element._ParlayHMoney);
-            this.sumaStraight += Number(element._StraightbetVSpread) + Number(element._StraightbetVTotal) + Number(element._StraightbetVMoney) + Number(element._StraightbetHSpread) + Number(element._StraightbetHTotal) + Number(element._StraightbetHMoney);
-            this.sumaTeasers += Number(element._TeaserVSpread) + Number(element._TeaserVTotal) + Number(element._TeaserVMoney) + Number(element._TeaserHSpread) + Number(element._TeaserHTotal) + Number(element._TeaserHMoney);
-            this.sumaReverses += Number(element._ReversesVSpread) + Number(element._ReversesVTotal) + Number(element._ReversesVMoney) + Number(element._ReversesHSpread) + Number(element._ReversesHTotal) + Number(element._ReversesHMoney);
-          });
-        } else {
-          console.warn('ListExposure is not available or not an array:', this.agentExposureReport);
+          // Check if ListExposure exists and is an array before processing
+          if (this.agentExposureReport?.ListExposure && Array.isArray(this.agentExposureReport.ListExposure)) {
+            this.agentExposureReport.ListExposure.forEach((element:any) => {
+              this.sumaParlays += Number(element._ParlayVSpread) + Number(element._ParlayVTotal) + Number(element._ParlayVMoney) + Number(element._ParlayHSpread) + Number(element._ParlayHTotal) + Number(element._ParlayHMoney);
+              this.sumaStraight += Number(element._StraightbetVSpread) + Number(element._StraightbetVTotal) + Number(element._StraightbetVMoney) + Number(element._StraightbetHSpread) + Number(element._StraightbetHTotal) + Number(element._StraightbetHMoney);
+              this.sumaTeasers += Number(element._TeaserVSpread) + Number(element._TeaserVTotal) + Number(element._TeaserVMoney) + Number(element._TeaserHSpread) + Number(element._TeaserHTotal) + Number(element._TeaserHMoney);
+              this.sumaReverses += Number(element._ReversesVSpread) + Number(element._ReversesVTotal) + Number(element._ReversesVMoney) + Number(element._ReversesHSpread) + Number(element._ReversesHTotal) + Number(element._ReversesHMoney);
+            });
+          } else {
+            console.warn('ListExposure is not available or not an array:', this.agentExposureReport);
+          }
+        } catch (error) {
+          console.error('AgentExposure build error', error);
         }
-        
-        this._loadingReport = false;
       }, error => {
         console.error('Error fetching agent exposure data:', error);
-        this._loadingReport = false;
       });
   }
 

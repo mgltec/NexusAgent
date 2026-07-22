@@ -1,4 +1,7 @@
-export const GetInitials = (text: string): string => {
+export const GetInitials = (text: string | null | undefined): string => {
+  if (!text) {
+    return "";
+  }
   const words: string[] = text.trim().split(/\s+/);
   let initials: string = "";
 

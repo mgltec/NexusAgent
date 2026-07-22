@@ -1,7 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {AgentDto,
         WeekRangeDto,
@@ -194,22 +194,25 @@ export class PlayerTotalsComponent implements OnInit,OnDestroy {
 
 
 
-    this._reportService.GetPlayerTotals(this._currentUser, t).pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (data) => {
-        data.sort((a, b) => a.Agent.localeCompare(b.Agent));
-        data.forEach(agent => {
-          agent.Players.sort((a, b) => a.Player.localeCompare(b.Player));
+    this._reportService.GetPlayerTotals(this._currentUser, t)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
+        next: (data) => {
+          try {
+            data.sort((a, b) => a.Agent.localeCompare(b.Agent));
+            data.forEach(agent => {
+              agent.Players.sort((a, b) => a.Player.localeCompare(b.Player));
+            });
+            this.reportData = data;
+          } catch (error) {
+            console.error('PlayerTotals build error', error);
+          }
+        },
+        error: (err) => { }
       });
-        this.reportData = data;
-      },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
-    });
 
   }//end report method
 }

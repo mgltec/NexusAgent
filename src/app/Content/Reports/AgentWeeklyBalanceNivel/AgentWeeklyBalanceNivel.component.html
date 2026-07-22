@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 
 <H4>Weekly Balance by Agent</H4>
 <H6><span>Weekly balance by agent for {{_currentUser.AgentSelected}} from 
@@ -205,6 +206,4 @@
     <div class="custom-class">
     </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
-  </ngx-loading>
 </div>

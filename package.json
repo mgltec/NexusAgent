@@ -38,7 +38,6 @@
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
     "jszip": "^3.10.1",
-    "ngx-loading": "^17.0.0",
     "ngx-mask": "^22.0.0",
     "primeicons": "^7.0.0",
     "rxjs": "~7.8.0",

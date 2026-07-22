@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 <h6><span>Casino Game Details for {{_dateRange.Start | date}} </span></h6>
 <div>
     <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered table-sm"  *ngIf="!_loadingReport">
@@ -54,7 +55,7 @@
     </select>
   </div>
 
-<button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+<button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
 </p-drawer>
 
 
@@ -65,6 +66,5 @@
       <div class="custom-class">
       </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </div>
 

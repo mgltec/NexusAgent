@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentSessionDto, PlayerHistoryByDayDto } from 'src/app/Models/models';
 import { RequestPlayerTransaction } from 'src/app/Models/RpModels';
 import { DataService } from 'src/app/Services/data.service';
@@ -83,14 +83,13 @@ export class PlayerDetailsComponent implements OnInit, OnDestroy {
   GetPlayerInformation() {
     this._loadingPlayerInfo = true;
     this._reportService.GetPlayerInformation(Number(this._idPlayer))
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingPlayerInfo = false))
+      )
       .subscribe(data => {
         this._PlayerInfo = data;
-        console.log("PlayerInfo");
-        console.log(this._PlayerInfo);
-        this._loadingPlayerInfo = false;
       }, error => {
-        this._loadingPlayerInfo = false;
       });
   }
 
@@ -104,13 +103,13 @@ export class PlayerDetailsComponent implements OnInit, OnDestroy {
 
     this._loadingPlayerTran = true;
     this._reportService.GetPlayerTransactions(a)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingPlayerTran = false))
+      )
       .subscribe(data => {
         this._PlayerTransaction = data;
-        //  console.log(this._PlayerTransaction);
-        this._loadingPlayerTran = false;
       }, error => {
-        this._loadingPlayerTran = false;
       });
   }
 
@@ -124,13 +123,13 @@ export class PlayerDetailsComponent implements OnInit, OnDestroy {
 
     this._loadingPlayerBalanceHistory = true;
     this._reportService.GetBalanceHistory(a)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingPlayerBalanceHistory = false))
+      )
       .subscribe(data => {
         this._PlayerBalanceHistory = data;
-        // console.log(this._PlayerBalanceHistory);
-        this._loadingPlayerBalanceHistory = false;
       }, error => {
-        this._loadingPlayerBalanceHistory = false;
       });
   }
 

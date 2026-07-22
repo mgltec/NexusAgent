@@ -1,7 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { PlayerAmountListDto, RequestAgentWeeklyBalance, RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {
         WeekRangeDto,
@@ -129,16 +129,16 @@ export class AgentTopPlayersComponent implements OnInit {
 
     this._reportService
       .GetTopPlayerListWinLos(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         data => {
           this.reportData = data;
           console.log('winloss', this.reportData);
-          this._loadingReport = false;
         },
-        error => {
-          this._loadingReport = false;
-        }
+        error => { }
       );
 
   }//end report method

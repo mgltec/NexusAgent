@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { SMSBetAlertRequest, AgentListModel,AgentSessionDto, RequestPlayerListModel, InsertSMSAgentAlertRequest } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
@@ -107,13 +107,13 @@ export class AgentSMSAlertComponent implements OnInit {
     t.IdAgent = this._currentUser.IdAgentSelected;
 
     this._reportService.GetSMSAgentsAlerts(this._currentUser, t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
         this.SMSAgentAlertData = data;
-        this._loadingReport = false;
-      }, error => {
-        this._loadingReport = false;
-      });
+      }, error => { });
   }
 
   InsertPlayerAlert(){

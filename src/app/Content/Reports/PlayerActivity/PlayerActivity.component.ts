@@ -1,7 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import {AgentDto,
         WeekRangeDto,
         AgentListModel,
@@ -164,10 +164,13 @@ export class PlayerActivityComponent implements OnInit,OnDestroy {
     this._loadingReport = true;
     this._reportService
       .GetAgentPlayerCount(this._currentUser, req)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
-          // this.reportData = data;
+          try {
           this.reportData = data.reduce((acc: any, item: any) => {
             const TotalAccess = item.AccessLocal + item.AccessOnline;
             const Total = item.AccessLocal + item.AccessOnline + item.GradedWagerLocal + item.GradedWagerOnline + item.OpenWagerLocal + item.OpenWagerOnline;
@@ -205,9 +208,9 @@ export class PlayerActivityComponent implements OnInit,OnDestroy {
           
             return acc;
           }, {});
-
-          console.log(this.reportData)
-          this._loadingReport = false;
+          } catch (error) {
+            console.error('PlayerActivity build error', error);
+          }
         },
         (error) => {
           console.log("Error in AgentPlayerCount");

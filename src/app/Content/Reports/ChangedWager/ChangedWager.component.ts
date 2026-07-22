@@ -2,7 +2,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {
         WeekRangeDto,
@@ -139,7 +139,12 @@ export class ChangedWagerComponent implements OnInit, OnDestroy {
     t.PrmType = Number(this._TransactionSelected); //all
 
 
-    this._reportService.GetAgentHistory(this._currentUser, t).pipe(takeUntil(this._unsubscribeAll)).subscribe({
+    this._reportService.GetAgentHistory(this._currentUser, t)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
       next: (data) => {
         console.log("agenthis", data);
         // Ensure data is an array
@@ -148,10 +153,6 @@ export class ChangedWagerComponent implements OnInit, OnDestroy {
       error: (err) => {
         console.error('Error fetching agent history:', err);
         this.reportData = [];
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
       }
 
     });

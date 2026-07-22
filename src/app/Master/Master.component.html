@@ -1,165 +1,154 @@
-<nav class="navbar navbar-expand-lg navbar-themed">
-  <button *ngIf="isDesktop" class="navbar-toggler navbar-toggler-themed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!-- ===== Sidebar menu (Core.AgentSite style) ===== -->
+<aside class="app-sidebar" [class.open-mobile]="menuOpened">
+  <a class="app-sidebar-brand" routerLink="/mainbk/principal" (click)="closeMenuMobile()">
+    <span class="app-sidebar-brand-mark">A</span>
+    <span class="app-sidebar-brand-text">Agent Site</span>
+  </a>
 
-  <div  class="navbar-collapse flex justify-content-between navb" id="navbarSupportedContent">
-    <ul class="navbar-nav main-nav mr-auto mt-nav gap-2">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/mainbk/principal">
-          <i class="fa-solid fa-border-all"></i>
-          Dashboard <span class="sr-only">(current)</span>
-          <span class="empty"></span>
-        </a>
-      </li>
-      
+  <nav class="app-sidebar-nav">
+    <div class="app-sidebar-section">
+      <div class="app-sidebar-section-title">Home</div>
+      <ul class="app-sidebar-list">
+        <li>
+          <a class="app-sidebar-link" routerLink="/mainbk/principal" routerLinkActive="active" (click)="closeMenuMobile()">
+            <i class="fa-solid fa-border-all app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <button type="button" class="app-sidebar-link" (click)="display = true; closeMenuMobile()">
+            <i class="fa-solid fa-sitemap app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Agent Tree</span>
+          </button>
+        </li>
+        <li>
+          <a class="app-sidebar-link" routerLink="/cashier" routerLinkActive="active" (click)="closeMenuMobile()">
+            <i class="fa-solid fa-cash-register app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Cashier</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-      <div class="col">
-        <div ngbDropdown class="d-inline-block" [ngClass]="{'nav-item w-full p-2': !isDesktop}">
-          <button type="button" class="btn hover:bg-slate-200 w-full btn-navb" id="dropdownFigures" ngbDropdownToggle>
-            <i class="fa-solid fa-chart-simple"></i>
-            Figures
+    <div class="app-sidebar-section">
+      <div class="app-sidebar-section-title">Sections</div>
+      <ul class="app-sidebar-list">
+        <!-- Figures -->
+        <li class="app-sidebar-has-sub" [class.open]="figuresOpen">
+          <button type="button" class="app-sidebar-link" [attr.aria-expanded]="figuresOpen" (click)="figuresOpen = !figuresOpen">
+            <i class="fa-solid fa-chart-simple app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Figures</span>
+            <i class="fa-solid fa-chevron-right app-sidebar-chevron"></i>
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownFigures">
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/weeklyClassic">Weekly Balance Classic</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/weeklydaysheet">Weekly Balance V2</a>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerstanding">Player Standings</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playeraction">Action by Player</a>
-            <div class="dropdown-divider"></div>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playertotal">Player Totals</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentgrossweek">Gross Week</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col">
-        <div ngbDropdown class="d-inline-block" [ngClass]="{'nav-item w-full p-2': !isDesktop}">
-          <button type="button" class="btn hover:bg-slate-200 w-full btn-navb" id="dropdownWagers" ngbDropdownToggle>
-            <i class="fa-solid fa-circle-dollar-to-slot"></i>
-            Wagers
+          <ul class="app-sidebar-sublist" *ngIf="figuresOpen">
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/weeklyClassic" routerLinkActive="active" (click)="closeMenuMobile()">Weekly Balance Classic</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/weeklydaysheet" routerLinkActive="active" (click)="closeMenuMobile()">Weekly Balance V2</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/playerstanding" routerLinkActive="active" (click)="closeMenuMobile()">Player Standings</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/playeraction" routerLinkActive="active" (click)="closeMenuMobile()">Action by Player</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/playertotal" routerLinkActive="active" (click)="closeMenuMobile()">Player Totals</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentgrossweek" routerLinkActive="active" (click)="closeMenuMobile()">Gross Week</a></li>
+          </ul>
+        </li>
+
+        <!-- Wagers -->
+        <li class="app-sidebar-has-sub" [class.open]="wagersOpen">
+          <button type="button" class="app-sidebar-link" [attr.aria-expanded]="wagersOpen" (click)="wagersOpen = !wagersOpen">
+            <i class="fa-solid fa-circle-dollar-to-slot app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Wagers</span>
+            <i class="fa-solid fa-chevron-right app-sidebar-chevron"></i>
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownWagers">
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/openbets">Open Bets</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerhistory">Player History</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentposition">Agent Position</a>
-            <div class="dropdown-divider"></div>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentexposure">Agent Exposure</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/changedWager">Change Wager</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentwagers">Wager Listing</a>
-            <div class="dropdown-divider"></div>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentwagersticket">Wagers Ticker (Live)</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col">
-        <div ngbDropdown class="d-inline-block" [ngClass]="{'nav-item w-full p-2': !isDesktop}">
-          <button type="button" class="btn hover:bg-slate-200 w-full btn-navb" id="dropdownFinancial" ngbDropdownToggle>
-            <i class="fa-solid fa-chart-line"></i>
-            Financial
+          <ul class="app-sidebar-sublist" *ngIf="wagersOpen">
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/openbets" routerLinkActive="active" (click)="closeMenuMobile()">Open Bets</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/playerhistory" routerLinkActive="active" (click)="closeMenuMobile()">Player History</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentposition" routerLinkActive="active" (click)="closeMenuMobile()">Agent Position</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentexposure" routerLinkActive="active" (click)="closeMenuMobile()">Agent Exposure</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/changedWager" routerLinkActive="active" (click)="closeMenuMobile()">Change Wager</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentwagers" routerLinkActive="active" (click)="closeMenuMobile()">Wager Listing</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentwagersticket" routerLinkActive="active" (click)="closeMenuMobile()">Wagers Ticker (Live)</a></li>
+          </ul>
+        </li>
+
+        <!-- Financial -->
+        <li class="app-sidebar-has-sub" [class.open]="financialOpen">
+          <button type="button" class="app-sidebar-link" [attr.aria-expanded]="financialOpen" (click)="financialOpen = !financialOpen">
+            <i class="fa-solid fa-chart-line app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Financial</span>
+            <i class="fa-solid fa-chevron-right app-sidebar-chevron"></i>
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownFinancial">
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentcashflow">Cash Flow</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentweeklypayment">Weekly Payments</a>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentadjusment">Agent Adjustment</a>
-            <div class="dropdown-divider"></div>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentsettledfigure">Settled Figures</a>
-            <a ngbDropdownItem class="dropdown-item" (click)="open(contentTrans)">Player Payments</a>
-            <div class="dropdown-divider"></div>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/beattheline">Beat the line</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col">
-        <div ngbDropdown class="d-inline-block" [ngClass]="{'nav-item w-full p-2': !isDesktop}">
-          <button type="button" class="btn hover:bg-slate-200 w-full btn-navb" id="dropdownAgents" ngbDropdownToggle>
-            <i class="fa-solid fa-people-group"></i>
-            Agents
+          <ul class="app-sidebar-sublist" *ngIf="financialOpen">
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentcashflow" routerLinkActive="active" (click)="closeMenuMobile()">Cash Flow</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentweeklypayment" routerLinkActive="active" (click)="closeMenuMobile()">Weekly Payments</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentadjusment" routerLinkActive="active" (click)="closeMenuMobile()">Agent Adjustment</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentsettledfigure" routerLinkActive="active" (click)="closeMenuMobile()">Settled Figures</a></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentTrans); closeMenuMobile()">Player Payments</button></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/beattheline" routerLinkActive="active" (click)="closeMenuMobile()">Beat the line</a></li>
+          </ul>
+        </li>
+
+        <!-- Agents -->
+        <li class="app-sidebar-has-sub" [class.open]="agentsOpen">
+          <button type="button" class="app-sidebar-link" [attr.aria-expanded]="agentsOpen" (click)="agentsOpen = !agentsOpen">
+            <i class="fa-solid fa-people-group app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Agents</span>
+            <i class="fa-solid fa-chevron-right app-sidebar-chevron"></i>
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownAgents">
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentdistribution">Agent Distribution</a>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agenthistory">Agent History</a>
-            <div class="dropdown-divider"></div>
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentcommission">Agent Commission</a>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/smsalert">SMS Alert</a>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/telegram">Telegram Bet Alert</a>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/playerip">IP Report</a>
-            <a ngbDropdownItem class="dropdown-item" routerLink="/mainbk/hiddenleagues">Hidden Leagues</a>
-            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
-            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentNewSubAgent)">Add SubAgent</a>
-            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentAgentTrans)">Add Adjustment</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col">
-        <div ngbDropdown class="d-inline-block" [ngClass]="{'nav-item w-full p-2': !isDesktop}">
-          <button type="button" class="btn hover:bg-slate-200 w-full btn-navb" id="dropdownPlayerManagement" ngbDropdownToggle>
-            <i class="fa-solid fa-person"></i>
-            Player Management
+          <ul class="app-sidebar-sublist" *ngIf="agentsOpen">
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentdistribution" routerLinkActive="active" (click)="closeMenuMobile()">Agent Distribution</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agenthistory" routerLinkActive="active" (click)="closeMenuMobile()">Agent History</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentcommission" routerLinkActive="active" (click)="closeMenuMobile()">Agent Commission</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/smsalert" routerLinkActive="active" (click)="closeMenuMobile()">SMS Alert</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/telegram" routerLinkActive="active" (click)="closeMenuMobile()">Telegram Bet Alert</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/playerip" routerLinkActive="active" (click)="closeMenuMobile()">IP Report</a></li>
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/hiddenleagues" routerLinkActive="active" (click)="closeMenuMobile()">Hidden Leagues</a></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentNewPlayer); closeMenuMobile()">Add Player</button></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentNewSubAgent); closeMenuMobile()">Add SubAgent</button></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentAgentTrans); closeMenuMobile()">Add Adjustment</button></li>
+          </ul>
+        </li>
+
+        <!-- Player Management -->
+        <li class="app-sidebar-has-sub" [class.open]="playersOpen">
+          <button type="button" class="app-sidebar-link" [attr.aria-expanded]="playersOpen" (click)="playersOpen = !playersOpen">
+            <i class="fa-solid fa-person app-sidebar-link-icon"></i>
+            <span class="app-sidebar-link-label">Player Management</span>
+            <i class="fa-solid fa-chevron-right app-sidebar-chevron"></i>
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownPlayerManagement">
-            <a  ngbDropdownItem class="dropdown-item" routerLink="/mainbk/agentplayermagment">Players Management</a>
-            <a ngbDropdownItem class="dropdown-item" (click)="open(contentLookup)">Look up Player</a>
-            <a  ngbDropdownItem class="dropdown-item" (click)="open(contentNewPlayer)">Add Player</a>
-            <a ngbDropdownItem class="dropdown-item" (click)="open(contentPlayerEdit)">Edit Player</a>
-            <a ngbDropdownItem class="dropdown-item" (click)="open(contentTrans)">Add Payment</a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa-solid fa-receipt"></i>
-          Service Billing
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/mainbk/resellerProgram">Reseller Program (coming soon)</a>
-          <a class="dropdown-item" routerLink="/mainbk/layOffAccount">Lay off account (coming soon)</a>
-        </div>
-      </li> -->
-      <li class="nav-item" *ngIf="_isPhone">
-        <a class="nav-link" href="tel:555555555"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span>
-            <i class="fa-solid fa-phone"></i>
-            Office Phone
-          </span>
-        </a>
-       
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link justify-start" routerLink="/mainclassic/principal">
-          <i class="fa fa-window-maximize"></i>
-          Classic
-          <span class="empty"></span>
-        </a>
-      </li> -->
-      <li *ngIf="isDesktop">
-        <a class="nav-link"><i data-toggle="tooltip" title="Exit" (click)="display = true">Agent Tree</i> </a>
-      </li>
-    </ul>
-    <ul class="navbar-nav navbar-right nav-item-logout flex gap-2">
-      <div class="text-xl flex items-center justify-center">
-        <i class="fa fa-cog hover:text-blue-900 cursor-pointer" (click)="modalSettings = true"></i>
-      </div>
-      <li class="theme-toggle-item">
-        <button class="theme-toggle-btn" (click)="toggleTheme()" [attr.aria-label]="'Switch to ' + (isDarkTheme ? 'light' : 'dark') + ' theme'">
-          <i class="fas" [ngClass]="isDarkTheme ? 'fa-sun' : 'fa-moon'"></i>
-        </button>
-      </li>
-      <li>
-        <a href="#" class="nav-link"><i class="fa fa-power-off text-danger logout-icon" data-toggle="tooltip" title="Exit" (click)="logout()"></i> </a>
-      </li>
-    </ul>
+          <ul class="app-sidebar-sublist" *ngIf="playersOpen">
+            <li><a class="app-sidebar-sublink" routerLink="/mainbk/agentplayermagment" routerLinkActive="active" (click)="closeMenuMobile()">Players Management</a></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentLookup); closeMenuMobile()">Look up Player</button></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentNewPlayer); closeMenuMobile()">Add Player</button></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentPlayerEdit); closeMenuMobile()">Edit Player</button></li>
+            <li><button type="button" class="app-sidebar-sublink" (click)="open(contentTrans); closeMenuMobile()">Add Payment</button></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="app-sidebar-footer">
+    <a *ngIf="_isPhone" class="app-sidebar-link" [href]="'tel:'+phoneDomain">
+      <i class="fa-solid fa-phone app-sidebar-link-icon"></i>
+      <span class="app-sidebar-link-label">Office Phone</span>
+    </a>
+    <button type="button" class="app-sidebar-link" (click)="modalSettings = true">
+      <i class="fa-solid fa-gear app-sidebar-link-icon"></i>
+      <span class="app-sidebar-link-label">Settings</span>
+    </button>
+    <button type="button" class="app-sidebar-link" (click)="toggleTheme()">
+      <i class="fa-solid app-sidebar-link-icon" [ngClass]="isDarkTheme ? 'fa-sun' : 'fa-moon'"></i>
+      <span class="app-sidebar-link-label">{{ isDarkTheme ? 'Light' : 'Dark' }} mode</span>
+    </button>
+    <button type="button" class="app-sidebar-link app-sidebar-link-danger" (click)="logout()">
+      <i class="fa-solid fa-power-off app-sidebar-link-icon"></i>
+      <span class="app-sidebar-link-label">Log out</span>
+    </button>
   </div>
-</nav>
-<div class="text-right px-3 pt-3 pb-2 phoneAgent">
-  <a [href]="'tel:'+phoneDomain" class="text-border hover:underline"> <i class="fa-solid fa-phone icon-phone"></i> {{phoneDomain}}</a>
-</div>
+</aside>
+<div class="app-sidebar-backdrop" *ngIf="menuOpened && !isDesktop" (click)="closeMenu()"></div>
 
 
-<p-drawer *ngIf="display" [(visible)]="display" styleClass="p-sidebar-md">
+
+<p-drawer *ngIf="display" [(visible)]="display" position="right" styleClass="p-sidebar-md">
   <h4>Agent Tree</h4>
 
   <ul class="list-group">
@@ -169,11 +158,11 @@
         <!-- el nodo: -->
         <div class="list-agent flex-row-reverse justify-end gap-2" *ngIf="node != undefined">
           <div class="flex ">
-            <i *ngIf="node.children.length > 0" (click)="toggleNode(node)" [class]="'fas fa-' + (node.expanded ? 'minus' : 'plus')"></i>
+            <i *ngIf="node.children?.length > 0" (click)="toggleNode(node)" [class]="'fas fa-' + (node.expanded ? 'minus' : 'plus')"></i>
             <div class="avatar">{{node.Agent | getInitials}}</div>
             <button type="button" class="btn btn-outline-dark btn-sm" (click)="nodeSelect(node)">{{ node.Agent }}</button>
           </div>
-          <input *ngIf="node.children.length == 0" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" [(ngModel)]="node.AgentExcluded" (ngModelChange)="onCheckboxChange(node)">
+          <input *ngIf="!node.children?.length" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" [(ngModel)]="node.AgentExcluded" (ngModelChange)="onCheckboxChange(node)">
         </div>
         <div *ngIf="node != undefined">
           <ul *ngIf="node.expanded && node.children?.length > 0">
@@ -186,18 +175,33 @@
   </ul>
 </p-drawer>
 
-<div #content class="container-fluid" [class]="{ 'menu-opened': menuOpened }" (touchstart)="touchStart($event)" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
-  <div class="backdrop" [class]="{ show: !isDesktop && menuOpened }" (click)="closeMenu()"></div>
-  <div *ngIf="!isDesktop" class="header">
-    <div class="header-bars" (click)="openMenu()">
-      <i class="fa fa-bars"></i>
+<div #content class="app-shell" [class.menu-opened]="menuOpened" (touchstart)="touchStart($event)" (touchmove)="touchMove($event)" (touchend)="touchEnd()">
+  <header class="app-header">
+    <button type="button" class="app-header-burger" (click)="menuOpened = !menuOpened" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="app-header-title">
+      <i class="fa-solid fa-user-tie"></i>
+      <span>{{ (_currentUser?.AgentSelected || _currentUser?.Master?.Agent) || 'Agent Dashboard' }}</span>
     </div>
-    <!-- <img [ngClass]="{ hidden: scrollPosition > 80 }" class="h-12" src="../../../../assets/images/logo.png" alt="" /> -->
-  </div>
+    <div class="app-header-actions">
+      <button type="button" class="app-header-btn" (click)="toggleTheme()" [attr.aria-label]="'Switch to ' + (isDarkTheme ? 'light' : 'dark') + ' theme'">
+        <i class="fa-solid" [ngClass]="isDarkTheme ? 'fa-sun' : 'fa-moon'"></i>
+      </button>
+      <button type="button" class="app-header-btn" (click)="modalSettings = true" aria-label="Settings">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+      <button type="button" class="app-header-btn app-header-btn-danger" (click)="logout()" aria-label="Log out">
+        <i class="fa-solid fa-power-off"></i>
+      </button>
+    </div>
+  </header>
+  <div class="app-main">
+    <div class="backdrop" [class]="{ show: !isDesktop && menuOpened }" (click)="closeMenu()"></div>
 
 
 
-  <div *ngIf="rootNode" class="" id="pageFilters" (click)="display = true">
+  <div *ngIf="rootNode?.children?.length" class="" id="pageFilters" (click)="display = true">
     <div class="title">
       <span>Agent Tree ({{rootNode.children.length}})</span>
     </div>
@@ -211,6 +215,7 @@
   </div>
 
   <router-outlet></router-outlet>
+  </div><!-- /.app-main -->
 
   <ng-template #contentLookup let-modal>
     <div class="modal-header modal-header-custom">

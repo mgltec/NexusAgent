@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 <h1>Login History</h1>
 <div *ngIf="week!=null">
   <h6><span >Login History for agent: {{_currentUser.AgentSelected}} From {{week.MonDate | date}} To {{week.SunDate | date}}</span></h6>
@@ -99,7 +100,7 @@
        </select>
   </div>
 
-<button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+<button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
 
 </p-drawer>
 
@@ -109,7 +110,6 @@
       <div class="custom-class">
       </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </div>
 
 

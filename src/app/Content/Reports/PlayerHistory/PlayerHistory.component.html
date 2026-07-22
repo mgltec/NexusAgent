@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 
   <H6><span>Player History for : {{_Player}} from
     {{_currentUser.WeekList[_currentUser.RangeDateSelected].MonDate | date}} to
@@ -74,8 +75,6 @@
     <div class="custom-class">
     </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
-  </ngx-loading>
 </div>
 
 <app-landscape-notice></app-landscape-notice>

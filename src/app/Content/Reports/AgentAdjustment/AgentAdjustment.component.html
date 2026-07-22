@@ -44,16 +44,15 @@
             </option>
           </select>
         </div>
-        <button
-          type="button"
-          class="btn btn-primary btn-block mb-3"
-          (click)="GetReport()"
+        <button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()"
         >
           Submit
         </button>
       </div>
     </p-accordion-content></p-accordion-panel>
   </p-accordion>
+
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 </div>
 <div *ngFor="let rep of reportData; let i = index">
   <hr />
@@ -102,10 +101,7 @@
     </select>
   </div> -->
 
-  <button
-    type="button"
-    class="btn btn-primary btn-block mb-3"
-    (click)="GetReport()"
+  <button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()"
   >
     Submit
   </button>
@@ -116,9 +112,4 @@
   <ng-template #customLoadingTemplate>
     <div class="custom-class"></div>
   </ng-template>
-  <ngx-loading
-    [show]="_loadingReport"
-    [config]="{ backdropBorderRadius: '3px' }"
-    [template]="customLoadingTemplate"
-  ></ngx-loading>
 </div>

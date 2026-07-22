@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Subject, of } from 'rxjs';
+import { catchError, finalize, map, switchMap, takeUntil } from 'rxjs/operators';
 import {
   AgentSessionDto,
   RequestWeeklyBalanceClassic,
@@ -261,109 +261,150 @@ export class AgentWeeklyBalanceClassicComponent implements OnInit, OnDestroy {
   }
 
   GetReport() {
-
     this._loadingReport = true;
-    var t: RequestWeeklyBalanceClassic = new RequestWeeklyBalanceClassic();
+
+    const t: RequestWeeklyBalanceClassic = new RequestWeeklyBalanceClassic();
     t.IdAgent = this._currentUser.IdAgentSelected;
     t.Agent = this._currentUser.AgentSelected;
     t.DateInit = this._dateFromSelected;
     t.TransactionType = Number(this.transactionType);
 
-    this._reportService.GetWeeklyBalanceClassic(this._currentUser, t).pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (data) => {
-        console.log("weekly", data);
-        // this.reportData = data;
+    // Weekly balance + agent tree run as a single chain. `finalize` guarantees
+    // the loading flag is cleared on success, error or unsubscribe, so the
+    // report can never get stuck loading.
+    this._reportService
+      .GetWeeklyBalanceClassic(this._currentUser, t)
+      .pipe(
+        switchMap((data) =>
           this._reportService
             .GetAgentTree(this._currentUser.IdAgentSelected)
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(
-              (treeData) => {
-                let treeD = treeData
-                // const nonExcludedAgents = treeD.children.filter(agent => agent.AgentExcluded === 0).map(agent => agent.Agent);
-                const nonExcludedAgents = this.getNonExcludedAgents(treeD.children);
-               
-                // this.reportData = data
-                //     .filter(reportItem => nonExcludedAgents.includes(reportItem.Agent))
-                //     .sort((a, b) => a.Agent.localeCompare(b.Agent));
+            .pipe(
+              map((treeData: any) => ({ data, treeData })),
+              catchError(() => of({ data, treeData: null }))
+            )
+        ),
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
+        next: ({ data, treeData }) => {
+          try {
+            this.buildReport(data, treeData);
+          } catch (error) {
+            console.error('GetWeeklyBalanceClassic build error', error);
+            this.reportData = [];
+          }
+        },
+        error: () => (this.reportData = []),
+      });
+  } // end report method
 
-                // this.reportData = data
-                // .filter(reportItem => 
-                //   nonExcludedAgents.includes(reportItem.Agent) || 
-                //   (reportItem.Agent === this._currentUser.AgentSelected && reportItem.Players.length > 0)
-                // )
-                // .sort((a, b) => a.Agent.localeCompare(b.Agent));
+  /** Builds the report rows (agents with their players + master totals). */
+  private buildReport(data: any, treeData: any): void {
+    let rows: any[] = Array.isArray(data) ? data : [];
 
-                // this.reportData = data
-                // .map(reportItem => ({
-                //   ...reportItem,
-                //   Players: reportItem.Players.map(player => ({
-                //     ...player,
-                //     SettFigDisplay: player.SettFig === 1 ? player.BalFwd : "0",
-                //   }))
-                // }))
-                // .filter(reportItem => 
-                //   nonExcludedAgents.includes(reportItem.Agent) || 
-                //   (reportItem.Agent === this._currentUser.AgentSelected && reportItem.Players.length > 0)
-                // )
-                // .sort((a, b) => a.Agent.localeCompare(b.Agent));
+    // Shape tolerance: if the API returned flat PLAYER rows (legacy shape with
+    // `Player`/`Day1..Day7` and no `Agent`/`Players`), group them under the
+    // selected agent so the report still renders.
+    if (rows.length > 0 && rows[0].Players === undefined && rows[0].Player !== undefined) {
+      rows = [this.groupFlatPlayers(rows)];
+    }
 
-                this.reportData = data
-                .map(reportItem => {
-                  // Calcula SettFigDisplay para cada jugador
-                  const updatedPlayers = reportItem.Players.map(player => ({
-                    ...player,
-                    SettFigDisplay: (player.SettFig === 1 || player.SettFig === 100) ? player.BalFwd : "0"
-                  }));
+    const nonExcludedAgents = this.getNonExcludedAgents(treeData?.children)
+      .map((a) => (a || '').trim().toUpperCase());
+    const selectedAgent = (this._currentUser.AgentSelected || '').trim().toUpperCase();
 
-                  // Calcula TSettFig basado en los nuevos SettFigDisplay
-                  const TSettFig = updatedPlayers.reduce((acc, player) => acc + Number(player.SettFigDisplay), 0);
+    this.reportData = rows
+      .map((reportItem: any) => {
+        const updatedPlayers = (reportItem.Players || []).map((player: any) => ({
+          ...player,
+          // The API exposes the weekly running total as `Balance`; the table
+          // column reads `CurrentBalance`, so surface it under both names.
+          CurrentBalance: player.CurrentBalance ?? player.Balance,
+          SettFigDisplay:
+            player.SettFig === 1 || player.SettFig === 100 ? player.BalFwd : '0',
+        }));
+        const TSettFig = updatedPlayers.reduce(
+          (acc: number, player: any) => acc + Number(player.SettFigDisplay),
+          0
+        );
+        return { ...reportItem, Players: updatedPlayers, TSettFig };
+      })
+      .filter((reportItem: any) => {
+        const agent = (reportItem.Agent || '').trim().toUpperCase();
+        // With no exclusion tree available, show everything instead of
+        // filtering the whole report out.
+        if (nonExcludedAgents.length === 0) {
+          return true;
+        }
+        return (
+          nonExcludedAgents.includes(agent) ||
+          (agent === selectedAgent && (reportItem.Players?.length || 0) > 0)
+        );
+      })
+      .sort((a: any, b: any) => (a.Agent || '').localeCompare(b.Agent || ''));
 
-                  return {
-                    ...reportItem,
-                    Players: updatedPlayers,
-                    TSettFig
-                  };
-                })
-                .filter(reportItem => 
-                  nonExcludedAgents.includes(reportItem.Agent) || 
-                  (reportItem.Agent === this._currentUser.AgentSelected && reportItem.Players.length > 0)
-                )
-                .sort((a, b) => a.Agent.localeCompare(b.Agent));
+    const sum = (key: string): number =>
+      this.reportData.reduce((acc: number, obj: any) => acc + (Number(obj[key]) || 0), 0);
 
-              
-                
-                this.MasterTBalFwd = this.reportData.reduce((acc, obj) => acc + obj.TBalFwd, 0);
-                this.MasterTMon= this.reportData.reduce((acc, obj) => acc + obj.TMon, 0);
-                this.MasterTTue= this.reportData.reduce((acc, obj) => acc + obj.TTue, 0);
-                this.MasterTWed= this.reportData.reduce((acc, obj) => acc + obj.TWed, 0);
-                this.MasterTThu= this.reportData.reduce((acc, obj) => acc + obj.TThu, 0);
-                this.MasterTFri= this.reportData.reduce((acc, obj) => acc + obj.TFri, 0);
-                this.MasterTSat= this.reportData.reduce((acc, obj) => acc + obj.TSat, 0);
-                this.MasterTSun= this.reportData.reduce((acc, obj) => acc + obj.TSun, 0);
-                this.MasterTThisWeek= this.reportData.reduce((acc, obj) => acc + obj.TThisWeek, 0);
-                this.MasterTPmts= this.reportData.reduce((acc, obj) => acc + obj.TPmts, 0);
-                this.MasterTBal= this.MasterTBalFwd  + this.MasterTThisWeek;
-                console.log(this.reportData)
-                },
-                 (error) => {
-                 }
-               );
-        
+    this.MasterTBalFwd = sum('TBalFwd');
+    this.MasterTMon = sum('TMon');
+    this.MasterTTue = sum('TTue');
+    this.MasterTWed = sum('TWed');
+    this.MasterTThu = sum('TThu');
+    this.MasterTFri = sum('TFri');
+    this.MasterTSat = sum('TSat');
+    this.MasterTSun = sum('TSun');
+    this.MasterTThisWeek = sum('TThisWeek');
+    this.MasterTPmts = sum('TPmts');
+    this.MasterTBal = this.MasterTBalFwd + this.MasterTThisWeek;
+  }
 
-      },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
+  /**
+   * Adapts the legacy flat shape (one row per player with Day1..Day7) into a
+   * single agent group with `Players` and `T*` totals, so the report renders
+   * even when the API responds with the un-nested format.
+   */
+  private groupFlatPlayers(rows: any[]): any {
+    const players = rows
+      .filter((r) => (r.Cnt || 0) !== 0 || (r.BalFwd || 0) !== 0 || (r.Pmts || 0) !== 0)
+      .map((r) => {
+        const thisWeek =
+          (Number(r.Day1) || 0) + (Number(r.Day2) || 0) + (Number(r.Day3) || 0) +
+          (Number(r.Day4) || 0) + (Number(r.Day5) || 0) + (Number(r.Day6) || 0) +
+          (Number(r.Day7) || 0);
+        return {
+          ...r,
+          Mon: r.Day1, Tue: r.Day2, Wed: r.Day3, Thu: r.Day4,
+          Fri: r.Day5, Sat: r.Day6, Sun: r.Day7,
+          ThisWeek: thisWeek,
+          Balance: thisWeek,
+          SettFig: Number(r.SettledFigure) || 0,
+        };
+      });
 
-    });
+    const sum = (key: string) =>
+      players.reduce((acc, p) => acc + (Number(p[key]) || 0), 0);
 
-  }//end report method
+    return {
+      Agent: this._currentUser.AgentSelected,
+      IdAgent: this._currentUser.IdAgentSelected,
+      IsDistribuitor: false,
+      Players: players,
+      TBalFwd: sum('BalFwd'),
+      TMon: sum('Mon'), TTue: sum('Tue'), TWed: sum('Wed'), TThu: sum('Thu'),
+      TFri: sum('Fri'), TSat: sum('Sat'), TSun: sum('Sun'),
+      TThisWeek: sum('ThisWeek'),
+      TPmts: sum('Pmts'),
+      TBalance: sum('Balance'),
+    };
+  }
 
   getNonExcludedAgents(children: any[]): string[] {
     let agents: string[] = [];
+    if (!children) {
+      return agents;
+    }
 
     children.forEach(child => {
         if (child.AgentExcluded === 0) {

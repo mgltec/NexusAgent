@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {AgentDto,
         WeekRangeDto,
@@ -214,16 +214,14 @@ export class AgentCommissionComponent implements OnInit,OnDestroy {
     t.IdSubAgent = this._currentUser.IdAgentSelected;
     t.StartDate = this._dateRange.Start;
 
-    this._reportService.GetAgentCommission(this._currentUser, t).pipe(takeUntil(this._unsubscribeAll)).subscribe({
+    this._reportService.GetAgentCommission(this._currentUser, t).pipe(
+      takeUntil(this._unsubscribeAll),
+      finalize(() => (this._loadingReport = false))
+    ).subscribe({
       next: (data) => {
         this.reportData = data;
       },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
+      error: (err) => { }
     });
 
   }//end getReport()

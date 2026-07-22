@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentSessionDto } from 'src/app/Models/models';
 import { ReportWeeklyBalance, RequestAgentWeeklyBalance } from 'src/app/Models/RpModels';
 import { DataService } from 'src/app/Services/data.service';
@@ -108,9 +108,13 @@ export class AgentWeeklyBalanceByPlayerComponent implements OnInit {
 
     this._reportService
       .GetWeeklyBalanceByAgentLevelZero(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
+          try {
           console.log('========== GetWeeklyBalanceStandarHistoryLevelZero Response ==========');
           console.log('Full Response:', data);
           console.log('Response Type:', typeof data);
@@ -191,7 +195,9 @@ export class AgentWeeklyBalanceByPlayerComponent implements OnInit {
 
           console.log('✅ Data loaded successfully');
           console.log('   _dataReportWeeklyBalance.AgentList:', this._dataReportWeeklyBalance.AgentList);
-          this._loadingReport = false;
+          } catch (error) {
+            console.error('AgentWeeklyBalanceByPlayer build error', error);
+          }
         },
         (error) => {
           console.error('========== Error in GetWeeklyBalanceStandarHistoryLevelZero (ByPlayer) ==========');
@@ -200,7 +206,6 @@ export class AgentWeeklyBalanceByPlayerComponent implements OnInit {
           console.error('Error Status:', error?.status);
           console.error('Error Details:', JSON.stringify(error, null, 2));
           console.error('=======================================================================');
-          this._loadingReport = false;
         }
       );
   } //end submit form
@@ -318,9 +323,13 @@ export class AgentWeeklyBalanceByPlayerComponent implements OnInit {
 
     this._reportService
       .GetWeeklyBalanceByAgentLevelZero(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe({
         next: (data) => {
+          try {
           console.log(`📄 Loaded page ${page + 1}:`, data);
           console.log('  Raw AgentList:', data?.AgentList);
           console.log('  AgentList Length:', data?.AgentList?.length);
@@ -340,12 +349,12 @@ export class AgentWeeklyBalanceByPlayerComponent implements OnInit {
             this.totalPages = data.AgentList[0].TotalPage || 0;
             console.log(`   Players on page ${this.currentPage + 1}: ${data.AgentList[0].PlayerList?.length || 0}`);
           }
-
-          this._loadingReport = false;
+          } catch (error) {
+            console.error('AgentWeeklyBalanceByPlayer page build error', error);
+          }
         },
         error: (error) => {
           console.error('Error loading page:', page, error);
-          this._loadingReport = false;
         }
       });
   }

@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="loadingReport"></app-report-loading>
 <style>
   .p-datatable .p-datatable-tbody > tr > td {
     font-size: 0.75rem !important;
@@ -336,10 +337,4 @@
   <ng-template #customLoadingTemplate>
     <div class="custom-class"></div>
   </ng-template>
-  <ngx-loading
-    [show]="loadingReport"
-    [config]="{ backdropBorderRadius: '3px' }"
-    [template]="customLoadingTemplate"
-  >
-  </ngx-loading>
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentSessionDto } from 'src/app/Models/models';
 import { RequestAgentWeeklyBalance } from 'src/app/Models/RpModels';
 import { DataService } from 'src/app/Services/data.service';
@@ -76,13 +76,13 @@ export class SummaryComponent implements OnInit {
 
 
     this._reportService.GetSummaryReport(this._currentUser, t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
         this._dataSummaryReport = data;
-        console.log(this._dataSummaryReport);
-        this._loadingReport = false;
       }, error => {
-        this._loadingReport = false;
       });
   }
 

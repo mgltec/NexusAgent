@@ -4,7 +4,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { TableComponent as Table } from 'src/app/ui/table.component';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentDataDto, AgentDaySheetNewAgentDto, AgentListModel, AgentSessionDto, DaySheetForNewAgentRequestDto, GetPlayerHistoryRequesDto, PlayerHistoryByDayDto } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
@@ -157,13 +157,15 @@ export class WeeklyDaySheetV3Component implements OnInit, OnDestroy {
 
     this._reportService
       .GetNewWeeklyBasedDaySheet(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
           this._dataReportWeeklyBalance = data;
-          this._loadingReport = false;
         },
-        (error) => { this._loadingReport = false; }
+        (error) => { }
       );
   } //end submit form
 

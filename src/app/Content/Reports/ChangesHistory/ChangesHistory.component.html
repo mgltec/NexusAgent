@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 <h4>Changes History</h4>
 
 <div *ngIf="week!=null">
@@ -70,7 +71,7 @@
       </option>
   </select>
   </div>
-    <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+    <button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
 
 
 </p-drawer>
@@ -81,7 +82,6 @@
       <div class="custom-class">
       </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </div>
 
 

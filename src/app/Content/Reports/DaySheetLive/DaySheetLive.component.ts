@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import {AgentDto,
         WeekRangeDto,
         AgentListModel,
@@ -213,12 +213,14 @@ export class DaySheetLiveComponent implements OnInit,OnDestroy {
         });
 
         this._reportService.GetDaySheetLive(info)
-          .pipe(takeUntil(this._unsubscribeAll))
+          .pipe(
+            takeUntil(this._unsubscribeAll),
+            finalize(() => (this._loadingReport = false))
+          )
           .subscribe(data => {
             this.reportData = data;
             console.log(this.reportData);
-            this._loadingReport = false;
-          }, error => {this._loadingReport = false;
+          }, error => {
 
           });
         }
@@ -264,11 +266,13 @@ export class DaySheetLiveComponent implements OnInit,OnDestroy {
         });
 
         this._reportService.GetDaySheetLiveBreadkown(info)
-          .pipe(takeUntil(this._unsubscribeAll))
+          .pipe(
+            takeUntil(this._unsubscribeAll),
+            finalize(() => (this._loadingReport = false))
+          )
           .subscribe(data => {
             this.reportDataBreadkown = data;
-            this._loadingReport = false;
-          }, error => {this._loadingReport = false;
+          }, error => {
         });
     }
     else{

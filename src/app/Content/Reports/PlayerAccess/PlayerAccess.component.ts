@@ -1,7 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import {AgentDto,
         WeekRangeDto,
         AgentListModel,
@@ -184,10 +184,12 @@ export class PlayerAccessComponent implements OnInit,OnDestroy {
     this._loadingReport = true;
     this._reportService
       .GetPlayerAccess(this._currentUser, req)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
-          this._loadingReport = false;
           this.reportData = data;
 
         },

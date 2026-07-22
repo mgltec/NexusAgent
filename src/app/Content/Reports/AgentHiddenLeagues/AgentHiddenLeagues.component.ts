@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { AgentListModel, AgentSessionDto, HiddenLeagueRequestDTO, HiddenLeagueResponseDTO, HiddenLeaguesInsertDto } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -161,67 +161,73 @@ export class AgentHiddenLeaguesComponent implements OnInit {
 
     if(!this.applyAllAgents){
       this._reportService.HiddenLeagues_Insert(this._currentUser, a)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
-        console.log(data);
+        try {
+          console.log(data);
 
-        if(data == 0)
-        {
-          Swal.fire({
-            title: 'Agent site',
-            text: 'Save hidden leagues successfully',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
-           
-           this.GetHiddenLeaguesValues();
-        }
-        else
-        {
-          Swal.fire({
-            title: 'Agent site',
-            text: 'Error saving data',
-            icon: 'error',
-            confirmButtonText: 'Ok',
-          });
-        }
+          if(data == 0)
+          {
+            Swal.fire({
+              title: 'Agent site',
+              text: 'Save hidden leagues successfully',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+            });
 
-        this._loadingReport = false;
-      }, error => {
-        this._loadingReport = false;
-      });
+            this.GetHiddenLeaguesValues();
+          }
+          else
+          {
+            Swal.fire({
+              title: 'Agent site',
+              text: 'Error saving data',
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            });
+          }
+        } catch (error) {
+          console.error('AgentHiddenLeagues insert error', error);
+        }
+      }, error => { });
     }
     else{
       this._reportService.HiddenLeagues_InsertMasive(this._currentUser, a)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
-        console.log(data);
+        try {
+          console.log(data);
 
-        if(data == 0)
-        {
-          Swal.fire({
-            title: 'Agent site',
-            text: 'Save hidden leagues successfully',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
-           
-           this.GetHiddenLeaguesValues();
-        }
-        else
-        {
-          Swal.fire({
-            title: 'Agent site',
-            text: 'Error saving data',
-            icon: 'error',
-            confirmButtonText: 'Ok',
-          });
-        }
+          if(data == 0)
+          {
+            Swal.fire({
+              title: 'Agent site',
+              text: 'Save hidden leagues successfully',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+            });
 
-        this._loadingReport = false;
-      }, error => {
-        this._loadingReport = false;
-      });
+            this.GetHiddenLeaguesValues();
+          }
+          else
+          {
+            Swal.fire({
+              title: 'Agent site',
+              text: 'Error saving data',
+              icon: 'error',
+              confirmButtonText: 'Ok',
+            });
+          }
+        } catch (error) {
+          console.error('AgentHiddenLeagues insert error', error);
+        }
+      }, error => { });
     }
     
   }

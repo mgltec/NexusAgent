@@ -60,7 +60,11 @@ export class DistributionV2Component implements OnInit, OnDestroy {
 
 
   GetAgentDistribution() {
-    this.loadingReport = true;
+    // The distribution endpoints (GetAgentDistributionV3Tangusma / Sub) do not
+    // exist in the current API, so the whole fetch below stays disabled. Do NOT
+    // turn on the loading flag here — with no request in flight nothing would
+    // ever turn it off and the spinner would hang forever.
+    this.loadingReport = false;
 
     // if (this._currentUser.IdAgentSelected == 25759) {
     //   // this._reportService.GetAgentDistributionV2(this._currentUser.IdAgentSelected, this._currentUser.WeekList[this._currentUser.RangeDateSelected].MonDate)

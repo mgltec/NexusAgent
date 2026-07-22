@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentSessionDto, RequestAgentPositionDetail } from 'src/app/Models/models';
 import { AgentPositionDetailsDto } from 'src/app/Models/RpModels';
 import { DataService } from 'src/app/Services/data.service';
@@ -83,22 +83,27 @@ export class AgentPositionDetailsComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetAgentPositionDetails(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
-          this.posDetailsObj = data;
-          //this.dtTrigger.next();
-          //this._displayPositionDetailData = true;
-         // console.log(this.posDetailsObj);
-          this.posDetailsObj.ListDetail.forEach(e => {
-            this.totalWager += Number(e._wageramount);
-            this.totalWin += Number(e._winamount);
-            this.totalRisk += Number(e._riskamount);
-          });
-           this._loadingReport = false;
-      
+          try {
+            this.posDetailsObj = data;
+            //this.dtTrigger.next();
+            //this._displayPositionDetailData = true;
+            // console.log(this.posDetailsObj);
+            this.posDetailsObj.ListDetail.forEach(e => {
+              this.totalWager += Number(e._wageramount);
+              this.totalWin += Number(e._winamount);
+              this.totalRisk += Number(e._riskamount);
+            });
+          } catch (error) {
+            console.error('AgentPositionDetails build error', error);
+          }
         },
-        (error) => { this._loadingReport = false; }
+        (error) => { }
       );
   } //end submit form
 

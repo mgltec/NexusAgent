@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { WeekRangeDto, AgentListModel,AgentSessionDto, RequestPlayerListModel, GetBeatTheLineRequestDto } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
@@ -123,13 +123,14 @@ export class BeatTheLineComponent implements OnInit {
 
 
     this._reportService.GetBeatTheLine(this._currentUser, t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
         this.reportData = data;
-        this._loadingReport = false;
         console.log("DATA====>", this.reportData)
       }, error => {
-        this._loadingReport = false;
       });
   }
 

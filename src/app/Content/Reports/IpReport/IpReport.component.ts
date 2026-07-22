@@ -2,7 +2,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {
         WeekRangeDto,
@@ -122,8 +122,14 @@ export class IpReportComponent implements OnInit, OnDestroy {
     a.EndDate = this._dateEndSelected;
 
 
-    this._reportService.GetPlayersLoginIpData(this._currentUser, a).pipe(takeUntil(this._unsubscribeAll)).subscribe({
+    this._reportService.GetPlayersLoginIpData(this._currentUser, a)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
       next: (data) => {
+        try {
         this.reportData = data;
 
         this.reportData.forEach(agents => {
@@ -157,13 +163,11 @@ export class IpReportComponent implements OnInit, OnDestroy {
 
         });
 
-
+        } catch (error) {
+          console.error('IpReport build error', error);
+        }
       },
       error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
       }
 
     });
@@ -181,15 +185,16 @@ export class IpReportComponent implements OnInit, OnDestroy {
     a.EndDate = this._dateEndSelected;
 
 
-    this._reportService.GetDuplicateIps(this._currentUser, a).pipe(takeUntil(this._unsubscribeAll)).subscribe({
+    this._reportService.GetDuplicateIps(this._currentUser, a)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
       next: (data) => {
         this.duplicateData = data;
       },
       error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
       }
 
     });

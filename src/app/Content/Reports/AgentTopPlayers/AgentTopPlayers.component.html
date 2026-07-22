@@ -13,9 +13,11 @@
         <label for="txtdateWeek">End Date:</label>
         <input type="date" class="form-control" id="txtdateFrom" [(ngModel)]="_dateEndSelected">
       </div>
-      <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+      <button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
     </p-accordion-content></p-accordion-panel>
   </p-accordion>
+
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 
   <hr />
 
@@ -137,6 +139,4 @@
     <div class="custom-class">
     </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }"
-    [template]="customLoadingTemplate"></ngx-loading>
 </div>

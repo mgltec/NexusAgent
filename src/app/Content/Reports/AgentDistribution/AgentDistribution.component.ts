@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentListModel, AgentDistributionRequest, AgentSessionDto } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
@@ -187,12 +187,13 @@ export class AgentDistributionComponent implements OnInit, OnDestroy {
     info.prmIdCurrency = '1';
 
     this._reportService.GetAgentDistribution(info)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
         this.reportData = data['ListDetail'];
-        this._loadingReport = false;
-      }, error => {  this._loadingReport = false;
-      });
+      }, error => { });
 
 
   }

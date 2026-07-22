@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { finalize, takeUntil } from "rxjs/operators";
 import {
   AgentListModel,
   AgentRightDTO,
@@ -132,9 +132,11 @@ export class PrincipalComponent implements OnInit, OnDestroy {
           this._currentUser = JSON.parse(
             localStorage.getItem("agentInfo") || "{}"
           );
+          this.normalizeSession();
           this.loadDashboardData();
         }
       } else {
+        this.normalizeSession();
         this.loadDashboardData();
       }
     }); //end dataservice call
@@ -152,7 +154,24 @@ export class PrincipalComponent implements OnInit, OnDestroy {
    * Priority 2 (Important): Data shown in main cards
    * Priority 3 (Nice-to-have): Additional features/lists
    */
+  /**
+   * Backfills the selected agent from the logged-in agent (Master) when the
+   * stored session lacks it, so requests never send IdAgent=undefined.
+   */
+  private normalizeSession(): void {
+    const u = this._currentUser;
+    if (u?.Master) {
+      if (u.IdAgentSelected == null) {
+        u.IdAgentSelected = u.Master.IdAgent;
+      }
+      if (u.AgentSelected == null) {
+        u.AgentSelected = u.Master.Agent;
+      }
+    }
+  }
+
   private loadDashboardData(): void {
+    this.normalizeSession();
     // Priority 1: Critical data - Load immediately and in parallel
     this.loadCriticalData();
 
@@ -230,15 +249,16 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetDashboardPlayerAdvanceData(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingPlayerDataThisWeek = false))
+      )
       .subscribe({
         next: (data) => {
           this._playerDataThisWeek = data;
-          this._loadingPlayerDataThisWeek = false;
         },
         error: (error) => {
           console.error('Error loading player data this week:', error);
-          this._loadingPlayerDataThisWeek = false;
         }
       });
   }
@@ -351,15 +371,16 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetWonLossByBusinessUnit(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingWonLossByUnit = false))
+      )
       .subscribe({
         next: (data) => {
           this._wonLossReport = data;
-          this._loadingWonLossByUnit = false;
         },
         error: (error) => {
           console.error('Error loading WonLoss by Business Unit:', error);
-          this._loadingWonLossByUnit = false;
         }
       });
   }
@@ -376,16 +397,15 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetActivePlayerByAgent(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingActivePlayerReport = false))
+      )
       .subscribe(
         (data) => {
           this._playerActivityReport = data;
-          // console.log(this._playerActivityReport);
-          this._loadingActivePlayerReport = false;
         },
-        (error) => {
-          this._loadingActivePlayerReport = false;
-        }
+        (error) => { }
       );
   }
 
@@ -406,15 +426,16 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetTopPlayerListWinLos(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingTopPlayer = false))
+      )
       .subscribe({
         next: (data) => {
           this._topPlayerList = data;
-          this._loadingTopPlayer = false;
         },
         error: (error) => {
           console.error('Error loading top player list:', error);
-          this._loadingTopPlayer = false;
         }
       });
   }
@@ -462,15 +483,15 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetPlayerList(info)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this.loadingPlayerList = false))
+      )
       .subscribe(
         (data) => {
           this.playerList = data;
-          this.loadingPlayerList = false;
         },
-        (error) => {
-          this.loadingPlayerList = false;
-        }
+        (error) => { }
       );
   }
 
@@ -478,15 +499,15 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this.loadingPlayerList = true;
     this._reportService
       .GetAllPlayerfromAgentNoDetails(this._currentUser)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this.loadingPlayerList = false))
+      )
       .subscribe(
         (data) => {
           this.playerList2 = data;
-          this.loadingPlayerList = false;
         },
-        (error) => {
-          this.loadingPlayerList = false;
-        }
+        (error) => { }
       );
   }
 
@@ -550,15 +571,15 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     info.agent = this._currentUser.AgentSelected;
     this._reportService
       .GetAgentsList(info)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingAgentList = false))
+      )
       .subscribe(
         (data) => {
           this.agentList = data["List"];
-          this._loadingAgentList = false;
         },
-        (error) => {
-          this._loadingAgentList = false;
-        }
+        (error) => { }
       );
   }
 
@@ -635,17 +656,17 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetAgentBalance(this._currentUser)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this.loadingServiceBalance = false))
+      )
       .subscribe(
         (data) => {
           if (data) {
             this.playerStatistics = data;
           }
-          this.loadingServiceBalance = false;
         },
-        (error) => {
-          this.loadingServiceBalance = false;
-        }
+        (error) => { }
       );
   }
 
@@ -679,18 +700,22 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this._loadingAgentList = true;
     this._reportService
       .GetAgentRights(this._currentUser, this._currentUser.IdAgentSelected)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingAgentList = false))
+      )
       .subscribe({
         next: (data) => {
-          this.agentRights = data;
-          this._DataService.changeAgentRights(data);
-          localStorage.setItem('agentRights', JSON.stringify(this.agentRights));
+          try {
+            this.agentRights = data;
+            this._DataService.changeAgentRights(data);
+            localStorage.setItem('agentRights', JSON.stringify(this.agentRights));
+          } catch (error) {
+            console.error('Principal GetAgentRights build error', error);
+          }
         },
         error: (error) => {
           console.error('Error in GetAgentRights', error);
-        },
-        complete: () => {
-          this._loadingAgentList = false;
         }
       });
   }

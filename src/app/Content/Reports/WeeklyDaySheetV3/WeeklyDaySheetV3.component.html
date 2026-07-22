@@ -13,6 +13,8 @@
   </p-accordion-content></p-accordion-panel>
 </p-accordion>
 
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
+
 <hr />
 
 <div class="card card-table">
@@ -855,5 +857,4 @@
   <ng-template #customLoadingTemplate>
     <div class="custom-class"></div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"> </ngx-loading>
 </div>

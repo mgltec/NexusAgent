@@ -41,10 +41,12 @@
           </option>
         </select>
       </div> -->
-      <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+      <button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
     </div>
   </p-accordion-content></p-accordion-panel>
 </p-accordion>
+
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 
 <div class="row">
   <div class="col-12">
@@ -57,7 +59,7 @@
         <!-- <button (click)="GetPlayerTopWinLoss()" type="button" class="btn btn-light btn-sm float-right border"><i class="fas fa-sync-alt"></i></button> -->
       </div>
       <div class="card-body">
-        <app-responsive-table [data]="reportData" [columns]="columns" [loading]="_loadingReport"></app-responsive-table>
+        <app-responsive-table [data]="reportData" [columns]="columns"></app-responsive-table>
       </div>
     </div>
   </div>
@@ -70,7 +72,6 @@
       <div class="custom-class">
       </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </div>
 
 <app-landscape-notice></app-landscape-notice>

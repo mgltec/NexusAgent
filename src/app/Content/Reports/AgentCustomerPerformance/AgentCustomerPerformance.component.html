@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 <!-- TODO: Styling (not used?) -->
 <h4>Agent Customer Performance</h4>
 <h6><span>Customer Performace for agent: {{_currentUser.AgentSelected}} From {{_dateRange.Start | date}} To {{_dateRange.End | date}}</span></h6>
@@ -104,7 +105,7 @@
     <label class="form-check-label" for="businessUnit">Show Business Units</label>
   </div>
 
-<button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+<button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
 </p-drawer>
 
 
@@ -114,5 +115,4 @@
       <div class="custom-class">
       </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </div>

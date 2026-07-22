@@ -3,7 +3,7 @@ import { Component,ElementRef,OnDestroy, OnInit, ViewChild } from '@angular/core
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {WeekRangeDto,
         AgentSessionDto,
@@ -238,17 +238,14 @@ export class AgentPlayersManagementComponent implements OnInit {
 
 
 
-    this._reportService.GetAgentPlayerManagement(this._currentUser, idagent).pipe(takeUntil(this._unsubscribeAll)).subscribe({
+    this._reportService.GetAgentPlayerManagement(this._currentUser, idagent).pipe(
+      takeUntil(this._unsubscribeAll),
+      finalize(() => (this._loadingReport = false))
+    ).subscribe({
       next: (data) => {
         this.reportData = data;
       },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
+      error: (err) => { }
     });
 
   }//end report method

@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
 import { AgentPositionComponent } from './Content/Reports/AgentPosition/AgentPosition.component';
 import { AgentDistributionComponent } from './Content/Reports/AgentDistribution/AgentDistribution.component';
 import { AgentCustomerPerformanceComponent } from './Content/Reports/AgentCustomerPerformance/AgentCustomerPerformance.component';
-import { NgxLoadingModule } from 'ngx-loading';
 import { AgentWagersComponent } from './Content/Reports/AgentWagers/AgentWagers.component';
 import { AgentWagersTickerComponent } from './Content/Reports/AgentWagersTicker/AgentWagersTicker.component';
 import { NgbCollapseModule, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -198,7 +197,6 @@ import { ManageProfileLimitesComponent } from './ClassicView/Features/ManageProf
         BrowserAnimationsModule,
         CommonModule,
         UiModule,
-        NgxLoadingModule,
         NgbModule,
         NgbCollapseModule,
         DataTablesModule,

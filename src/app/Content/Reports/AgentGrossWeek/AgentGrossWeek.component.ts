@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {AgentDto,
         WeekRangeDto,
@@ -184,17 +184,14 @@ export class AgentGrossWeekComponent implements OnInit,OnDestroy {
 
 
 
-    this._reportService.GetAgentGrossWeek(this._currentUser, t).pipe(takeUntil(this._unsubscribeAll)).subscribe({
+    this._reportService.GetAgentGrossWeek(this._currentUser, t).pipe(
+      takeUntil(this._unsubscribeAll),
+      finalize(() => (this._loadingReport = false))
+    ).subscribe({
       next: (data) => {
         this.reportData = data;
       },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
+      error: (err) => { }
     });
 
   }//end report method

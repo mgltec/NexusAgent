@@ -71,6 +71,12 @@ export class MasterComponent implements OnInit, OnDestroy {
   public closeResult: string = "";
   public isDesktop: boolean = false;
   public menuOpened: boolean = false;
+  // Collapsible sidebar section state
+  public figuresOpen: boolean = false;
+  public wagersOpen: boolean = false;
+  public financialOpen: boolean = false;
+  public agentsOpen: boolean = false;
+  public playersOpen: boolean = false;
   public dragStartPosition: number = 0;
   public dragEndPosition: number = 0;
   public agentRights: AgentRightDTO[] = [];
@@ -181,6 +187,14 @@ export class MasterComponent implements OnInit, OnDestroy {
     this._DataService.changeMenuOpened(false);
   }
 
+  /** Closes the mobile drawer after a navigation/action (no-op on desktop). */
+  closeMenuMobile() {
+    if (!this.isDesktop) {
+      this.menuOpened = false;
+      this.closeMenu();
+    }
+  }
+
   @HostListener("window:resize")
   onWindowResize() {
     this.isDesktop = window.matchMedia("(min-width: 1024px)").matches;
@@ -224,7 +238,16 @@ export class MasterComponent implements OnInit, OnDestroy {
         }
       }
 
-      
+      // Backfill the selected agent from the logged-in agent (Master) when a
+      // stale session lacks it, so requests never send IdAgent=undefined.
+      if (this._currentUser?.Master && this._currentUser.IdAgentSelected == null) {
+        this._currentUser.IdAgentSelected = this._currentUser.Master.IdAgent;
+        if (this._currentUser.AgentSelected == null) {
+          this._currentUser.AgentSelected = this._currentUser.Master.Agent;
+        }
+        localStorage.setItem("agentInfo", JSON.stringify(this._currentUser));
+        this._DataService.changeDataUserSession(this._currentUser);
+      }
     }); //end dataservice call
     
     if(this._currentUser && this._currentUser.Master.OnlineMessage !== ''){

@@ -1,7 +1,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentListModel, RequestPlayerListModel ,AgentWagersRequest,AgentDeleteWagerRequest, AgentLoginDto, AgentSessionDto} from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 import { ReportsService } from 'src/app/Services/reports.service';
@@ -248,13 +248,18 @@ GetReport(){
   info.prmResult=parseInt(this.statusSelected);
 
   this._reportService.GetAgentWagers(info)
-  .pipe(takeUntil(this._unsubscribeAll))
+  .pipe(
+    takeUntil(this._unsubscribeAll),
+    finalize(() => (this._loadingReport = false))
+  )
   .subscribe(data => {
-        this.reportData = data;
-        this.GetTotals();
-        this._loadingReport = false;
-      }, error => { this._loadingReport = false;
-  });
+        try {
+          this.reportData = data;
+          this.GetTotals();
+        } catch (error) {
+          console.error('AgentWagers build error', error);
+        }
+      }, error => { });
 }
 
 GetTotals(){

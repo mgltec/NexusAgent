@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { TableComponent as Table } from 'src/app/ui/table.component';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentDataDto, AgentListModel, AgentSessionDto } from 'src/app/Models/models';
 import { ReportWeeklyBalance, RequestAgentWeeklyBalance } from 'src/app/Models/RpModels';
 import { DataService } from 'src/app/Services/data.service';
@@ -204,9 +204,13 @@ export class AgentWeeklyBalanceNivelComponent implements OnInit {
 
     this._reportService
       .GetWeeklyBalanceByAgentLevelZero(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
+          try {
           console.log('========== GetWeeklyBalanceStandarHistoryLevelZero Response (AgentWeeklyBalanceNivel) ==========');
           console.log('Full Response:', data);
           console.log('Response Type:', typeof data);
@@ -240,8 +244,9 @@ export class AgentWeeklyBalanceNivelComponent implements OnInit {
             this._TotalAvail += Number(agent._TotalAvail);
           });
 
-
-          this._loadingReport = false;
+          } catch (error) {
+            console.error('AgentWeeklyBalanceNivel build error', error);
+          }
         },
         (error) => {
           console.error('========== Error in GetWeeklyBalanceStandarHistoryLevelZero (Nivel) ==========');
@@ -250,7 +255,6 @@ export class AgentWeeklyBalanceNivelComponent implements OnInit {
           console.error('Error Status:', error?.status);
           console.error('Error Details:', JSON.stringify(error, null, 2));
           console.error('=======================================================================');
-          this._loadingReport = false;
         }
       );
   } //end submit form

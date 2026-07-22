@@ -2,7 +2,7 @@
 import { Component,OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import {
         WeekRangeDto,
         AgentSessionDto,
@@ -98,19 +98,17 @@ export class TelegramBetAlertComponent implements OnInit, OnDestroy {
     this._loadingReport = true;
 
 
-    this._reportService.GetAgents(this._currentUser, this._currentUser.IdAgentSelected).pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (data) => {
-        this.agents = data;
-
-      },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
-    });
+    this._reportService.GetAgents(this._currentUser, this._currentUser.IdAgentSelected)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
+        next: (data) => {
+          this.agents = data;
+        },
+        error: (err) => { }
+      });
 
   }//end report method
 
@@ -120,22 +118,23 @@ export class TelegramBetAlertComponent implements OnInit, OnDestroy {
     this._loadingReport = true;
 
 
-    this._reportService.GetTelegramInfo(this._currentUser, this.agentSelected).pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.TelegramChatId = data;
-        this.GetPlayersTelegramSubcribed();
-        this.GetAgentPlayers();
-
-      },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
-    });
+    this._reportService.GetTelegramInfo(this._currentUser, this.agentSelected)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
+        next: (data) => {
+          try {
+            this.TelegramChatId = data;
+            this.GetPlayersTelegramSubcribed();
+            this.GetAgentPlayers();
+          } catch (error) {
+            console.error('TelegramBetAlert build error', error);
+          }
+        },
+        error: (err) => { }
+      });
 
   }//end report method
 
@@ -144,20 +143,17 @@ export class TelegramBetAlertComponent implements OnInit, OnDestroy {
     this._loadingReport = true;
 
 
-    this._reportService.GetPlayersTelegramSubcribed(this._currentUser, this.TelegramChatId).pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.PlayersTelegram = data;
-
-      },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
-    });
+    this._reportService.GetPlayersTelegramSubcribed(this._currentUser, this.TelegramChatId)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
+        next: (data) => {
+          this.PlayersTelegram = data;
+        },
+        error: (err) => { }
+      });
 
   }//end report method
 
@@ -167,20 +163,17 @@ export class TelegramBetAlertComponent implements OnInit, OnDestroy {
     this._loadingReport = true;
 
 
-    this._reportService.GetAgentPlayers(this._currentUser, this.agentSelected).pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.AgentPlayers = data;
-
-      },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
-    });
+    this._reportService.GetAgentPlayers(this._currentUser, this.agentSelected)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
+        next: (data) => {
+          this.AgentPlayers = data;
+        },
+        error: (err) => { }
+      });
 
   }//end report method
 

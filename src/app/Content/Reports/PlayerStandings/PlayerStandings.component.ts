@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RequestPlayerActivity } from 'src/app/Models/RpModels';
 import {
   WeekRangeDto,
@@ -233,24 +233,27 @@ export class PlayerStandingsComponent implements OnInit, OnDestroy {
 
 
 
-    this._reportService.GetPlayerStanding(this._currentUser, t).pipe(takeUntil(this._unsubscribeAll)).subscribe({
-      next: (data) => {
-        this.reportData = data;
-        this.MasterTotalAtRisk = this.reportData.reduce((acc, obj) => acc + obj.TotalAtRisk, 0);
-        this.MasterTotalThisWeek = this.reportData.reduce((acc, obj) => acc + obj.TotalThisWeek, 0);
-        this.MasterTotalACurrentBal = this.reportData.reduce((acc, obj) => acc + obj.TotalCurrentBalance, 0);
-        this.MasterTotalThisWeekSports = this.reportData.reduce((acc, obj) => acc + obj.TotalSport, 0);
-        this.MasterTotalThisWeekHorses = this.reportData.reduce((acc, obj) => acc + obj.TotalHorses, 0);
-        this.MasterTotalThisWeekCasino = this.reportData.reduce((acc, obj) => acc + obj.TotalCasino, 0);
-      },
-      error: (err) => {
-        this._loadingReport = false;
-      },
-      complete: () => {
-        this._loadingReport = false;
-      }
-
-    });
+    this._reportService.GetPlayerStanding(this._currentUser, t)
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
+      .subscribe({
+        next: (data) => {
+          try {
+            this.reportData = data;
+            this.MasterTotalAtRisk = this.reportData.reduce((acc, obj) => acc + obj.TotalAtRisk, 0);
+            this.MasterTotalThisWeek = this.reportData.reduce((acc, obj) => acc + obj.TotalThisWeek, 0);
+            this.MasterTotalACurrentBal = this.reportData.reduce((acc, obj) => acc + obj.TotalCurrentBalance, 0);
+            this.MasterTotalThisWeekSports = this.reportData.reduce((acc, obj) => acc + obj.TotalSport, 0);
+            this.MasterTotalThisWeekHorses = this.reportData.reduce((acc, obj) => acc + obj.TotalHorses, 0);
+            this.MasterTotalThisWeekCasino = this.reportData.reduce((acc, obj) => acc + obj.TotalCasino, 0);
+          } catch (error) {
+            console.error('PlayerStandings build error', error);
+          }
+        },
+        error: (err) => { }
+      });
 
   }
 }

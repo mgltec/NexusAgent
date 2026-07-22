@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="card-body">
-            <app-responsive-table [data]="reportData[agent].players" [columns]="columns" [totalsData]="reportData[agent]" [loading]="_loadingReport"></app-responsive-table>
+            <app-responsive-table [data]="reportData[agent].players" [columns]="columns" [totalsData]="reportData[agent]"></app-responsive-table>
           </div>
         </div>
       </div>
@@ -84,6 +84,5 @@
       <div class="custom-class">
       </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </div>
 

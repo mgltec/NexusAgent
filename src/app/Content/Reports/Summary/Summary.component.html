@@ -1,3 +1,4 @@
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 <h6><span>Summary for agent: {{_currentUser.AgentSelected}} until
     {{_currentUser.WeekList[_currentUser.RangeDateSelected].SunDate | date}}</span></h6>
 

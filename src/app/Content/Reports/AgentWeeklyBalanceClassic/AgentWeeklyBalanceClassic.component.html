@@ -19,10 +19,12 @@
           <option value="2">Racing</option>
         </select>
       </div>
-      <button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+      <button type="button" class="btn btn-primary btn-block mb-3" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
     </div>
   </p-accordion-content></p-accordion-panel>
 </p-accordion>
+
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 
 <hr>
 <div class="card card-table">
@@ -33,7 +35,7 @@
     </div>
   </div>
   <div class="card-body">
-    <app-responsive-table [data]="[{ Agent: this._currentUser.AgentSelected, BalFwd: this.MasterTBalFwd, Mon: this.MasterTMon}]" [columns]="totalsColumns" [loading]="_loadingReport"></app-responsive-table>
+    <app-responsive-table [data]="[{ Agent: this._currentUser.AgentSelected, BalFwd: this.MasterTBalFwd, Mon: this.MasterTMon}]" [columns]="totalsColumns"></app-responsive-table>
     
     
   </div>
@@ -50,22 +52,13 @@
       </div>
     </div>
     <div class="card-body">
-      <app-responsive-table [data]="rep.Players" [totalsData]="rep" [columns]="columns" [loading]="_loadingReport"></app-responsive-table>
+      <app-responsive-table [data]="rep.Players" [totalsData]="rep" [columns]="columns"></app-responsive-table>
     </div>
   </div>
 </div>
 
-
-
-
-<!-- ******************** Loading div ********************* -->
-<div class="my-container">
-  <ng-template #customLoadingTemplate>
-    <div class="custom-class">
-    </div>
-  </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }"
-    [template]="customLoadingTemplate"></ngx-loading>
+<div *ngIf="!_loadingReport && reportData.length === 0" class="alert alert-secondary mt-3" role="alert">
+  No data for the selected week.
 </div>
 
 <app-landscape-notice></app-landscape-notice>

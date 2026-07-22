@@ -49,11 +49,13 @@
         <option value="2"> All </option>
       </select>
     </div>   -->
-    <button type="button" class="btn btn-primary btn-block mb-3 classic-player-activity-button" (click)="GetReport()">Submit</button>  
+    <button type="button" class="btn btn-primary btn-block mb-3 classic-player-activity-button" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>  
   </div>
 
   </p-accordion-content></p-accordion-panel>
 </p-accordion>
+
+<app-report-loading *ngIf="_loadingReport"></app-report-loading>
 
 <div>
   
@@ -68,7 +70,7 @@
             </div>
           </div>
           <div class="card-body">
-            <app-responsive-table [data]="reportData[agent].players || []" [columns]="columns" [loading]="_loadingReport" [totalsData]="reportData[agent]"></app-responsive-table>
+            <app-responsive-table [data]="reportData[agent].players || []" [columns]="columns" [totalsData]="reportData[agent]"></app-responsive-table>
           </div>
         </div>
       </div>
@@ -162,7 +164,7 @@
     </select>
   </div>
 
-<button type="button" class="btn btn-primary btn-block mb-3" (click)="GetReport()">Submit</button>
+<button type="button" class="btn btn-primary btn-block mb-3 classic-player-activity-button" [disabled]="_loadingReport" (click)="GetReport()">Submit</button>
 </p-drawer> -->
 
 
@@ -173,6 +175,5 @@
       <div class="custom-class">
       </div>
   </ng-template>
-  <ngx-loading [show]="_loadingReport" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 </div>
 

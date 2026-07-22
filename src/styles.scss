@@ -1384,11 +1384,11 @@ body {
 .btn-dgs {
   --bs-btn-bg: var(--dgs-accent);
   --bs-btn-border-color: var(--dgs-accent);
-  --bs-btn-hover-bg: #1e6fe0;
-  --bs-btn-hover-border-color: #1e6fe0;
+  --bs-btn-hover-bg: var(--primary-hover, #059669);
+  --bs-btn-hover-border-color: var(--primary-hover, #059669);
   --bs-btn-color: #fff;
   --bs-btn-hover-color: #fff;
-  --bs-btn-active-bg: #1a63c9;
+  --bs-btn-active-bg: var(--primary-hover, #059669);
 }
 .btn-dgs-dark {
   --bs-btn-bg: var(--dgs-navy-2);
@@ -1487,9 +1487,9 @@ body {
 .ui-dialog-footer { padding: .7rem 1rem; border-top: 1px solid var(--dgs-border); text-align: right; }
 
 /* Drawer (p-drawer) */
-.ui-drawer-mask { position: fixed; inset: 0; background: rgba(13, 27, 42, .5); z-index: 1055; }
+.ui-drawer-mask { position: fixed; inset: 0; background: rgba(13, 27, 42, .5); z-index: 1200; }
 .ui-drawer {
-  position: fixed; top: 0; height: 100dvh; width: 340px; max-width: 90vw; z-index: 1056;
+  position: fixed; top: 0; height: 100dvh; width: 340px; max-width: 90vw; z-index: 1201;
   background: var(--dgs-surface); color: var(--dgs-text);
   box-shadow: var(--dgs-shadow); transition: transform .25s ease;
   display: flex; flex-direction: column;
@@ -1567,4 +1567,134 @@ body {
 @media (max-width: 575.98px) {
   .ui-dialog { min-width: 0; width: 96vw; }
   .ui-drawer { width: 88vw; }
+}
+
+/* ============================================================
+   Core.AgentSite look — emerald palette + sidebar menu tokens.
+   Appended last so it overrides earlier token values.
+   ============================================================ */
+:root,
+.light-theme {
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --primary-light: #d1fae5;
+  --danger: #ef4444;
+  --color-primary: #10b981;
+  --color-primary-dark: #059669;
+
+  /* App sidebar (light) */
+  --app-sidebar-bg: #f0fdf4;
+  --app-sidebar-color: #111827;
+  --app-sidebar-border: rgba(16, 185, 129, 0.16);
+  --app-sidebar-brand-text: #065f46;
+  --app-sidebar-section-title: #059669;
+  --app-sidebar-link-color: #374151;
+  --app-sidebar-link-hover-bg: rgba(16, 185, 129, 0.09);
+  --app-sidebar-link-hover-color: #111827;
+  --app-sidebar-link-active-color: #065f46;
+  --app-sidebar-icon-color: #6b7280;
+  --app-sidebar-sublist-border: rgba(16, 185, 129, 0.2);
+  --app-sidebar-sublink-color: #4b5563;
+  --app-sidebar-sublink-active-color: #065f46;
+
+  --app-header-bg: #ffffff;
+  --app-content-bg: #f4f6fa;
+
+  /* Re-tint DGS accent tokens to emerald so shared components match */
+  --dgs-accent: #10b981;
+  --dgs-accent-2: #34d399;
+  --dgs-accent-soft: #d1fae5;
+}
+
+.dark-theme {
+  --primary: #43b18a;
+  --primary-hover: #5bbf9e;
+  --primary-light: rgba(67, 177, 138, 0.16);
+  --danger: #f87171;
+  --color-primary: #43b18a;
+  --color-primary-dark: #5bbf9e;
+
+  --app-sidebar-bg: #09090b;
+  --app-sidebar-color: rgba(255, 255, 255, 0.85);
+  --app-sidebar-border: rgba(255, 255, 255, 0.05);
+  --app-sidebar-brand-text: #ffffff;
+  --app-sidebar-section-title: rgba(255, 255, 255, 0.4);
+  --app-sidebar-link-color: rgba(255, 255, 255, 0.7);
+  --app-sidebar-link-hover-bg: rgba(255, 255, 255, 0.06);
+  --app-sidebar-link-hover-color: #ffffff;
+  --app-sidebar-link-active-color: #ffffff;
+  --app-sidebar-icon-color: rgba(255, 255, 255, 0.6);
+  --app-sidebar-sublist-border: rgba(67, 177, 138, 0.3);
+  --app-sidebar-sublink-color: rgba(255, 255, 255, 0.6);
+  --app-sidebar-sublink-active-color: #ffffff;
+
+  --app-header-bg: #141414;
+  --app-content-bg: #1c1c1f;
+
+  --dgs-accent: #43b18a;
+  --dgs-accent-2: #5bbf9e;
+  --dgs-accent-soft: rgba(67, 177, 138, 0.2);
+}
+
+/* ============================================================
+   Report loading state (app-report-loading): slim emerald
+   indeterminate bar + shimmering skeleton table. Theme-aware.
+   ============================================================ */
+.report-loading {
+  margin: 12px 0;
+}
+.report-loading-bar {
+  height: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 18%, transparent);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.report-loading-bar span {
+  display: block;
+  height: 100%;
+  width: 35%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+  animation: rl-slide 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes rl-slide {
+  0% { transform: translateX(-110%); }
+  60% { transform: translateX(160%); }
+  100% { transform: translateX(300%); }
+}
+.report-loading-card {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border-primary, #e5e7eb);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.report-loading .sk-line,
+.report-loading .sk-cell {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary, #eef1f5) 25%,
+    color-mix(in srgb, var(--primary) 7%, var(--bg-tertiary, #eef1f5)) 45%,
+    var(--bg-tertiary, #eef1f5) 65%
+  );
+  background-size: 220% 100%;
+  animation: rl-shimmer 1.4s ease-in-out infinite;
+}
+.report-loading .sk-line { height: 16px; width: 100%; }
+.report-loading .sk-row { display: flex; gap: 10px; }
+.report-loading .sk-cell { flex: 1; }
+.report-loading .sk-w-35 { width: 35%; }
+.report-loading .sk-w-25 { flex: 0 0 25%; }
+.report-loading .sk-w-15 { flex: 0 0 15%; }
+@keyframes rl-shimmer {
+  0% { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .report-loading-bar span, .report-loading .sk-line, .report-loading .sk-cell { animation: none; }
 }

@@ -23,6 +23,7 @@ import {
   SortIconComponent,
 } from './table.component';
 import { ButtonDirective } from './button.directive';
+import { ReportLoadingComponent } from './report-loading.component';
 import {
   ChartComponent,
   AutoCompleteComponent,
@@ -47,6 +48,7 @@ const DECLARATIONS = [
   ChartComponent,
   AutoCompleteComponent,
   MenubarComponent,
+  ReportLoadingComponent,
 ];
 
 /**

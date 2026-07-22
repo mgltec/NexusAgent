@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentListModel, AgentSessionDto, RequestAgentPositionDetail, RequestAgentPositionDto, ResultAgentPosition, WeekRangeDto } from 'src/app/Models/models';
 import { AgentPositionDetailsDto, AgentPositionResultV2Dto, RequestAgentPositionV2Dto } from 'src/app/Models/RpModels';
 import { DataService } from 'src/app/Services/data.service';
@@ -147,9 +147,13 @@ export class AgentPositionComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetReportAgentPositionV2(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
+          try {
           this._ListResultAgentPosition = data;
         //  console.log(this._ListResultAgentPosition);
 
@@ -310,9 +314,11 @@ export class AgentPositionComponent implements OnInit, OnDestroy {
             this.totalSOC += e.Draw != null ? e.Draw : 0;
           });
           //console.log(data);
-          this._loadingReport = false;
+          } catch (error) {
+            console.error('AgentPosition build error', error);
+          }
         },
-        (error) => { this._loadingReport = false; }
+        (error) => { }
       );
   } //end submit form
 
@@ -350,22 +356,22 @@ export class AgentPositionComponent implements OnInit, OnDestroy {
 
     this._reportService
       .GetAgentPositionDetails(t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(
         (data) => {
-          this.posDetailsObj = data;
-          this.dtTrigger.next(null);
-          this._displayPositionDetailData = true;
-          console.log(this.posDetailsObj);
-          // this.posDetailsObj.ListDetail.forEach(e => {
-          //   this.totalWager += Number(e._wageramount);
-          //   this.totalWin += Number(e._winamount);
-          //   this.totalRisk += Number(e._riskamount);
-          // });
-           this._loadingReport = false;
-
+          try {
+            this.posDetailsObj = data;
+            this.dtTrigger.next(null);
+            this._displayPositionDetailData = true;
+            console.log(this.posDetailsObj);
+          } catch (error) {
+            console.error('AgentPosition detail build error', error);
+          }
         },
-        (error) => { this._loadingReport = false; }
+        (error) => { }
       );
   } //end submit form
 

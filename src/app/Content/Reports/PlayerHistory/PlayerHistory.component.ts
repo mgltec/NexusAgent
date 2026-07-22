@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AgentSessionDto } from 'src/app/Models/models';
 import { GetReportPlayerHistory } from 'src/app/Models/RpModels';
 import { DataService } from 'src/app/Services/data.service';
@@ -121,26 +121,14 @@ export class PlayerHistoryComponent implements OnInit, OnDestroy {
     t.HistWeek = 1;
 
     this._reportService.GetPlayerHistory(this._currentUser, t)
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        finalize(() => (this._loadingReport = false))
+      )
       .subscribe(data => {
         this.playerHistoryData = data;
-        console.log(data);
-
-          this._sumTrans = 0;
-        //  this.sumaStraight = 0;
-        //  this.sumaTeasers = 0;
-        //  this.sumaReverses = 0;
-
-        // this.playerHistoryData.ListBets.forEach((element:any) => {
-
-        //   if(Number(element._text6) > 0)
-        //   this._sumTrans += Number(element._text6);
-        //   console.log(this._sumTrans);
-
-        // });
-        this._loadingReport = false;
+        this._sumTrans = 0;
       }, error => {
-        this._loadingReport = false;
       });
   }
 
