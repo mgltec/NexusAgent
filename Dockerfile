@@ -3,7 +3,7 @@
 FROM node:22 AS build
 WORKDIR /src
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY . ./
 RUN npm run build
 
