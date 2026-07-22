@@ -71,6 +71,8 @@ export class MasterComponent implements OnInit, OnDestroy {
   public closeResult: string = "";
   public isDesktop: boolean = false;
   public menuOpened: boolean = false;
+  /** One-shot guard so the stale-WeekList repair only fires once. */
+  private _fixingWeekList: boolean = false;
   // Collapsible sidebar section state
   public figuresOpen: boolean = false;
   public wagersOpen: boolean = false;
@@ -247,6 +249,20 @@ export class MasterComponent implements OnInit, OnDestroy {
         }
         localStorage.setItem("agentInfo", JSON.stringify(this._currentUser));
         this._DataService.changeDataUserSession(this._currentUser);
+      }
+
+      // Stale sessions saved before the GetWeeks contract fix carry a WeekList
+      // without MonDate (or none at all). Reports build their date ranges from
+      // WeekList[RangeDateSelected].MonDate and crash mid-load (stuck loading),
+      // so refresh the week combo once when the shape is wrong.
+      const wl = this._currentUser?.WeekList as any[];
+      if (
+        this._currentUser?.Master &&
+        (!Array.isArray(wl) || wl.length === 0 || wl[0]?.MonDate == null) &&
+        !this._fixingWeekList
+      ) {
+        this._fixingWeekList = true;
+        this.GetWeeks();
       }
     }); //end dataservice call
     
