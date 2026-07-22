@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -20,6 +20,7 @@ import { transformDate } from 'src/app/Utils/date';
   standalone: false,
   selector: 'app-PlayerHistoryDefault',
   templateUrl: './PlayerHistoryDefault.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./PlayerHistoryDefault.component.scss']
 })
 export class PlayerHistoryDefaultComponent implements OnInit {

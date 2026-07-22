@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
   standalone: false,
   selector: 'app-AgentHiddenLeagues',
   templateUrl: './AgentHiddenLeagues.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentHiddenLeagues.component.scss']
 })
 export class AgentHiddenLeaguesComponent implements OnInit {

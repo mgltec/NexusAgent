@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { BehaviorSubject, Subject, of } from 'rxjs';
 import { catchError, finalize, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
   standalone: false,
   selector: 'app-AgentWeeklyBalanceClassic',
   templateUrl: './AgentWeeklyBalanceClassic.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentWeeklyBalanceClassic.component.css']
 })
 export class AgentWeeklyBalanceClassicComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -19,6 +19,7 @@ import { IResponsiveTableColumn } from '../../ReusableComponents/responsive-tabl
   standalone: false,
   selector: 'app-PlayerAccess',
   templateUrl: './PlayerAccess.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./PlayerAccess.component.scss']
 })
 export class PlayerAccessComponent implements OnInit,OnDestroy {

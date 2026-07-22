@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
@@ -12,6 +12,7 @@ import { MasterComponent } from "../../../Master/Master.component";
   standalone: false,
   selector: "app-EditPlayer",
   templateUrl: "./EditPlayer.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ["./EditPlayer.component.css"],
 })
 export class EditPlayerComponent implements OnInit, OnDestroy {

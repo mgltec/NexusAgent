@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CryptoMethodDTO, PlayerDetailsDTO } from 'src/app/Models/cashier-models';
 import { AgentSessionDto, AuthenticationDto, PlayerDto, PlayerTransactionDTO } from 'src/app/Models/models';
 import { CashierService } from 'src/app/Services/Cashier.service';
@@ -8,6 +8,7 @@ import { DataService } from 'src/app/Services/data.service';
   standalone: false,
   selector: 'app-transaction-form',
   templateUrl: './transaction-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./transaction-form.component.scss'],
 })
 export class TransactionFormComponent implements OnInit {

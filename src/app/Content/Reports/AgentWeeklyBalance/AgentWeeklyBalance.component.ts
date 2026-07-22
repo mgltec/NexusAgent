@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { TableComponent as Table } from 'src/app/ui/table.component';
 import { Subject } from 'rxjs';
@@ -13,6 +13,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-AgentWeeklyBalance',
   templateUrl: './AgentWeeklyBalance.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentWeeklyBalance.component.css']
 })
 export class AgentWeeklyBalanceComponent implements OnInit, OnDestroy {

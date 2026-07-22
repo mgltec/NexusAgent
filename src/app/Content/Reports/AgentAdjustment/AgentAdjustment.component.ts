@@ -1,5 +1,5 @@
 import { DecimalPipe, formatDate } from '@angular/common';
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -18,6 +18,7 @@ import { transformNumber } from 'src/app/Utils/number';
   standalone: false,
   selector: 'app-AgentAdjustment',
   templateUrl: './AgentAdjustment.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentAdjustment.component.css']
 })
 export class AgentAdjustmentComponent implements OnInit,OnDestroy {

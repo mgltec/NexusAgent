@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-CasinoDayHandle',
   templateUrl: './CasinoDayHandle.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./CasinoDayHandle.component.scss']
 })
 export class CasinoDayHandleComponent implements OnInit,OnDestroy {

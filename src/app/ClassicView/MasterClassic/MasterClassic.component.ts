@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItem, MessageService } from 'src/app/ui/prime-shim';
@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
   standalone: false,
   selector: 'app-MasterClassic',
   templateUrl: './MasterClassic.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./MasterClassic.component.scss'],
 })
 export class MasterClassicComponent implements OnInit, OnDestroy {

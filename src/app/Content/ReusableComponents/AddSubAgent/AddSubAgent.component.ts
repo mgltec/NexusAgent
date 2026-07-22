@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-AddSubAgent',
   templateUrl: './AddSubAgent.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AddSubAgent.component.css']
 })
 export class AddSubAgentComponent implements OnInit,OnDestroy {

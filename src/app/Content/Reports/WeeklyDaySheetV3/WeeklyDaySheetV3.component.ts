@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { TableComponent as Table } from 'src/app/ui/table.component';
@@ -27,6 +27,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
     ]
     )
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./WeeklyDaySheetV3.component.scss']
 })
 export class WeeklyDaySheetV3Component implements OnInit, OnDestroy {

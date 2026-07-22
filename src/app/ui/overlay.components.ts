@@ -6,6 +6,7 @@ import {
   Output,
   QueryList,
   TemplateRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { PrimeTemplate } from './prime-template.directive';
 
@@ -17,6 +18,7 @@ import { PrimeTemplate } from './prime-template.directive';
 @Component({
   standalone: false,
   selector: 'p-dialog',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div
       class="ui-dialog-mask"
@@ -83,6 +85,7 @@ export class DialogComponent {
 @Component({
   standalone: false,
   selector: 'p-drawer',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div class="ui-drawer-mask" *ngIf="visible" (click)="close()"></div>
     <div class="ui-drawer" [class]="'ui-drawer-' + position" [class.ui-drawer-visible]="visible" [ngClass]="styleClass">
@@ -119,6 +122,7 @@ export class DrawerComponent {
 @Component({
   standalone: false,
   selector: 'p-toast',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '',
 })
 export class ToastComponent {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -19,6 +19,7 @@ import { NUMERIC_COLUMN, calculateClasses } from '../../ReusableComponents/respo
   standalone: false,
   selector: 'app-PlayerStandings',
   templateUrl: './PlayerStandings.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./PlayerStandings.component.scss']
 })
 export class PlayerStandingsComponent implements OnInit, OnDestroy {

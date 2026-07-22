@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { transformNumber } from 'src/app/Utils/number';
   standalone: false,
   selector: 'app-WebVsPhone',
   templateUrl: './WebVsPhone.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./WebVsPhone.component.css']
 })
 export class WebVsPhoneComponent implements OnInit {

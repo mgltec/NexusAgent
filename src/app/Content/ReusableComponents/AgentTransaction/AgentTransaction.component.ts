@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
   standalone: false,
   selector: 'app-AgentTransaction',
   templateUrl: './AgentTransaction.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentTransaction.component.css']
 })
 export class AgentTransactionComponent implements OnInit, OnDestroy {

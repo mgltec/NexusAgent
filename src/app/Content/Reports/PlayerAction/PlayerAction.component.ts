@@ -1,4 +1,4 @@
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,6 +19,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
   standalone: false,
   selector: 'app-PlayerAction',
   templateUrl: './PlayerAction.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./PlayerAction.component.scss']
 })
 export class PlayerActionComponent implements OnInit,OnDestroy {

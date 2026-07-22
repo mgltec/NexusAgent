@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-ManageProfileLimites',
   templateUrl: './ManageProfileLimites.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ManageProfileLimites.component.scss']
 })
 export class ManageProfileLimitesComponent implements OnInit {

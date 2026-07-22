@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
@@ -13,6 +13,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-PrincipalClassic',
   templateUrl: './PrincipalClassic.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./PrincipalClassic.component.scss']
 })
 export class PrincipalClassicComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
@@ -13,6 +13,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-player-payments',
   templateUrl: './player-payments.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./player-payments.component.scss']
 })
 export class PlayerPaymentsComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: false,
   selector: 'app-Login',
   templateUrl: './Login.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./Login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {

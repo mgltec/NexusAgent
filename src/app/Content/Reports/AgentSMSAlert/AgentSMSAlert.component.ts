@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
@@ -12,6 +12,7 @@ import { ThisReceiver } from '@angular/compiler';
   standalone: false,
   selector: 'app-AgentSMSAlert',
   templateUrl: './AgentSMSAlert.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentSMSAlert.component.css']
 })
 export class AgentSMSAlertComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { getLocaleDateFormat } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { delay, finalize, takeUntil } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-ScoresHistory',
   templateUrl: './ScoresHistory.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ScoresHistory.component.scss']
 })
 export class ScoresHistoryComponent implements OnInit {

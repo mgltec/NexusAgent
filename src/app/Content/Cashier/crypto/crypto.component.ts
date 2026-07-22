@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CryptoMethodDTO, PlayerDetailsDTO } from 'src/app/Models/cashier-models';
 import { AgentSessionDto, AuthenticationDto, PlayerDto, PlayerTransactionDTO } from 'src/app/Models/models';
@@ -9,6 +9,7 @@ import { DataService } from 'src/app/Services/data.service';
   standalone: false,
   selector: 'app-crypto',
   templateUrl: './crypto.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./crypto.component.css'],
 })
 export class CryptoComponent implements OnInit, OnChanges  {

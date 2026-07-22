@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * Replacements for PrimeNG's accordion pieces
@@ -10,6 +10,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   standalone: false,
   selector: 'p-accordion',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<div class="ui-accordion" [ngStyle]="style"><ng-content></ng-content></div>`,
 })
 export class AccordionComponent {
@@ -21,6 +22,7 @@ export class AccordionComponent {
 @Component({
   standalone: false,
   selector: 'p-accordion-panel',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div class="ui-accordion-panel" [ngStyle]="style" [class.ui-accordion-open]="expanded">
       <ng-content></ng-content>
@@ -40,6 +42,7 @@ export class AccordionPanelComponent {
 @Component({
   standalone: false,
   selector: 'p-accordion-header',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <button type="button" class="ui-accordion-header" (click)="panel.toggle()">
       <i class="fa-solid" [class.fa-chevron-down]="panel.expanded" [class.fa-chevron-right]="!panel.expanded"></i>
@@ -54,6 +57,7 @@ export class AccordionHeaderComponent {
 @Component({
   standalone: false,
   selector: 'p-accordion-content',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div class="ui-accordion-content" *ngIf="panel.expanded">
       <ng-content></ng-content>

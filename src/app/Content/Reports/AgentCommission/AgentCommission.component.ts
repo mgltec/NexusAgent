@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -20,6 +20,7 @@ import { NUMERIC_COLUMN, calculateClasses } from '../../ReusableComponents/respo
   standalone: false,
   selector: 'app-AgentCommission',
   templateUrl: './AgentCommission.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentCommission.component.scss']
 })
 export class AgentCommissionComponent implements OnInit,OnDestroy {

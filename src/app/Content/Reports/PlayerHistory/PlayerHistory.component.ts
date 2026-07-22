@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
@@ -13,6 +13,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-PlayerHistory',
   templateUrl: './PlayerHistory.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./PlayerHistory.component.css']
 })
 export class PlayerHistoryComponent implements OnInit, OnDestroy {

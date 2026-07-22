@@ -1,6 +1,6 @@
 import { OpenBetWagerDetails } from './../../../Models/models';
 import { formatDate } from '@angular/common';
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -26,6 +26,7 @@ import { transformDate } from 'src/app/Utils/date';
   standalone: false,
   selector: 'app-PlayerOpenBets',
   templateUrl: './PlayerOpenBets.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./PlayerOpenBets.component.scss']
 })
 export class PlayerOpenBetsComponent implements OnInit, OnDestroy {

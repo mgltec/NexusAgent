@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportsService } from 'src/app/Services/reports.service';
 import { AgentSessionDto, AgentPlayerTreeResponseDto, PlayerClassicCloneRequest } from 'src/app/Models/models';
@@ -11,6 +11,7 @@ import { MessageService } from 'src/app/ui/prime-shim';
   standalone: false,
   selector: 'app-add-player',
   templateUrl: './add-player.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./add-player.component.scss']
 })
 export class AddPlayerClassicComponent implements OnInit {

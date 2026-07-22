@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { AgentRightDTO, AgentSessionDto } from 'src/app/Models/models';
@@ -9,6 +9,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-Wagers',
   templateUrl: './Wagers.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./Wagers.component.css']
 })
 export class WagersComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { delay, finalize, takeUntil } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-LoginHistory',
   templateUrl: './LoginHistory.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./LoginHistory.component.scss']
 })
 export class LoginHistoryComponent implements OnInit {

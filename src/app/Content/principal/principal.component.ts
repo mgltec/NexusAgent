@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { MessageService } from 'src/app/ui/prime-shim';
@@ -30,6 +30,7 @@ import { ReportsService } from "src/app/Services/reports.service";
   selector: "app-principal",
   templateUrl: "./principal.component.html",
   styleUrls: ["./principal.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [DatePipe],
 })
 export class PrincipalComponent implements OnInit, OnDestroy {

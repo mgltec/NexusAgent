@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { PlayerTransactionDTO } from 'src/app/Models/models';
 import { DataService } from 'src/app/Services/data.service';
 
@@ -6,6 +6,7 @@ import { DataService } from 'src/app/Services/data.service';
   standalone: false,
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./transactions.component.css'],
 })
 export class TransactionsComponent implements OnInit {

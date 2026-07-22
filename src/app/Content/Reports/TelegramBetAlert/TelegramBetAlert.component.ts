@@ -1,5 +1,5 @@
 
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -18,6 +18,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-TelegramBetAlert',
   templateUrl: './TelegramBetAlert.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./TelegramBetAlert.component.css']
 })
 export class TelegramBetAlertComponent implements OnInit, OnDestroy {

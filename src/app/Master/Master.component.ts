@@ -7,6 +7,7 @@ import {
   OnInit,
   Renderer2,
   ViewChild,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -43,6 +44,7 @@ import Swal from 'sweetalert2'
   selector: "app-Master",
   templateUrl: "./Master.component.html",
   styleUrls: ["./Master.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     AgentPositionComponent,
     AgentDistributionComponent,

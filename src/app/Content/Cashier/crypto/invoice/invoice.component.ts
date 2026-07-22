@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/Services/data.service';
@@ -7,6 +7,7 @@ import { DataService } from 'src/app/Services/data.service';
   standalone: false,
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./invoice.component.css'],
 })
 export class InvoiceComponent implements OnInit {

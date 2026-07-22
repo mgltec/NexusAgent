@@ -3,6 +3,7 @@ import {
   OnDestroy,
   OnInit,
   ɵɵsetComponentScope,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from "rxjs";
@@ -25,6 +26,7 @@ import { ReportsService } from "src/app/Services/reports.service";
   standalone: false,
   selector: "app-AgentWagersTicker",
   templateUrl: "./AgentWagersTicker.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ["./AgentWagersTicker.component.scss"],
 })
 export class AgentWagersTickerComponent implements OnInit, OnDestroy {

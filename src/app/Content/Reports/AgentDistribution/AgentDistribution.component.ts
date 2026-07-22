@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { transformNumber } from 'src/app/Utils/number';
   standalone: false,
   selector: 'app-AgentDistribution',
   templateUrl: './AgentDistribution.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentDistribution.component.scss']
 })
 

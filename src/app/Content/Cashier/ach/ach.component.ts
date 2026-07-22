@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CountriesDto, PlayerDetailsDTO, StatesDto } from 'src/app/Models/cashier-models';
@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   standalone: false,
   selector: 'app-ach',
   templateUrl: './ach.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ach.component.css'],
 })
 export class AchComponent implements OnInit {

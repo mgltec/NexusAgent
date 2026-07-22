@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-cashier',
   templateUrl: './Cashier.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./Cashier.component.scss'],
 })
 export class CashierComponent implements OnInit {

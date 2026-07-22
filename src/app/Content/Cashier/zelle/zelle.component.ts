@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BankList, PlayerDetailsDTO, zPayPaymentRequest } from 'src/app/Models/cashier-models';
@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   standalone: false,
   selector: 'app-zelle',
   templateUrl: './zelle.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./zelle.component.css'],
 })
 export class ZelleComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ɵɵsetComponentScope } from '@angular/core';
+import { Component, OnDestroy, OnInit, ɵɵsetComponentScope, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-AgentCustomerPerformance',
   templateUrl: './AgentCustomerPerformance.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentCustomerPerformance.component.scss']
 })
 export class AgentCustomerPerformanceComponent implements OnInit, OnDestroy {

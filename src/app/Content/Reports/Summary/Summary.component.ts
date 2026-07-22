@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-Summary',
   templateUrl: './Summary.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./Summary.component.css']
 })
 export class SummaryComponent implements OnInit {

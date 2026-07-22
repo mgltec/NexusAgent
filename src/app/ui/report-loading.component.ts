@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * Lightweight, modern loading state for reports: an indeterminate emerald
@@ -10,6 +10,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   standalone: false,
   selector: 'app-report-loading',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div class="report-loading" role="status" [attr.aria-label]="label">
       <div class="report-loading-bar"><span></span></div>

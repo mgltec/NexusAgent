@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-AddPlayer',
   templateUrl: './AddPlayer.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AddPlayer.component.css']
 })
 export class AddPlayerComponent implements OnInit, OnDestroy {

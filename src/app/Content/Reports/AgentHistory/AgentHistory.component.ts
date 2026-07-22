@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component,OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -21,6 +21,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
   standalone: false,
   selector: 'app-AgentHistory',
   templateUrl: './AgentHistory.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentHistory.component.scss']
 })
 

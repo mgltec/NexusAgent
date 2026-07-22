@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component,ElementRef,OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
@@ -21,6 +21,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
   standalone: false,
   selector: 'app-AgentPlayersManagement',
   templateUrl: './AgentPlayersManagement.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentPlayersManagement.component.css']
 })
 export class AgentPlayersManagementComponent implements OnInit {

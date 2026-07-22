@@ -8,6 +8,7 @@ import {
   Optional,
   QueryList,
   TemplateRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { PrimeTemplate } from './prime-template.directive';
 
@@ -20,6 +21,7 @@ import { PrimeTemplate } from './prime-template.directive';
 @Component({
   standalone: false,
   selector: 'p-table',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div class="ui-table" [ngClass]="styleClass">
       <div class="ui-table-caption" *ngIf="captionTpl">
@@ -199,6 +201,7 @@ export class RowTogglerDirective {
 @Component({
   standalone: false,
   selector: 'p-sortIcon',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <i
       class="fa-solid ui-sort-icon"

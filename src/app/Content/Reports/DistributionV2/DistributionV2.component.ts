@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import * as FileSaver from 'file-saver';
   standalone: false,
   selector: 'app-DistributionV2',
   templateUrl: './DistributionV2.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./DistributionV2.component.css']
 })
 export class DistributionV2Component implements OnInit, OnDestroy {

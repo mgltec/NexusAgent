@@ -10,6 +10,7 @@ import {
   OnDestroy,
   Output,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Chart, registerables } from 'chart.js';
@@ -24,6 +25,7 @@ Chart.register(...registerables);
 @Component({
   standalone: false,
   selector: 'p-chart',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<div class="ui-chart"><canvas #canvas></canvas></div>`,
 })
 export class ChartComponent implements AfterViewInit, OnChanges, OnDestroy {
@@ -94,6 +96,7 @@ export class ChartComponent implements AfterViewInit, OnChanges, OnDestroy {
       </ul>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -180,6 +183,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 @Component({
   standalone: false,
   selector: 'p-menubar',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <nav class="ui-menubar navbar navbar-expand">
       <ul class="navbar-nav">

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { Subject } from 'rxjs';
   standalone: false,
   selector: 'app-AgentPosition',
   templateUrl: './AgentPosition.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentPosition.component.css']
 })
 export class AgentPositionComponent implements OnInit, OnDestroy {

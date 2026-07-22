@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
@@ -11,6 +11,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-add-agent',
   templateUrl: './add-agent.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./add-agent.component.scss']
 })
 export class AddAgentComponent implements OnInit {

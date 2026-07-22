@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { NUMERIC_COLUMN } from '../../ReusableComponents/responsive-table/respon
   standalone: false,
   selector: 'app-AgentWeeklyPayments',
   templateUrl: './AgentWeeklyPayments.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./AgentWeeklyPayments.component.scss']
 })
 

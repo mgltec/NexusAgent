@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'src/app/ui/prime-shim';
 import { Subject } from 'rxjs';
@@ -11,6 +11,7 @@ import { ReportsService } from 'src/app/Services/reports.service';
   standalone: false,
   selector: 'app-BeatTheLine',
   templateUrl: './BeatTheLine.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./BeatTheLine.component.scss']
 })
 export class BeatTheLineComponent implements OnInit {
