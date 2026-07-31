@@ -296,6 +296,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   }
 
+  fillDemo() {
+    this.form.patchValue({ username: 'test2', password: '123' });
+  }
+
   showMessage(sever: string, summ: string, det: string) {
     //"success", "info", "warn" and "error".
     this.messageService.add({ severity: sever, summary: summ, detail: det });

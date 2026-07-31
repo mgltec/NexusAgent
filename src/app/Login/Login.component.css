@@ -228,6 +228,49 @@
   gap: 8px;
 }
 
+/* ===== Demo Credentials ===== */
+.demo-credentials {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 11px 12px;
+  background: rgba(var(--accent-rgb), 0.06);
+  border: 1px dashed rgba(var(--accent-rgb), 0.35);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.demo-credentials:hover {
+  border-style: solid;
+  border-color: var(--accent);
+}
+
+.demo-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.demo-value {
+  display: block;
+  margin-top: 4px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.demo-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: var(--text-faint);
+}
+
 /* ===== Card Footer ===== */
 .login-footer {
   margin-top: 26px;
